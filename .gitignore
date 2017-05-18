@@ -1,0 +1,19 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/3nethra/bin/Debug
+/3nethra/obj/Debug
+/3nethra/packages
+/Helpers/obj/Debug
+/packages
+/3nethra/bin/x86/Debug
+/3nethra/obj/x86/Debug
+/3nethra/bin/x86/Debug
+/3nethra/obj/x86/Debug
+/Helpers/bin
+/Helpers/obj/x86/Debug
+/.vs/3nethra/v15
+/Uploads
+/machine.pem
+/Uploads

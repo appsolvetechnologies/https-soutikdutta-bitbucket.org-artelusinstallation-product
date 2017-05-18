@@ -1,0 +1,183 @@
+﻿<UserControl x:Class="Artelus.Views.ReportView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Artelus.Views"
+             xmlns:converters="clr-namespace:Helpers.Converter;assembly=Helpers"
+             xmlns:mui="http://firstfloorsoftware.com/ModernUI"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.Resources>
+        <converters:DateTimeConverter x:Key="XAMLDateTimeConverter"/>
+    </UserControl.Resources>
+
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        <DockPanel>
+            <TextBlock DockPanel.Dock="Left" Text="Report Summary" Style="{StaticResource Heading1}" Margin="0,0,0,8" />
+            <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button Command="{Binding FtpTransferCommand}">Upload</Button>
+                <Button>Print</Button>
+                <Button>View PDF</Button>
+            </StackPanel>
+        </DockPanel>
+
+        <Grid Grid.Row="1" Margin="0 10 0 0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+            </Grid.RowDefinitions>
+            <DockPanel>
+                <Label BorderBrush="Gray" DockPanel.Dock="Left" BorderThickness="0 0 0 2" FontWeight="Black" Margin="0 0 0 8">Patient Information</Label>
+                <StackPanel DockPanel.Dock="Right" Orientation="Horizontal">
+                    <Button HorizontalAlignment="Right" Command="{Binding TakeReportCommand}">Retake Image</Button>
+                    <Button HorizontalAlignment="Right" Command="{Binding PreviousReportCommand}">View Previous Report</Button>
+
+                </StackPanel>
+            </DockPanel>
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <StackPanel Margin="0 5 0 5">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="Patient ID:" FontSize="15" FontWeight="Bold"/>
+                        <TextBlock Grid.Column="1" FontSize="15" FontWeight="Bold" Text="{Binding PatientEntity.Id}"/>
+                    </Grid>
+                    <Grid Margin=" 0 5 0 5">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock FontSize="15" FontWeight="Bold" Text="Age"/>
+                        <TextBlock FontSize="15" FontWeight="Bold" Grid.Column="1" Text="{Binding PatientEntity.Age}"/>
+                    </Grid>
+                    <Grid Margin="0 5 0 5">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock FontSize="15" FontWeight="Bold" Text="Have Diabetes"/>
+                        <TextBlock FontSize="15" FontWeight="Bold" Grid.Column="1" Text="{Binding PatientEntity.Diabetic}"/>
+                    </Grid>
+                    <Grid Margin="0 5 0 5">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock FontSize="15" FontWeight="Bold" Text="Have Hypertension"/>
+                        <TextBlock FontSize="15" FontWeight="Bold" Grid.Column="1" Text="{Binding PatientEntity.Hypertension}"/>
+                    </Grid>
+                </StackPanel>
+                <StackPanel Grid.Column="1">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock FontSize="15" FontWeight="Bold" Text="Patient Name"/>
+                        <TextBlock FontSize="15" FontWeight="Bold" Grid.Column="1" Text="{Binding PatientEntity.Nm}"/>
+                    </Grid>
+                    <Grid Margin="0 5 0 5">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock FontSize="15" FontWeight="Bold" Text="Gender"/>
+                        <TextBlock FontSize="15" FontWeight="Bold" Grid.Column="1" Text="{Binding PatientEntity.Sex}"/>
+                    </Grid>
+                    <Grid Margin="0 5 0 5">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock FontSize="15" FontWeight="Bold" Text="Allergy To Drugs"/>
+                        <TextBlock FontSize="15" FontWeight="Bold" Grid.Column="1" Text="{Binding PatientEntity.AllergyDrugs}"/>
+                    </Grid>
+                    <Grid Margin="0 5 0 5">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock FontSize="15" FontWeight="Bold" Text="Have Cataract"/>
+                        <TextBlock FontSize="15" FontWeight="Bold" Grid.Column="1" Text="{Binding PatientEntity.Cataract}"/>
+                    </Grid>
+                </StackPanel>
+            </Grid>
+            <Label Grid.Row="2" BorderBrush="Gray" BorderThickness="0 0 0 2" FontWeight="Black" Margin="0 0 0 8">Result</Label>
+            <Grid Grid.Row="3">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <StackPanel>
+                    <TextBlock Text="OS Eye:" Margin="10 0 0 0" FontWeight="Bold"></TextBlock>
+                    <DataGrid IsReadOnly="True" Margin="0,10,0,0" Grid.Row="1" Name="dgOSReports" ItemsSource="{Binding OSReportDatas}" AutoGenerateColumns="False">
+                        <DataGrid.Columns>
+                            <DataGridTemplateColumn>
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Vertical" HorizontalAlignment="Left">
+                                            <TextBlock Margin="0 0 0 5" Text="{Binding Prediction}"/>
+                                            <Image HorizontalAlignment="Left" Source="{Binding ImageUrl}" Height="120" />
+                                            <TextBlock Margin="0 5 0 0" Text="{Binding FileName}"/>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <!--<ItemsControl ItemsSource="{Binding OSReportDataList,UpdateSourceTrigger=PropertyChanged}">
+                        <StackPanel>
+                            <Image Source="{Binding ImageUrl}" Height="60" />
+                            <TextBlock Text="{Binding Prediction}"/>
+                        </StackPanel>
+                    </ItemsControl>-->
+                </StackPanel>
+                <StackPanel Grid.Column="1">
+                    <TextBlock Text="OD Eye:" Margin="10 0 0 0" FontWeight="Bold"></TextBlock>
+                    <DataGrid IsReadOnly="True" Margin="0,10,0,0" Grid.Row="1" Name="dgODReports" ItemsSource="{Binding ODReportDatas}" AutoGenerateColumns="False">
+                        <DataGrid.Columns>
+                            <DataGridTemplateColumn>
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Vertical" HorizontalAlignment="Left">
+                                            <TextBlock Margin="0 0 0 5" Text="{Binding Prediction}"/>
+                                            <Image HorizontalAlignment="Left" Source="{Binding ImageUrl}" Height="120" />
+                                            <TextBlock Margin="0 5 0 0" Text="{Binding FileName}"/>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <!--<ItemsControl ItemsSource="{Binding ODReportDatas,UpdateSourceTrigger=PropertyChanged}">
+                        <ItemsControl.Items>
+                            <StackPanel>
+                                <Image Source="{Binding ImageUrl}" Height="60" />
+                                <TextBlock Text="{Binding Prediction}"/>
+                            </StackPanel>
+                        </ItemsControl.Items>                        
+                    </ItemsControl>-->
+                </StackPanel>
+            </Grid>
+            <StackPanel Grid.Row="4">
+                <Label HorizontalAlignment="Left">* Kindly correlate clinically</Label>
+                <Button HorizontalAlignment="Right" Command="{Binding CompleteCommand}">Finish</Button>
+            </StackPanel>
+        </Grid>
+    </Grid>
+
+</UserControl>
