@@ -170,20 +170,20 @@ namespace Artelus.ViewModel
 
         private void OnPreviousReportCommand(object args)
         {
-            var reporthVM = new ReportHistoryViewModel(PatientEntity);
-            var window = new ModernWindow
-            {
-                Style = (Style)App.Current.Resources["BlankWindow"],
-                Title = "Patient Report History",
-                IsTitleVisible = true,
-                WindowState = WindowState.Maximized
-            };
-            window.Content = new ReportHistoryView(reporthVM, window);
-            var closeResult = window.ShowDialog();
-            PatientReports = new ObservableCollection<PatientReport>();
-            var report = new Patient().GetAllReport(PatientEntity.Id);
-            foreach (var item in report)
-                PatientReports.Add(item);
+            //var reporthVM = new ReportHistoryViewModel(PatientEntity);
+            //var window = new ModernWindow
+            //{
+            //    Style = (Style)App.Current.Resources["BlankWindow"],
+            //    Title = "Patient Report History",
+            //    IsTitleVisible = true,
+            //    WindowState = WindowState.Maximized
+            //};
+            //window.Content = new ReportHistoryView(reporthVM, window);
+            //var closeResult = window.ShowDialog();
+            //PatientReports = new ObservableCollection<PatientReport>();
+            //var report = new Patient().GetAllReport(PatientEntity.Id);
+            //foreach (var item in report)
+            //    PatientReports.Add(item);
         }
 
         private void OnFtpTransferCommand(object args)
@@ -272,21 +272,32 @@ namespace Artelus.ViewModel
 
         private void OnTakeReportCommand(object args)
         {
-            this.CloseAction();
-            var camVM = new CameraViewModel(PatientEntity);
-            var window = new ModernWindow
+            //this.CloseAction();
+            //var camVM = new CameraViewModel(PatientEntity);
+            //var window = new ModernWindow
+            //{
+            //    Style = (Style)App.Current.Resources["BlankWindow"],
+            //    Title = "Camera",
+            //    IsTitleVisible = true,
+            //    WindowState = WindowState.Maximized
+            //};
+            //window.Content = new CameraView(camVM, window);
+            //var closeResult = window.ShowDialog();
+            //PatientReports = new ObservableCollection<PatientReport>();
+            //var report = new Patient().GetAllReport(PatientEntity.Id);
+            //foreach (var item in report)
+            //    PatientReports.Add(item);
+
+
+            foreach (Window win in Application.Current.Windows)
             {
-                Style = (Style)App.Current.Resources["BlankWindow"],
-                Title = "Camera",
-                IsTitleVisible = true,
-                WindowState = WindowState.Maximized
-            };
-            window.Content = new CameraView(camVM, window);
-            var closeResult = window.ShowDialog();
-            PatientReports = new ObservableCollection<PatientReport>();
-            var report = new Patient().GetAllReport(PatientEntity.Id);
-            foreach (var item in report)
-                PatientReports.Add(item);
+                if (win.GetType().Name == "MainWindow")
+                {
+                    var cameraView = (win) as Artelus.MainWindow;
+                    cameraView.ContentSource = new Uri("Views/CameraView.xaml", UriKind.Relative);
+                    cameraView.DataContext = new CameraViewModel(PatientEntity);
+                }
+            }
         }
         private void OnViewReportDataCommand(object args)
         {

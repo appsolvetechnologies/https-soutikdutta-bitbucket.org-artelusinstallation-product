@@ -32,7 +32,14 @@
                 <DataGridTemplateColumn>
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button Content="View" Command="{Binding ElementName=dgPatients,Path=DataContext.ViewCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}, Path=DataContext}" />
+                            <Button Content="View Profile" Command="{Binding ElementName=dgPatients,Path=DataContext.ViewProfileCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}, Path=DataContext}" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Content="View Report" Command="{Binding ElementName=dgPatients,Path=DataContext.ViewReportCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}, Path=DataContext}" />
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>

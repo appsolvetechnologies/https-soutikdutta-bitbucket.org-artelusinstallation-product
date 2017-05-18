@@ -34,14 +34,18 @@
                 <RowDefinition Height="Auto"></RowDefinition>
                 <RowDefinition Height="Auto"></RowDefinition>
             </Grid.RowDefinitions>
-            <DockPanel>
-                <Label BorderBrush="Gray" DockPanel.Dock="Left" BorderThickness="0 0 0 2" FontWeight="Black" Margin="0 0 0 8">Patient Information</Label>
-                <StackPanel DockPanel.Dock="Right" Orientation="Horizontal">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Label BorderBrush="Gray" BorderThickness="0 0 0 2" FontWeight="Black" Margin="0 0 0 8">Patient Information</Label>
+                <StackPanel Grid.Column="1" HorizontalAlignment="Right" Orientation="Horizontal">
                     <Button HorizontalAlignment="Right" Command="{Binding TakeReportCommand}">Retake Image</Button>
                     <Button HorizontalAlignment="Right" Command="{Binding PreviousReportCommand}">View Previous Report</Button>
-
                 </StackPanel>
-            </DockPanel>
+            </Grid>
+         
             <Grid Grid.Row="1">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"></ColumnDefinition>

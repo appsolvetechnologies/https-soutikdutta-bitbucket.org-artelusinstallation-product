@@ -133,6 +133,7 @@
     <Compile Include="ViewModel\LoginViewModel.cs" />
     <Compile Include="ViewModel\MainWindowViewModel.cs" />
     <Compile Include="ViewModel\PatientViewModel.cs" />
+    <Compile Include="ViewModel\ProfileViewModel.cs" />
     <Compile Include="ViewModel\ReportHistoryViewModel.cs" />
     <Compile Include="ViewModel\ReportViewModel.cs" />
     <Compile Include="ViewModel\SearchViewModel.cs" />
@@ -140,8 +141,14 @@
     <Compile Include="Views\CameraView.xaml.cs">
       <DependentUpon>CameraView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\ImagePredictionView.xaml.cs">
+      <DependentUpon>ImagePredictionView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\LoginView.xaml.cs">
       <DependentUpon>LoginView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PatientProfileView.xaml.cs">
+      <DependentUpon>PatientProfileView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\PatientView.xaml.cs">
       <DependentUpon>PatientView.xaml</DependentUpon>
@@ -175,7 +182,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\ImagePredictionView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\LoginView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\PatientProfileView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
