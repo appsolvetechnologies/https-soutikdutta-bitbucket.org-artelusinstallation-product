@@ -11,6 +11,8 @@
     <UserControl.Resources>
         <converters:RadioButtonCheckedConverter x:Key="RadioButtonCheckedConverter"/>
     </UserControl.Resources>
+    
+
     <Grid Margin="30">
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
@@ -44,8 +46,8 @@
                     </Grid>
                     <StackPanel Margin="5" Orientation="Horizontal">
                         <TextBlock FontSize="15" FontWeight="Medium" Text="Resident of Malaysia:"/>
-                        <RadioButton GroupName="IfResidentOfM" FontSize="15" FontWeight="Medium" Content="No" Margin="8,0,0,0" Command="{Binding ResidentChangeCommand,UpdateSourceTrigger=PropertyChanged}" IsChecked="{Binding PatientEntity.IfResidentOfM, Converter={StaticResource RadioButtonCheckedConverter}, ConverterParameter='no'}" />
-                        <RadioButton GroupName="IfResidentOfM" FontSize="15" FontWeight="Medium" Content="Yes" Margin="8,0,0,0" Command="{Binding ResidentChangeCommand,UpdateSourceTrigger=PropertyChanged}" IsChecked="{Binding PatientEntity.IfResidentOfM, Converter={StaticResource RadioButtonCheckedConverter}, ConverterParameter='yes'}" />
+                        <RadioButton Background="#f05f40" GroupName="IfResidentOfM" FontSize="15" FontWeight="Medium" Content="No" Margin="8,0,0,0" Command="{Binding ResidentChangeCommand,UpdateSourceTrigger=PropertyChanged}" IsChecked="{Binding PatientEntity.IfResidentOfM, Converter={StaticResource RadioButtonCheckedConverter}, ConverterParameter='no'}" />
+                        <RadioButton  Background="#f05f40" GroupName="IfResidentOfM" FontSize="15" FontWeight="Medium" Content="Yes" Margin="8,0,0,0" Command="{Binding ResidentChangeCommand,UpdateSourceTrigger=PropertyChanged}" IsChecked="{Binding PatientEntity.IfResidentOfM, Converter={StaticResource RadioButtonCheckedConverter}, ConverterParameter='yes'}" />
                     </StackPanel>
                     <StackPanel Margin="5" Visibility="{Binding HideOthers,UpdateSourceTrigger=PropertyChanged, Converter={converters:BoolToOppVisibilityConverter},ConverterParameter='Collapsed'}">
                         <TextBlock FontSize="15" FontWeight="Medium" Text="IC Number:*" Margin="0 0 0 5"/>
