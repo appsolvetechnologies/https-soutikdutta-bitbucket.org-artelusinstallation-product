@@ -1,5 +1,6 @@
 ﻿using Artelus.Common;
 using Artelus.Model;
+using Artelus.Views;
 using FirstFloor.ModernUI.Windows.Controls;
 using Helpers;
 using System;
@@ -45,19 +46,28 @@ namespace Artelus.ViewModel
                 {
                     string[] roles = { EnumRoles.Administrator.ToString() };
                     Program.SetIdentity(result.Id.ToString(), roles);
-                    //if (result.IsConfigured)
-                    //    Helper.Alert("Please Update Application Setting", false);
-                    //else
-                    //    Helper.Alert(string.Empty, true);
-
-
-
-                    Helper.Profile(result.IsConfigured);
+                    if (!result.IsConfigured)
+                    {
+                        var settingVM = new SettingsViewModel(result);
+                        var window = new ModernWindow
+                        {
+                            Style = (Style)App.Current.Resources["BlankWindow"],
+                            Title = "Settings",
+                            IsTitleVisible = true,
+                        };
+                        window.Content = new SettingsView(settingVM, window);
+                        window.Width = SystemParameters.MaximizedPrimaryScreenWidth - (SystemParameters.MaximizedPrimaryScreenWidth - 500);
+                        window.Height = SystemParameters.MaximizedPrimaryScreenHeight - (SystemParameters.MaximizedPrimaryScreenHeight - 420);
+                        var closeResult = window.ShowDialog();
+                    }
                     Clear();
+                    Helper.Profile(result.IsConfigured);
                 }
                 else ModernDialog.ShowMessage("Incorrect UserName or Password!", "Login", MessageBoxButton.OK);
             }
         }
+
+
 
         private void Clear()
         {

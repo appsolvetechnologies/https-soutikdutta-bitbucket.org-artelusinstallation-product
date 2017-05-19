@@ -4,9 +4,47 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Artelus.Views"
+             xmlns:common="clr-namespace:Artelus.Common"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
-    <Grid>
-            
+        <!--<StackPanel>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <TextBlock Text="UserName"></TextBlock>
+            <TextBlock Text="UserName"></TextBlock>
+
+        </Grid>
+    </StackPanel>-->
+
+    <Grid Margin="20">
+        <StackPanel>
+            <StackPanel Margin="0 0 0 10">
+                <TextBlock Text="Installation ID" FontSize="15" FontWeight="Medium" Margin="0 0 0 5"/>
+                <TextBox IsEnabled="False" Text="{Binding Path=User.InstallID,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
+            </StackPanel>
+            <StackPanel Margin="0 0 0 10">
+                <TextBlock Text="User Name" FontSize="15" FontWeight="Medium" Margin="0 0 0 5"/>
+                <TextBox IsEnabled="False" Text="{Binding Path=User.UserNm,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
+            </StackPanel>
+            <StackPanel Margin="0 0 0 10">
+                <TextBlock Text="Password" FontSize="15" FontWeight="Medium" Margin="0 0 0 5"/>
+                <PasswordBox IsEnabled="False"  x:Name="txtPassword" common:PasswordHelper.Attach="True"
+                         common:PasswordHelper.Password="{Binding User.Pwd, Mode=TwoWay}"/>                
+            </StackPanel>
+            <StackPanel Margin="0 0 0 10">
+                <TextBlock Text="Location" FontSize="15" FontWeight="Medium" Margin="0 0 0 5"/>
+                <TextBox Text="{Binding Path=User.Location,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
+            </StackPanel>
+            <StackPanel Margin="0 0 0 10">
+                <TextBlock Text="PinCode" FontSize="15" FontWeight="Medium" Margin="0 0 0 5"/>
+                <TextBox Text="{Binding Path=User.PinCode,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
+            </StackPanel>
+            <StackPanel Margin="0 0 0 10">
+                <Button Background="#f05f40" Foreground="White" Content="Save" HorizontalAlignment="Right" IsDefault="True" Command="{Binding SaveCommand}" CommandParameter="{Binding User}"/>
+            </StackPanel>
+        </StackPanel>
     </Grid>
 </UserControl>

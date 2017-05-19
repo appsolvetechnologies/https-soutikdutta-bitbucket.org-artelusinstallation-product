@@ -154,8 +154,10 @@ namespace Artelus.Model
         {
             using (var db = new ArtelusDbContext())
             {
-                string sql = "UPDATE [Patient] SET [name] ={0},[pMName] = {1},[pLName] = {2},[ifResidentOfM] = {3},[IcNumber] = {4},[otherOption] = {5},[othersID] = {6},[doctosName] = {7},[hospitalName] = {8},[hospitalID] = {9},[hospitaScreening] = {10},[p_email] ={11},[marital_status] = {12},[age] = {13},[sex] = {14},[permanent_address] = {15},[area] ={16},[phone_res] = {17},[mobile] ={18},[occupation] = {19},[working_at] = {20},[currentMedications] = {21},[laser_reatment] = {22},[have_cataract] = {23},[have_hypertension] = {24},[allergy_to_drugs] = {25},[have_diabetes] = {26},[additional_info] = {27},[emg_contact_name] = {28},[emg_phone] = {29},[name_of_the_stated_onsent] = {30},[relation_with_patient] ={31},update_at] ={32},[allergy_drugs_details] = {33} WHERE p_id={34};";
-                db.Database.ExecuteSqlCommand(sql, model.Nm, model.MNm, model.LNm, model.IfResidentOfM, model.IcNumber, model.OtherOption, model.OthersID, model.DocNm, model.HospitalNm, model.HospitalID, model.HospitalScreening, model.Email, model.MaritalStatus, model.Age, model.Sex, model.PerAdr, model.Area, model.ResidentPh, model.Mob, model.Occupation, model.WorkingAt, model.CurrentMedications, model.LaserTreatment, model.Cataract, model.Hypertension, model.AllergyDrugs, model.Diabetic, model.Info, model.EmergContactNm, model.EmergPh, model.StatedConsentPerson, model.Relation, model.MDt, model.AllergyDrugsDtl, model.Id);
+                string sql = "UPDATE [Patient] SET name={1},pMName={2},pLName={3},ifResidentOfM={4},IcNumber={5},otherOption={6},othersID={7},doctosName={8},hospitalName={9},hospitalID={10},hospitaScreening={11},p_email={12},marital_status={13},age={14},[sex]={15},[permanent_address]={16} Where p_id={0}";
+                db.Database.ExecuteSqlCommand(sql, model.Id, model.Nm,model.MNm,model.LNm,model.IfResidentOfM,model.IcNumber,model.OtherOption,model.OthersID,model.DocNm,model.HospitalNm,model.HospitalID,model.HospitalScreening,model.Email, model.MaritalStatus == "Married" ? "yes" : "no",model.Age, model.Sex == "Male" ? "m" : "f",model.PerAdr);
+                //string sql = "UPDATE [Patient] SET [name]={0},[pMName]={1},[pLName]={2},[ifResidentOfM]={3},[IcNumber]={4},[otherOption]={5},[othersID]= {6},[doctosName]={7},[hospitalName]={8},[hospitalID]={9},[hospitaScreening]={10},[p_email]={11},[marital_status]={12},[age]={13},[sex]={14},[permanent_address]={15},[area]={16},[phone_res]={17},[mobile]={18},[occupation]={19},[working_at]={20},[currentMedications]={21},[laser_reatment]={22},[have_cataract]={23},[have_hypertension]={24},[allergy_to_drugs]={25},[have_diabetes]={26},[additional_info]={27},[emg_contact_name]={28},[emg_phone]={29},[name_of_the_stated_onsent]= {30},[relation_with_patient]={31},update_at]={32},[allergy_drugs_details]={33} WHERE p_id={34};";
+                //db.Database.ExecuteSqlCommand(sql, model.Nm, model.MNm, model.LNm, model.IfResidentOfM, model.IcNumber, model.OtherOption, model.OthersID, model.DocNm, model.HospitalNm, model.HospitalID, model.HospitalScreening, model.Email, model.MaritalStatus =="Married"?"yes":"no", model.Age, model.Sex=="Male"?"m":"f", model.PerAdr, model.Area, model.ResidentPh, model.Mob, model.Occupation, model.WorkingAt, model.CurrentMedications, model.LaserTreatment, model.Cataract, model.Hypertension, model.AllergyDrugs, model.Diabetic, model.Info, model.EmergContactNm, model.EmergPh, model.StatedConsentPerson, model.Relation, model.MDt, model.AllergyDrugsDtl, model.Id);
                 db.SaveChanges();
             }
         }
@@ -184,11 +186,11 @@ namespace Artelus.Model
         }
 
 
-        public void UpdateReportData(int reportDataId, string prediction, string size)
+        public void UpdateReportData(int reportDataId, string prediction)
         {
             using (var db = new ArtelusDbContext())
             {
-                db.Database.ExecuteSqlCommand("Update ReportData Set Prediction={1},Size={2} Where Id={0}", reportDataId, prediction, size);
+                db.Database.ExecuteSqlCommand("Update ReportData Set Prediction={1} Where Id={0}", reportDataId, prediction);
             }
         }
 

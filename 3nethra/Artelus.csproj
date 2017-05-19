@@ -119,8 +119,9 @@
     </ApplicationDefinition>
     <Compile Include="Common\EnumFunctionality.cs" />
     <Compile Include="Common\Helper.cs" />
+    <Compile Include="Common\PasswordHelper.cs" />
     <Compile Include="Common\Program.cs" />
-    <Compile Include="Model\3nethraDbContext.cs" />
+    <Compile Include="Model\ArtelusDbContext.cs" />
     <Compile Include="Model\CameraEntity.cs" />
     <Compile Include="Model\ReportEntity.cs" />
     <Compile Include="Model\RestCalls.cs" />
