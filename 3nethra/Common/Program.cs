@@ -10,7 +10,7 @@ namespace Artelus.Common
         {
             SetIdentity("", "".Split(','));
         }
-        
+
         public static System.Security.Principal.GenericPrincipal Principal;//= new System.Security.Principal.GenericPrincipal(null, null);        
 
         public static void SetIdentity(string userId, string[] roles)
@@ -31,6 +31,8 @@ namespace Artelus.Common
         }
 
         public static int UserId() => int.Parse(Program.Principal?.Identity.Name ?? "0");
+
+        public static string BaseDir() => AppDomain.CurrentDomain.BaseDirectory;
 
         public static string FileSize(string filename)
         {

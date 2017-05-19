@@ -63,11 +63,11 @@ namespace Artelus.Model
             return count > 0;
         }
 
-        public string GetInstallID(int id)
+        public Guid GetInstallID(int id)
         {
             using (var db = new ArtelusDbContext())
             {
-              return  db.Database.SqlQuery<Guid>("Select InstallID From Users Where Id={0}", id).ToString(); ;
+              return  db.Database.SqlQuery<Guid>("Select InstallID From Users Where Id={0}", id).Single(); ;
             }
         }
     }

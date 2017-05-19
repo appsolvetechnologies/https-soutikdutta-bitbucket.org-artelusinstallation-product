@@ -6,6 +6,10 @@ using System.Linq;
 using FirstFloor.ModernUI.Windows.Controls;
 using System.Windows;
 using Artelus.Views;
+using Microsoft.Win32;
+using System.Drawing;
+using Artelus.Common;
+using System.IO;
 
 namespace Artelus.ViewModel
 {
@@ -99,7 +103,17 @@ namespace Artelus.ViewModel
         public DelegateCommand UpdateCommand { get; set; }
         public DelegateCommand ResidentChangeCommand { get; set; }
         public DelegateCommand AlergyChangeCommand { get; set; }
-
+        public DelegateCommand AddPhotoCommand { get; set; }
+        private string cameraIcon;
+        public string CameraIcon
+        {
+            get { return cameraIcon; }
+            set
+            {
+                cameraIcon = value;
+                RaisePropertyChange("CameraIcon");
+            }
+        }
         public IdNameCollection OtherIDCollection { get; set; } = new IdNameCollection();
         public PatientViewModel()
         {
@@ -122,7 +136,9 @@ namespace Artelus.ViewModel
 
         private void Initialize()
         {
+            CameraIcon = AppDomain.CurrentDomain.BaseDirectory + "Resources\\camera.png";
             PatientEntity = new PatientEntity();
+            PatientEntity.Profile = AppDomain.CurrentDomain.BaseDirectory + "Resources\\profile.gif";
             PatientEntity.IfResidentOfM = "yes";
             PatientEntity.LaserTreatment = "no";
             PatientEntity.Cataract = "no";
@@ -138,6 +154,16 @@ namespace Artelus.ViewModel
             UpdateCommand = new DelegateCommand(OnUpdateCommand);
             ResidentChangeCommand = new DelegateCommand(OnResidentChangeCommand);
             AlergyChangeCommand = new DelegateCommand(OnAlergyChangeCommand);
+            AddPhotoCommand = new DelegateCommand(OnAddPhotoCommand);
+        }
+
+        private void OnAddPhotoCommand(object args)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Multiselect = false;
+            openFileDialog.Filter = "Image files (*.jpg, *.jpeg, *.jpe, *.jfif, *.png) | *.jpg; *.jpeg; *.jpe; *.jfif; *.png"; ;
+            if (openFileDialog.ShowDialog() == true)
+                PatientEntity.Profile = openFileDialog.FileName;
         }
 
         private void OnAlergyChangeCommand(object args)
@@ -175,8 +201,7 @@ namespace Artelus.ViewModel
             model.CDt = DateTime.UtcNow;
             model.MDt = DateTime.UtcNow;
             model.CollectionID = 123;
-            model.UniqueID = Guid.NewGuid();
-            model.InstallID = new Guid("a06e10b6-63a1-48b0-9da9-411f82de47fa");
+            model.InstallID = new User().GetInstallID(Program.UserId());
 
             if (model.IfResidentOfM == "yes")
             {
@@ -186,9 +211,21 @@ namespace Artelus.ViewModel
 
             if (model.Id == 0)
             {
+                model.UniqueID = Guid.NewGuid();
+                string fileNm = Path.GetFileName(model.Profile);
+                if (fileNm != "profile.gif")
+                {
+                    string path = Path.Combine(Program.BaseDir(), "Uploads", model.UniqueID.ToString());
+                    Image.FromFile(model.Profile).Save(path);
+                }
                 model.Id = new Patient().Add(model);
                 if (model.Id > 0)
                 {
+                    if (fileNm != "profile.gif" && !model.Profile.Contains(model.UniqueID.ToString()))
+                    {
+                        string path = Path.Combine(Program.BaseDir(), "Uploads", model.UniqueID.ToString());
+                        Image.FromFile(model.Profile).Save(path);
+                    }
                     foreach (Window win in Application.Current.Windows)
                     {
                         if (win.GetType().Name == "MainWindow")
@@ -202,7 +239,7 @@ namespace Artelus.ViewModel
             }
             else
             {
-                model.MDt= DateTime.UtcNow;
+                model.MDt = DateTime.UtcNow;
                 new Patient().Update(model);
                 foreach (Window win in Application.Current.Windows)
                 {

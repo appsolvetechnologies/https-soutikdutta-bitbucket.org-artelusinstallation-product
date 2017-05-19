@@ -50,6 +50,8 @@ namespace Artelus.Model
         private Guid uniqueID;
         private int errorCount;
         private string errMsg;
+        private string profile;
+        private string medicalInsurance;
         public int Id
         {
             get { return id; }
@@ -542,6 +544,18 @@ namespace Artelus.Model
                 }
             }
         }
+        public string MedicalInsurance
+        {
+            get { return medicalInsurance; }
+            set
+            {
+                if (medicalInsurance != value)
+                {
+                    medicalInsurance = value;
+                    RaisePropertyChange("MedicalInsurance");
+                }
+            }
+        }
         public string ErrMsg
         {
             get { return errMsg; }
@@ -563,6 +577,18 @@ namespace Artelus.Model
                 {
                     errorCount = value;
                     RaisePropertyChange("ErrorCount");
+                }
+            }
+        }
+        public string Profile
+        {
+            get { return profile; }
+            set
+            {
+                if (profile != value)
+                {
+                    profile = value;
+                    RaisePropertyChange("Profile");
                 }
             }
         }
