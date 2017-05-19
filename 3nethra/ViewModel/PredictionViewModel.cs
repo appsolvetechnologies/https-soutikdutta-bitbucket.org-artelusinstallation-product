@@ -45,7 +45,7 @@ namespace Artelus.ViewModel
                 RaisePropertyChange("PatientReport");
             }
         }
-        private string hansanet = "Disable Hansanet";
+        private string hansanet = "Enable Hansanet";
         public string Hansanet
         {
             get { return hansanet; }
@@ -95,10 +95,10 @@ namespace Artelus.ViewModel
 
         private void OnSetHansanetCommand(object args)
         {
-            if (this.hansanet == "Disable Hansanet")
-                this.Hansanet = "Enable Hansanet";
-            else
+            if (this.hansanet == "Enable Hansanet")
                 this.Hansanet = "Disable Hansanet";
+            else
+                this.Hansanet = "Enable Hansanet";
         }
         private void OnSelectAllComand(object args)
         {
@@ -125,7 +125,7 @@ namespace Artelus.ViewModel
         private void OnStartPredictionCommand(object args)
         {
             string prediction = "sushruta";
-            if (this.hansanet != "Disable Hansanet")
+            if (this.hansanet != "Enable Hansanet")
                 prediction = "hansasushruta";
 
 
