@@ -627,7 +627,7 @@ namespace Artelus.Model
                 case "Mob":
                     if (String.IsNullOrEmpty(mob))
                         validationMessgae = "Cannot be empty.";
-                    else if (mob.Length < 0 || mob.Length > 15)
+                    else if (mob.Length <10 || mob.Length > 15)
 
                     {
                         validationMessgae = "Please enter a valid mobile number.";
