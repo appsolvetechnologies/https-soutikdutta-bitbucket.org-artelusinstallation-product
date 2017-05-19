@@ -71,7 +71,7 @@ namespace Artelus.Model
 
         public string this[string columnName] => Validate(columnName);
 
-        public string Error => throw new NotImplementedException();
+     //   public string Error => throw new NotImplementedException();
         private string Validate(string properyName)
         {
             string validationMessgae = string.Empty;
@@ -105,6 +105,14 @@ namespace Artelus.Model
                     _ODPosteriorReportDatas = value;
                     RaisePropertyChange("ODPosteriorReportDatas");
                 }
+            }
+        }
+
+        public string Error
+        {
+            get
+            {
+                throw new NotImplementedException();
             }
         }
     }
@@ -272,9 +280,17 @@ namespace Artelus.Model
             }
         }
 
+        public string Error
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+        }
+
         public string this[string columnName] => Validate(columnName);
 
-        public string Error => throw new NotImplementedException();
+      //  public string Error => throw new NotImplementedException();
         private string Validate(string properyName)
         {
             string validationMessgae = string.Empty;

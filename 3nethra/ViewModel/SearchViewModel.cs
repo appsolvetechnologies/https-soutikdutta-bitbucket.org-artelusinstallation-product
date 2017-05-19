@@ -26,7 +26,11 @@ namespace Artelus.ViewModel
 
             var result = new Patient().GetAll();
             foreach (var item in result)
+            {
+                item.MaritalStatus = item.MaritalStatus == "yes" ? "Y" : "N";
                 Patients.Add(item);
+            }
+               
         }
 
         private void OnViewProfileCommand(object args)
