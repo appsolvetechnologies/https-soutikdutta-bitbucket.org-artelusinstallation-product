@@ -244,11 +244,11 @@
             </Grid>
         </ScrollViewer>
         <StackPanel Grid.Row="1" Margin="5">
-            <Label FontSize="15" FontWeight="Bold">General Consent</Label>
-            <TextBlock TextWrapping="Wrap" FontSize="14" FontWeight="SemiBold" Text="I am competent to give and hereby give my informed consent for treatment of patient named herein above in the hospital, I also give consent for the Hospital to perform any procedures &amp; Tests, as may be deemed fit by the Hospital." FontStyle="Italic"/>
+            <Label FontSize="16" FontWeight="Bold">General Consent</Label>
+            <TextBlock TextWrapping="Wrap" FontSize="16" FontWeight="SemiBold" Text="I am competent to give and hereby give my informed consent for treatment of patient named herein above in the hospital, I also give consent for the Hospital to perform any procedures &amp; Tests, as may be deemed fit by the Hospital." FontStyle="Italic"/>
             <DockPanel>
-                <RadioButton IsEnabled="False"  DockPanel.Dock="Left" Content="* I agree for the same." IsChecked="{Binding PatientEntity.TermsCondition, Converter={StaticResource RadioButtonCheckedConverter}, ConverterParameter='1'}" />
-                <Button DockPanel.Dock="Right" HorizontalAlignment="Right" Command="{Binding SaveCommand}" CommandParameter="{Binding PatientEntity}">Next</Button>
+                <RadioButton DockPanel.Dock="Left"  FontWeight="SemiBold" Content="* I agree for the same." IsChecked="{Binding PatientEntity.TermsCondition, Converter={StaticResource RadioButtonCheckedConverter}, ConverterParameter='1'}" />
+                <Button  Background="#f05f40" Foreground="White"  FontWeight="DemiBold" DockPanel.Dock="Right" HorizontalAlignment="Right" Command="{Binding SaveCommand}" CommandParameter="{Binding PatientEntity}">Next</Button>
             </DockPanel>
         </StackPanel>
     </Grid>
