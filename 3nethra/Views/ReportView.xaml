@@ -197,7 +197,7 @@
                 <!--<Label HorizontalAlignment="Center" FontWeight="Bold" FontSize="16">* Kindly correlate clinically</Label>-->
             </StackPanel>
             <StackPanel Grid.Row="5">
-                <Button Background="#f05f40" Foreground="White" HorizontalAlignment="Right" VerticalAlignment="Bottom" FontWeight="DemiBold"    Command="{Binding CompleteCommand}">Finish</Button>
+                <!--<Button Background="#f05f40" Foreground="White" HorizontalAlignment="Right" VerticalAlignment="Bottom" FontWeight="DemiBold"    Command="{Binding CompleteCommand}">Finish</Button>-->
             </StackPanel>
         </Grid> 
     </Grid>

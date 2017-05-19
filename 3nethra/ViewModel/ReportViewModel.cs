@@ -119,7 +119,7 @@ namespace Artelus.ViewModel
 
         public DelegateCommand CompleteCommand { get; set; }
         public Action CloseAction { get; set; }
-        public ReportViewModel(PatientEntity model)
+        public ReportViewModel(PatientEntity model, PatientReport obj)
         {
             string rootPath = AppDomain.CurrentDomain.BaseDirectory;
             string path = Path.Combine(rootPath, "Uploads");
@@ -140,17 +140,22 @@ namespace Artelus.ViewModel
                 PatientEntity.OtherOption = "IC Number:";
                 PatientEntity.OthersID = PatientEntity.IcNumber;
             }
-            PatientReport = new Patient().GetLastestReport(model.Id);
+
+            if (obj != null)
+                PatientReport = obj;
+            else
+                PatientReport = new Patient().GetLastestReport(model.Id);
+
             if (PatientReport != null)
             {
-                var osResult = new Patient().GetOSReportData(PatientReport.Id,false);
+                var osResult = new Patient().GetOSReportData(PatientReport.Id, false);
                 foreach (var data in osResult)
                 {
                     data.ImageUrl = Path.Combine(path, data.Img);
                     data.FileName = Path.GetFileName(data.ImageUrl);
                     OSReportDatas.Add(data);
                 }
-                var odResult = new Patient().GetODReportData(PatientReport.Id,false);
+                var odResult = new Patient().GetODReportData(PatientReport.Id, false);
                 foreach (var data in odResult)
                 {
                     data.ImageUrl = Path.Combine(path, data.Img);

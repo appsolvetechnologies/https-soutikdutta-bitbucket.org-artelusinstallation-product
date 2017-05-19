@@ -206,7 +206,7 @@ namespace Artelus.ViewModel
 
         private void OnReportViewCommand(object args)
         {
-            var patientVM = new ReportViewModel(PatientEntity);
+            var patientVM = new ReportViewModel(PatientEntity,null);
             var window = new ModernWindow
             {
                 Style = (Style)App.Current.Resources["BlankWindow"],
@@ -301,28 +301,28 @@ namespace Artelus.ViewModel
                 {
                     string fileName = item.Eye + "_" + DateTime.UtcNow.Ticks.ToString() + ".png";
                     string filePath = Path.Combine(path, fileName);
-                    Save(CameraEntity.CaptureStream, filePath);
+                    Save(item.BitMapImg, filePath);
                     new Patient().AddReportData(PatientReportId, "POSTERIOR_MODE", item.Eye, Path.Combine(PatientEntity.UniqueID.ToString(), PatientReportId.ToString(), fileName), null, Program.FileSize(filePath));
                 }
                 foreach (var item in ODPosteriorReportDatas)
                 {
                     string fileName = item.Eye + "_" + DateTime.UtcNow.Ticks.ToString() + ".png";
                     string filePath = Path.Combine(path, fileName);
-                    Save(CameraEntity.CaptureStream, filePath);
+                    Save(item.BitMapImg, filePath);
                     new Patient().AddReportData(PatientReportId, "POSTERIOR_MODE", item.Eye, Path.Combine(PatientEntity.UniqueID.ToString(), PatientReportId.ToString(), fileName), null, Program.FileSize(filePath));
                 }
                 foreach (var item in OSAnteriorReportDatas)
                 {
                     string fileName = item.Eye + "_" + DateTime.UtcNow.Ticks.ToString() + ".png";
                     string filePath = Path.Combine(path, fileName);
-                    Save(CameraEntity.CaptureStream, filePath);
+                    Save(item.BitMapImg, filePath);
                     new Patient().AddReportData(PatientReportId, "ANTERIOR_MODE", item.Eye, Path.Combine(PatientEntity.UniqueID.ToString(), PatientReportId.ToString(), fileName), null, Program.FileSize(filePath));
                 }
                 foreach (var item in ODAnteriorReportDatas)
                 {
                     string fileName = item.Eye + "_" + DateTime.UtcNow.Ticks.ToString() + ".png";
                     string filePath = Path.Combine(path, fileName);
-                    Save(CameraEntity.CaptureStream, filePath);
+                    Save(item.BitMapImg, filePath);
                     new Patient().AddReportData(PatientReportId, "ANTERIOR_MODE", item.Eye, Path.Combine(PatientEntity.UniqueID.ToString(), PatientReportId.ToString(), null, fileName), null, Program.FileSize(filePath));
                 }
 

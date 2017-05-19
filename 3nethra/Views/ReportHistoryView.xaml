@@ -315,7 +315,7 @@
                     <DataGridTemplateColumn>
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <Button Content="View" Command="{Binding ElementName=dgPatientReports,Path=DataContext.ViewReportDataCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}, Path=DataContext}" />
+                                <Button Background="#f05f40" Foreground="White" FontWeight="DemiBold" Content="View" Command="{Binding ElementName=dgPatientReports,Path=DataContext.ViewReportDataCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}, Path=DataContext}" />
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>

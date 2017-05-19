@@ -13,6 +13,16 @@ namespace Artelus.ViewModel
     public class SettingsViewModel : BaseViewModel
     {
         public Action CloseAction { get; set; }
+        private string msg;
+        public string Msg
+        {
+            get { return msg; }
+            set
+            {
+                msg = value;
+                RaisePropertyChange("Msg");
+            }
+        }
         private UserEntity user;
         public UserEntity User
         {
@@ -32,15 +42,15 @@ namespace Artelus.ViewModel
         }
         private void OnSaveCommand(object args)
         {
-            if (string.IsNullOrEmpty(User.Location) && string.IsNullOrEmpty(User.PinCode))
-                ModernDialog.ShowMessage("Invalid Data", "Login", MessageBoxButton.OK);
+            if (string.IsNullOrEmpty(User.Location) || string.IsNullOrEmpty(User.PinCode))
+                Msg = "Invalid Data";
             else
             {
                 user.IsConfigured = true;
                 if (new User().Update(User))
                     this.CloseAction();
                 else
-                    ModernDialog.ShowMessage("Invalid Data", "Login", MessageBoxButton.OK);
+                    Msg = "Invalid Data";
             }
         }
     }

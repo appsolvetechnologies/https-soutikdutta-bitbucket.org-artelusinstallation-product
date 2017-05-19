@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace Artelus.ViewModel
 {
@@ -101,6 +102,16 @@ namespace Artelus.ViewModel
         private void OnViewReportDataCommand(object args)
         {
 
+            var model = args as PatientReport;
+            foreach (Window win in Application.Current.Windows)
+            {
+                if (win.GetType().Name == "MainWindow")
+                {
+                    var cameraView = (win) as Artelus.MainWindow;
+                    cameraView.ContentSource = new Uri("Views/ReportView.xaml", UriKind.Relative);
+                    cameraView.DataContext = new ReportViewModel(PatientEntity,model);
+                }
+            }
         }
         public Action CloseAction { get; set; }
     }

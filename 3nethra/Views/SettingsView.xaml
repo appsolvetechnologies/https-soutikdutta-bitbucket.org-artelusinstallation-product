@@ -7,19 +7,7 @@
              xmlns:common="clr-namespace:Artelus.Common"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
-        <!--<StackPanel>
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"></ColumnDefinition>
-                <ColumnDefinition Width="*"></ColumnDefinition>
-            </Grid.ColumnDefinitions>
-            <TextBlock Text="UserName"></TextBlock>
-            <TextBlock Text="UserName"></TextBlock>
-
-        </Grid>
-    </StackPanel>-->
-
-    <Grid Margin="20">
+    <Grid Margin="20 20 20 10">
         <StackPanel>
             <StackPanel Margin="0 0 0 10">
                 <TextBlock Text="Installation ID" FontSize="15" FontWeight="Medium" Margin="0 0 0 5"/>
@@ -32,7 +20,7 @@
             <StackPanel Margin="0 0 0 10">
                 <TextBlock Text="Password" FontSize="15" FontWeight="Medium" Margin="0 0 0 5"/>
                 <PasswordBox IsEnabled="False"  x:Name="txtPassword" common:PasswordHelper.Attach="True"
-                         common:PasswordHelper.Password="{Binding User.Pwd, Mode=TwoWay}"/>                
+                         common:PasswordHelper.Password="{Binding User.Pwd, Mode=TwoWay}"/>
             </StackPanel>
             <StackPanel Margin="0 0 0 10">
                 <TextBlock Text="Location" FontSize="15" FontWeight="Medium" Margin="0 0 0 5"/>
@@ -43,6 +31,7 @@
                 <TextBox Text="{Binding Path=User.PinCode,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
             </StackPanel>
             <StackPanel Margin="0 0 0 10">
+                <TextBlock FontSize="14" FontWeight="Bold" HorizontalAlignment="Left" Foreground="#f05f40" Text="{Binding Msg, UpdateSourceTrigger=PropertyChanged}" Margin="32,0,0,0"></TextBlock>
                 <Button Background="#f05f40" Foreground="White" Content="Save" HorizontalAlignment="Right" IsDefault="True" Command="{Binding SaveCommand}" CommandParameter="{Binding User}"/>
             </StackPanel>
         </StackPanel>

@@ -150,6 +150,39 @@
                 </Grid>
             </StackPanel>
 
+            <!--<Border Visibility="Visible" BorderThickness="1" CornerRadius="2" BorderBrush="Black">
+                <StackPanel Margin="3">
+                    <TextBlock Text="Health Information" Style="{StaticResource Heading1}" />
+                    <Separator Height="6"/>
+                    <Grid Margin="0 0 0 10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="Current Medication:" FontWeight="Bold" Margin="0,0,15,0" />
+                        <TextBlock Grid.Column="1" FontSize="14" FontWeight="SemiBold" Text="{Binding PatientEntity.CurrentMedications}" />
+                    </Grid>
+                    <Separator Height=".7"/>
+                    <Grid Margin="0 0 0 10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="Marital Status:" FontWeight="Bold" Margin="0,0,15,0" />
+                        <TextBlock Grid.Column="1" FontSize="14" FontWeight="SemiBold" Text="{Binding PatientEntity.MaritalStatus}" />
+                    </Grid>
+                    <Separator Height=".7"/>
+                    <Grid Margin="0 0 0 10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="Age:" FontWeight="Bold" Margin="0,0,15,0" />
+                        <TextBlock Grid.Column="1" FontSize="14" FontWeight="SemiBold" Text="{Binding PatientEntity.Age}" />
+                    </Grid>
+                </StackPanel>
+            </Border>-->
+
         </StackPanel>
         <Grid Grid.Column="1">
             <Grid.RowDefinitions>
@@ -162,7 +195,7 @@
                 </StackPanel>
                 <StackPanel DockPanel.Dock="Right" HorizontalAlignment="Right" Orientation="Horizontal">
                     <Button Background="#f05f40" Foreground="White"  FontWeight="DemiBold" Margin="0,5,0,0" Command="{Binding  EditProfileDataCommand}">Edit Profile</Button>
-                    <Button Background="#f05f40" Foreground="White"  FontWeight="DemiBold" Margin="0,5,0,0" Command="{Binding  ViewReportDataCommand}">View Previous Report</Button>
+                    <Button Background="#f05f40" Foreground="White"  FontWeight="DemiBold" Margin="0,5,0,0" Command="{Binding  PreviousReportCommand}">View Previous Report</Button>
                     <Button Background="#f05f40" Foreground="White"  FontWeight="DemiBold" Margin="0,5,0,0" Command="{Binding  ViewAllImagesCommand}">View all images</Button>
                 </StackPanel>
             </DockPanel>

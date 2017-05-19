@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Script.Serialization;
+using System.Windows;
 
 namespace Artelus.ViewModel
 {
@@ -76,18 +77,18 @@ namespace Artelus.ViewModel
                 PatientReport.ODPosteriorReportDatas = new ObservableCollection<ReportData>();
 
                 var osResult = new Patient().GetOSReportData(PatientReport.Id, true);
-                foreach (var data in osResult)
+                foreach (var osData in osResult)
                 {
-                    data.ImageUrl = Path.Combine(path, data.Img);
-                    data.FileName = Path.GetFileName(data.ImageUrl);
-                    PatientReport.OSPosteriorReportDatas.Add(data);
+                    osData.ImageUrl = Path.Combine(path, osData.Img);
+                    osData.FileName = Path.GetFileName(osData.ImageUrl);
+                    PatientReport.OSPosteriorReportDatas.Add(osData);
                 }
                 var odResult = new Patient().GetODReportData(PatientReport.Id, true);
-                foreach (var data in odResult)
+                foreach (var odData in odResult)
                 {
-                    data.ImageUrl = Path.Combine(path, data.Img);
-                    data.FileName = Path.GetFileName(data.ImageUrl);
-                    PatientReport.ODPosteriorReportDatas.Add(data);
+                    odData.ImageUrl = Path.Combine(path, odData.Img);
+                    odData.FileName = Path.GetFileName(odData.ImageUrl);
+                    PatientReport.ODPosteriorReportDatas.Add(odData);
                 }
             }
         }
@@ -109,6 +110,15 @@ namespace Artelus.ViewModel
         }
         private void OnSaveCommand(object args)
         {
+            foreach (Window win in Application.Current.Windows)
+            {
+                if (win.GetType().Name == "MainWindow")
+                {
+                    var cameraView = (win) as Artelus.MainWindow;
+                    cameraView.ContentSource = new Uri("Views/ReportView.xaml", UriKind.Relative);
+                    cameraView.DataContext = new ReportViewModel(PatientEntity, null);
+                }
+            }
 
         }
 
