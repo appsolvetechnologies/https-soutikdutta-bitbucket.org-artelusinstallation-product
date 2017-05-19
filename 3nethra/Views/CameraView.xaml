@@ -23,16 +23,18 @@
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             <DockPanel>
-                <StackPanel DockPanel.Dock="Right" Orientation="Horizontal">
+                <StackPanel DockPanel.Dock="Right" >
+                <StackPanel  Orientation="Horizontal" Margin="0 0 100 0">
                     <RadioButton GroupName="CamMode" Content="Posterior" FontSize="18" FontWeight="Bold" Margin="8,0,0,0" IsChecked="{Binding CamMode,UpdateSourceTrigger=PropertyChanged, Converter={StaticResource RadioButtonCheckedConverter}, ConverterParameter='POSTERIOR_MODE'}" />
                     <RadioButton GroupName="CamMode" Content="Anterior" FontSize="18" FontWeight="Bold" Margin="8,0,0,0" IsChecked="{Binding CamMode,UpdateSourceTrigger=PropertyChanged, Converter={StaticResource RadioButtonCheckedConverter}, ConverterParameter='ANTERIOR_MODE'}" />
+                </StackPanel>
                 </StackPanel>
                 <StackPanel DockPanel.Dock="Left" Orientation="Horizontal" HorizontalAlignment="Left">
                     <Button Margin="0 0 5 0" Background="#f05f40" Foreground="White"  FontWeight="DemiBold" Command="{Binding CamStartCommand}">Start</Button>
                     <Button Margin="0 0 5 0" Background="#f05f40" Foreground="White"  FontWeight="DemiBold" Command="{Binding CamStopCommand}">Stop</Button>
                     <Button Margin="0 0 5 0" Background="#f05f40" Foreground="White"  FontWeight="DemiBold" Command="{Binding CaptureCommand}">Capture</Button>
-                    <RadioButton GroupName="Eye" FontSize="18" FontWeight="Bold" Content="OS" Margin="8,0,0,0" IsChecked="{Binding CameraEntity.Eye, Converter={StaticResource RadioButtonCheckedConverter}, ConverterParameter='OS'}" />
                     <RadioButton GroupName="Eye" FontSize="18" FontWeight="Bold" Content="OD" Margin="8,0,0,0" IsChecked="{Binding CameraEntity.Eye, Converter={StaticResource RadioButtonCheckedConverter}, ConverterParameter='OD'}" />
+                    <RadioButton GroupName="Eye" FontSize="18" FontWeight="Bold" Content="OS" Margin="8,0,0,0" IsChecked="{Binding CameraEntity.Eye, Converter={StaticResource RadioButtonCheckedConverter}, ConverterParameter='OS'}" />
                  </StackPanel>
             </DockPanel>
             <Grid Grid.Row="1" Background="Black" Margin="0 10 0 10">
@@ -46,8 +48,19 @@
             </Grid.RowDefinitions>
             <StackPanel>
                 <Grid x:Name="grdCamMode">
-                    <StackPanel Margin="10 30 0 0">
-                        <StackPanel Visibility="{Binding ShowPosterior,UpdateSourceTrigger=PropertyChanged, Converter={converters:BoolToOppVisibilityConverter},ConverterParameter='Collapsed'}">
+                    <StackPanel Margin="10 0 30 0">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                            <StackPanel Margin="0 0 0 0" Orientation="Horizontal">
+                                <TextBlock FontSize="16" FontWeight="SemiBold" Margin="0 0 0 8" Text="Patient ID:  "/>
+                                <TextBlock FontSize="16" FontWeight="SemiBold" Margin="0 0 0 8" Text="{Binding PatientEntity.Id}"/>
+                            </StackPanel>
+                            <StackPanel Margin="10 0 0 0" Orientation="Horizontal">
+                                <TextBlock FontSize="16" FontWeight="SemiBold" Margin="0 0 0 8" Text="Patient Name:  "/>
+                                <TextBlock FontSize="16" FontWeight="SemiBold" Margin="0 0 0 8" Text="{Binding PatientEntity.Nm}"/>
+                            </StackPanel>
+                        </StackPanel>
+                        
+                        <StackPanel Margin="0 10 0 0" Visibility="{Binding ShowPosterior,UpdateSourceTrigger=PropertyChanged, Converter={converters:BoolToOppVisibilityConverter},ConverterParameter='Collapsed'}">
                             <TextBlock Text="Posterior" Style="{StaticResource Heading2}" Margin="0,0,0,8" />
                             <Grid>
                                 <Grid.ColumnDefinitions>
@@ -55,26 +68,7 @@
                                     <ColumnDefinition Width="*"></ColumnDefinition>
                                 </Grid.ColumnDefinitions>
                                 <StackPanel>
-                                    <TextBlock FontWeight="Bold" Margin="0 0 0 5" Text="OS Eye:"></TextBlock>
-                                    <ItemsControl ItemsSource="{Binding OSPosteriorReportDatas}">
-                                        <ItemsControl.ItemsPanel>
-                                            <ItemsPanelTemplate>
-                                                <StackPanel></StackPanel>
-                                            </ItemsPanelTemplate>
-                                        </ItemsControl.ItemsPanel>
-                                        <ItemsControl.ItemTemplate>
-                                            <DataTemplate>
-                                                <StackPanel Orientation="Vertical" HorizontalAlignment="Left">
-                                                    <!--<TextBlock Margin="0 0 0 5" Text="{Binding Prediction}"/>-->
-                                                    <Image HorizontalAlignment="Left" Margin="0 0 0 10" Source="{Binding BitMapImg}" Height="100" />
-                                                    <!--<TextBlock Margin="0 5 0 0" Text="{Binding FileName}"/>-->
-                                                </StackPanel>
-                                            </DataTemplate>
-                                        </ItemsControl.ItemTemplate>
-                                    </ItemsControl>
-                                </StackPanel>
-                                <StackPanel Grid.Column="1">
-                                    <TextBlock FontWeight="Bold" Margin="0 0 0 5" Text="OD Eye:"></TextBlock>
+                                    <TextBlock FontWeight="Bold" Margin="0 0 0 5" Text="OD:"></TextBlock>
                                     <ItemsControl ItemsSource="{Binding ODPosteriorReportDatas}">
                                         <ItemsControl.ItemsPanel>
                                             <ItemsPanelTemplate>
@@ -92,9 +86,29 @@
                                         </ItemsControl.ItemTemplate>
                                     </ItemsControl>
                                 </StackPanel>
+                                <StackPanel  Grid.Column="1">
+                                    <TextBlock FontWeight="Bold" Margin="0 0 0 5" Text="OS:"></TextBlock>
+                                    <ItemsControl ItemsSource="{Binding OSPosteriorReportDatas}">
+                                        <ItemsControl.ItemsPanel>
+                                            <ItemsPanelTemplate>
+                                                <StackPanel></StackPanel>
+                                            </ItemsPanelTemplate>
+                                        </ItemsControl.ItemsPanel>
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <StackPanel Orientation="Vertical" HorizontalAlignment="Left">
+                                                    <!--<TextBlock Margin="0 0 0 5" Text="{Binding Prediction}"/>-->
+                                                    <Image HorizontalAlignment="Left" Margin="0 0 0 10" Source="{Binding BitMapImg}" Height="100" />
+                                                    <!--<TextBlock Margin="0 5 0 0" Text="{Binding FileName}"/>-->
+                                                </StackPanel>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+                                </StackPanel>
+                               
                             </Grid>                            
                         </StackPanel>
-                        <StackPanel Visibility="{Binding ShowPosterior,UpdateSourceTrigger=PropertyChanged, Converter={converters:BoolToVisibilityConverter},ConverterParameter='Collapsed'}">
+                        <StackPanel Margin="10 0 0 0" Visibility="{Binding ShowPosterior,UpdateSourceTrigger=PropertyChanged, Converter={converters:BoolToVisibilityConverter},ConverterParameter='Collapsed'}">
                             <TextBlock Text="Anterior" Style="{StaticResource Heading2}" Margin="0,0,0,8" />
                             <Grid>
                                 <Grid.ColumnDefinitions>
@@ -145,7 +159,7 @@
                 </Grid>
             </StackPanel>
             <StackPanel Grid.Row="1" HorizontalAlignment="Right">
-                <Button Background="#f05f40" Foreground="White"  FontWeight="DemiBold" Margin="0 0 5 0" Command="{Binding SaveCommand}">Next</Button>
+                <Button Background="#f05f40" Foreground="White" Height="40px" FontWeight="DemiBold" Margin="0 0 5 0" Command="{Binding SaveCommand}">Next</Button>
             </StackPanel>
         </Grid>
 
