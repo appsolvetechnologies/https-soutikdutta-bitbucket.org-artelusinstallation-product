@@ -10,6 +10,9 @@ namespace Artelus.Model
         private string userNm;
         private string pwd;
         private bool isConfigured;
+        private Guid installID;
+        private string location;
+        private string pinCode;
         public int Id
         {
             get { return id; }
@@ -58,6 +61,42 @@ namespace Artelus.Model
                 }
             }
         }
+        public Guid InstallID
+        {
+            get { return installID; }
+            set
+            {
+                if (installID != value)
+                {
+                    installID = value;
+                    RaisePropertyChange("InstallID");
+                }
+            }
+        }
+        public string Location
+        {
+            get { return location; }
+            set
+            {
+                if (location != value)
+                {
+                    location = value;
+                    RaisePropertyChange("Location");
+                }
+            }
+        }
+        public string PinCode
+        {
+            get { return pinCode; }
+            set
+            {
+                if (pinCode != value)
+                {
+                    pinCode = value;
+                    RaisePropertyChange("PinCode");
+                }
+            }
+        }
         public string this[string columnName]
         {
             get
@@ -75,6 +114,32 @@ namespace Artelus.Model
         private string Validate(string properyName)
         {
             string validationMessgae = string.Empty;
+            switch (properyName)
+            {
+                case "UserNm":
+                    if (String.IsNullOrEmpty(userNm))
+                        validationMessgae = "Cannot be empty.";
+                    else if (userNm?.Length < 4)
+                        validationMessgae = "Minimum 4 characters required!";
+                    break;
+
+                case "Pwd":
+                    if (String.IsNullOrEmpty(pwd))
+                        validationMessgae = "Cannot be empty.";
+                    else if (pwd.Length >= 50)
+                        validationMessgae = "Maximum 50 characters only.";
+                    break;
+
+                case "Location":
+                    if (String.IsNullOrEmpty(location))
+                        validationMessgae = "";
+                    break;
+
+                case "PinCode":
+                    if (String.IsNullOrEmpty(pinCode))
+                        validationMessgae = "";
+                    break;
+            }
             return validationMessgae;
         }
     }

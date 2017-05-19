@@ -209,8 +209,8 @@ namespace Artelus.ViewModel
                     if (win.GetType().Name == "MainWindow")
                     {
                         var cameraView = (win) as Artelus.MainWindow;
-                        cameraView.ContentSource = new Uri("Views/CameraView.xaml", UriKind.Relative);
-                        cameraView.DataContext = new CameraViewModel(model);
+                        cameraView.ContentSource = new Uri("Views/PatientProfileView.xaml", UriKind.Relative);
+                        cameraView.DataContext = new ProfileViewModel(model);
                     }
                 }
             }

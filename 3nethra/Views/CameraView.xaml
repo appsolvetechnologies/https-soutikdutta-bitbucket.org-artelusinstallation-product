@@ -24,8 +24,8 @@
             </Grid.RowDefinitions>
             <DockPanel>
                 <StackPanel DockPanel.Dock="Right" Orientation="Horizontal">
-                    <RadioButton GroupName="CamMode" Content="Posterior" Margin="8,0,0,0" IsChecked="{Binding CamMode, Converter={StaticResource RadioButtonCheckedConverter}, ConverterParameter='POSTERIOR_MODE'}" />
-                    <RadioButton GroupName="CamMode" Content="Anterior" Margin="8,0,0,0" IsChecked="{Binding CamMode, Converter={StaticResource RadioButtonCheckedConverter}, ConverterParameter='ANTERIOR_MODE'}" />
+                    <RadioButton GroupName="CamMode" Content="Posterior" Margin="8,0,0,0" IsChecked="{Binding CamMode,UpdateSourceTrigger=PropertyChanged, Converter={StaticResource RadioButtonCheckedConverter}, ConverterParameter='POSTERIOR_MODE'}" />
+                    <RadioButton GroupName="CamMode" Content="Anterior" Margin="8,0,0,0" IsChecked="{Binding CamMode,UpdateSourceTrigger=PropertyChanged, Converter={StaticResource RadioButtonCheckedConverter}, ConverterParameter='ANTERIOR_MODE'}" />
                 </StackPanel>
                 <StackPanel DockPanel.Dock="Left" Orientation="Horizontal" HorizontalAlignment="Left">
                     <Button Margin="0 0 5 0" Command="{Binding CamStartCommand}">Start</Button>
@@ -33,17 +33,11 @@
                     <Button Margin="0 0 5 0" Command="{Binding CaptureCommand}">Capture</Button>
                     <RadioButton GroupName="Eye" Content="OS" Margin="8,0,0,0" IsChecked="{Binding CameraEntity.Eye, Converter={StaticResource RadioButtonCheckedConverter}, ConverterParameter='OS'}" />
                     <RadioButton GroupName="Eye" Content="OD" Margin="8,0,0,0" IsChecked="{Binding CameraEntity.Eye, Converter={StaticResource RadioButtonCheckedConverter}, ConverterParameter='OD'}" />
-                    <!--<Button Margin="0 0 5 0" Command="{Binding CamPosteriorCommand}">Posterior</Button>
-                    <Button Margin="0 0 5 0" Command="{Binding CamAnteriorCommand}">Anterior</Button>-->
-                </StackPanel>
+                 </StackPanel>
             </DockPanel>
-
             <Grid Grid.Row="1" Background="Black" Margin="0 10 0 10">
                 <Image Margin="0 5 0 5" Source="{Binding Path=CameraEntity.LiveStream,UpdateSourceTrigger=PropertyChanged}"/>
             </Grid>
-            <StackPanel Grid.Row="2" Orientation="Horizontal">
-               
-            </StackPanel>
         </Grid>
         <Grid  Grid.Column="1">
             <Grid.RowDefinitions>
@@ -51,10 +45,9 @@
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             <StackPanel>
-                <Button HorizontalAlignment="Right" Command="{Binding SetHansanetCommand}" Content="{Binding Hansanet}"/>
                 <Grid x:Name="grdCamMode">
                     <StackPanel Margin="10 30 0 0">
-                        <StackPanel>
+                        <StackPanel Visibility="{Binding ShowPosterior,UpdateSourceTrigger=PropertyChanged, Converter={converters:BoolToOppVisibilityConverter},ConverterParameter='Collapsed'}">
                             <TextBlock Text="Posterior" Style="{StaticResource Heading2}" Margin="0,0,0,8" />
                             <Grid>
                                 <Grid.ColumnDefinitions>
@@ -99,52 +92,9 @@
                                         </ItemsControl.ItemTemplate>
                                     </ItemsControl>
                                 </StackPanel>
-                            </Grid>
-                            
-                            <!--<DataGrid IsReadOnly="True" Grid.Row="1" Name="posteriorReportDataList" ItemsSource="{Binding PorteriorReportData,UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False">
-                                <DataGrid.Columns>
-                                    <mui:DataGridTextColumn Header="Eye"  Binding="{Binding Eye}"/>
-                                    <mui:DataGridTextColumn Header="Size"  Binding="{Binding Size}"/>
-                                    <DataGridTemplateColumn Header="Image">
-                                        <DataGridTemplateColumn.CellTemplate>
-                                            <DataTemplate>
-                                                <Image Source="{Binding ImageUrl}" Width="40px" />
-                                            </DataTemplate>
-                                        </DataGridTemplateColumn.CellTemplate>
-                                    </DataGridTemplateColumn>
-                                    <DataGridTemplateColumn Header="Quality">
-                                        <DataGridTemplateColumn.CellTemplate>
-                                            <DataTemplate>
-                                                <TextBlock Text="{Binding Status}"/>
-                                            </DataTemplate>
-                                        </DataGridTemplateColumn.CellTemplate>
-                                    </DataGridTemplateColumn>
-                                    <mui:DataGridTextColumn Header="Prediction" Binding="{Binding Prediction}"/>
-                                    --><!--<DataGridTemplateColumn>
-                                        <DataGridTemplateColumn.CellTemplate>
-                                            <DataTemplate>
-                                                <Button Content="Delete" Command="{Binding ElementName=dgPatients,Path=DataContext.DeleteReportDataCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}, Path=DataContext}" />
-                                            </DataTemplate>
-                                        </DataGridTemplateColumn.CellTemplate>
-                                    </DataGridTemplateColumn>--><!--
-                                </DataGrid.Columns>
-                            </DataGrid>-->
-                            <!--<Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="*"/>
-                                </Grid.ColumnDefinitions>
-                                <StackPanel Margin="0 0 5 0">
-                                    <TextBlock Text="Left" FontWeight="Bold" Margin="0,0,0,8" />
-                                    <Image Source="{Binding Path=CameraEntity.LeftPosterior,UpdateSourceTrigger=PropertyChanged}"/>
-                                </StackPanel>
-                                <StackPanel Grid.Column="1">
-                                    <TextBlock Text="Right" FontWeight="Bold" Margin="0,0,0,8" />
-                                    <Image Source="{Binding Path=CameraEntity.RightPosterior,UpdateSourceTrigger=PropertyChanged}"/>
-                                </StackPanel>
-                            </Grid>-->
+                            </Grid>                            
                         </StackPanel>
-                        <StackPanel>
+                        <StackPanel Visibility="{Binding ShowPosterior,UpdateSourceTrigger=PropertyChanged, Converter={converters:BoolToVisibilityConverter},ConverterParameter='Collapsed'}">
                             <TextBlock Text="Anterior" Style="{StaticResource Heading2}" Margin="0,0,0,8" />
                             <Grid>
                                 <Grid.ColumnDefinitions>
@@ -190,7 +140,6 @@
                                     </ItemsControl>
                                 </StackPanel>
                             </Grid>
-
                         </StackPanel>
                     </StackPanel>
                 </Grid>

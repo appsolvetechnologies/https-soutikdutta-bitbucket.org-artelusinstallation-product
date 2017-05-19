@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Artelus.ViewModel;
+using FirstFloor.ModernUI.Windows.Controls;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +25,17 @@ namespace Artelus.Views
         public SettingsView()
         {
             InitializeComponent();
+        }
+
+        public SettingsView(SettingsViewModel viewModel, ModernWindow window)
+        {
+            this.DataContext = viewModel;
+            InitializeComponent();
+            viewModel.CloseAction = () =>
+            {
+                window.DialogResult = true;
+                window.Close();
+            };
         }
     }
 }
