@@ -23,6 +23,7 @@
                 <Button Background="#f05f40" Foreground="White" Height="30px" Margin="0,0,5,0"  FontWeight="DemiBold" Command="{Binding FtpTransferCommand}">Upload</Button>
                 <Button Background="#f05f40" Foreground="White" Height="30px" Margin="0,0,5,0"  FontWeight="DemiBold" >Print</Button>
                 <Button Background="#f05f40" Foreground="White" Height="30px"  Margin="0,0,5,0"  FontWeight="DemiBold">View PDF</Button>
+                <Button Background="#f05f40" Foreground="White" Height="30px" Margin="0,0,5,0"  FontWeight="DemiBold" Command="{Binding FtpTransferCommand}">Send Mail</Button>
                 <Button Background="#f05f40" Foreground="White" Height="30px" HorizontalAlignment="Right" Margin="0,0,5,0" FontWeight="DemiBold" Command="{Binding TakeReportCommand}">Retake Image</Button>
                 <Button Background="#f05f40" Foreground="White" Height="30px" HorizontalAlignment="Right" Margin="0,0,5,0" FontWeight="DemiBold" Command="{Binding PreviousReportCommand}">View Previous Report</Button>
             </StackPanel>
@@ -123,7 +124,7 @@
                     </Grid>
                 </StackPanel>
             </Grid>
-            <Grid Grid.Row="2">
+            <Grid Grid.Row="2" Margin="0,10,0,0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width=".8*">
                         
@@ -135,54 +136,59 @@
             </Grid>
            
                 <!--<Label    FontSize="16" FontWeight="Bold"   HorizontalAlignment="Center" Margin="0 0 0 8">Examination Result:                 * Kindly correlate clinically</Label>-->
-           
-            
-            <Grid Grid.Row="3">
+
+
+            <Grid Grid.Row="3" Margin="0,10,0,0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"></ColumnDefinition>
                     <ColumnDefinition Width="*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
+                
                 <StackPanel>
-                    <TextBlock HorizontalAlignment="Center" Text="OS Eye:" Margin="10 0 0 0" FontWeight="Bold"></TextBlock>
-                    <DataGrid IsReadOnly="True" Margin="0,10,0,0" Grid.Row="1" Name="dgOSReports" ItemsSource="{Binding OSReportDatas}" AutoGenerateColumns="False">
-                        <DataGrid.Columns>
-                            <DataGridTemplateColumn>
-                                <DataGridTemplateColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <StackPanel Orientation="Vertical" HorizontalAlignment="Left">
-                                            <TextBlock FontSize="14" FontWeight="Bold" Margin="0 0 0 5" Text="{Binding Prediction}"/>
-                                            <Image HorizontalAlignment="Left" Source="{Binding ImageUrl}" Height="120" />
-                                            <TextBlock FontSize="14" FontWeight="Bold" Margin="0 5 0 0" Text="{Binding FileName}"/>
-                                        </StackPanel>
-                                    </DataTemplate>
-                                </DataGridTemplateColumn.CellTemplate>
-                            </DataGridTemplateColumn>
-                        </DataGrid.Columns>
-                    </DataGrid>
-                    <!--<ItemsControl ItemsSource="{Binding OSReportDataList,UpdateSourceTrigger=PropertyChanged}">
-                        <StackPanel>
-                            <Image Source="{Binding ImageUrl}" Height="60" />
-                            <TextBlock Text="{Binding Prediction}"/>
-                        </StackPanel>
-                    </ItemsControl>-->
-                </StackPanel>
-                <StackPanel Grid.Column="1">
-                    <TextBlock  HorizontalAlignment="Center" Text="OD Eye:" Margin="10 0 0 0" FontWeight="Bold"></TextBlock>
+                    <TextBlock  HorizontalAlignment="Center" Text="OD:" Margin="10 0 0 0" FontWeight="Bold"></TextBlock>
                     <DataGrid IsReadOnly="True" Margin="0,10,0,0" Grid.Row="1" Name="dgODReports" ItemsSource="{Binding ODReportDatas}" AutoGenerateColumns="False">
                         <DataGrid.Columns>
                             <DataGridTemplateColumn>
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <StackPanel Orientation="Vertical" HorizontalAlignment="Left">
-                                            <TextBlock Margin="0 0 0 5" Text="{Binding Prediction}"/>
+                                            <TextBlock  FontSize="16" Margin="0 5 0 0" FontWeight="Bold" Text="{Binding FileName}"/>
                                             <Image HorizontalAlignment="Left" Source="{Binding ImageUrl}" Height="120" />
-                                            <TextBlock Margin="0 5 0 0" Text="{Binding FileName}"/>
+                                            <TextBlock  FontSize="16" Margin="0 0 0 5" FontWeight="Bold" Text="{Binding Prediction}"/>
                                         </StackPanel>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
                         </DataGrid.Columns>
                     </DataGrid>
+                </StackPanel>
+
+
+                <StackPanel  Grid.Column="1">
+                        <TextBlock HorizontalAlignment="Center" Text="OS:" Margin="10 0 0 0" FontWeight="Bold"></TextBlock>
+                        <DataGrid IsReadOnly="True" Margin="0,10,0,0" Grid.Row="1" Name="dgOSReports" ItemsSource="{Binding OSReportDatas}" AutoGenerateColumns="False">
+                            <DataGrid.Columns>
+                                <DataGridTemplateColumn>
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Orientation="Vertical" HorizontalAlignment="Left">
+                                            <TextBlock FontSize="16" FontWeight="Bold" Margin="0 5 0 0" Text="{Binding FileName}"/>
+                                            <Image HorizontalAlignment="Left" Source="{Binding ImageUrl}" Height="120" />
+                                            <TextBlock FontSize="16" FontWeight="Bold" Margin="0 0 0 5" Text="{Binding Prediction}"/>
+                                        </StackPanel>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                        <!--<ItemsControl ItemsSource="{Binding OSReportDataList,UpdateSourceTrigger=PropertyChanged}">
+                        <StackPanel>
+                            <Image Source="{Binding ImageUrl}" Height="60" />
+                            <TextBlock Text="{Binding Prediction}"/>
+                        </StackPanel>
+                    </ItemsControl>-->
+                    </StackPanel>
+
                     <!--<ItemsControl ItemsSource="{Binding ODReportDatas,UpdateSourceTrigger=PropertyChanged}">
                         <ItemsControl.Items>
                             <StackPanel>
@@ -191,14 +197,16 @@
                             </StackPanel>
                         </ItemsControl.Items>                        
                     </ItemsControl>-->
-                </StackPanel>
+              
             </Grid>
             <StackPanel Grid.Row="4" Margin="0 10 0 0 ">
                 <!--<Label HorizontalAlignment="Center" FontWeight="Bold" FontSize="16">* Kindly correlate clinically</Label>-->
             </StackPanel>
-            <StackPanel Grid.Row="5">
-                <!--<Button Background="#f05f40" Foreground="White" HorizontalAlignment="Right" VerticalAlignment="Bottom" FontWeight="DemiBold"    Command="{Binding CompleteCommand}">Finish</Button>-->
+            <StackPanel Grid.Row="5" Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button Background="#f05f40" Foreground="White" Height="40px" HorizontalAlignment="Right" VerticalAlignment="Bottom" FontWeight="DemiBold"    Command="{Binding CompleteCommand}">Save and Next </Button>
+                <Button Background="#f05f40" Foreground="White" Height="40px" HorizontalAlignment="Right" VerticalAlignment="Bottom" FontWeight="DemiBold"    Command="{Binding CompleteCommand}">Save and Exit</Button>
             </StackPanel>
+            
         </Grid> 
     </Grid>
 
