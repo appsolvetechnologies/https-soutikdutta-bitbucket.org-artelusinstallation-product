@@ -13,9 +13,9 @@ namespace Artelus.Model
 {
     public static class RestCalls
     {
-        readonly static string baseUrl = "http://hsnet.artelus.com";
+        //readonly static string baseUrl = "http://hsnet.artelus.com";
         //readonly static string baseUrl = "http://drds.artelus.com";
-        //readonly static string baseUrl = "http://192.168.56.101";
+        readonly static string baseUrl = "http://192.168.56.101";
 
         readonly static string postUrl = "/diabetic_retinopathy/predictions";
         static JavaScriptSerializer serializer = new JavaScriptSerializer();
@@ -142,6 +142,7 @@ namespace Artelus.Model
                 if (webStream != null)
                     webStream.Dispose();
             }
+            
             return responseJson;
         }
     }

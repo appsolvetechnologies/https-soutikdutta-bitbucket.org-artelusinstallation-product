@@ -83,7 +83,6 @@ namespace Artelus.ViewModel
         public DelegateCommand EditProfileDataCommand { get; set; }
         public DelegateCommand ViewReportDataCommand { get; set; }
         public DelegateCommand ViewAllImagesCommand { get; set; }
-
         private ObservableCollection<PatientReport> patientReports = new ObservableCollection<PatientReport>();
         public ObservableCollection<PatientReport> PatientReports
         {
@@ -98,9 +97,11 @@ namespace Artelus.ViewModel
             }
         }
 
+        public DelegateCommand PreviousReportCommand { get; set; }
 
         public ProfileViewModel(PatientEntity model)
         {
+            PreviousReportCommand = new DelegateCommand(OnPreviousReportCommand);
             EditProfileDataCommand = new DelegateCommand(OnEditProfileDataCommand);
             ViewReportDataCommand = new DelegateCommand(OnViewReportDataCommand);
             ViewAllImagesCommand = new DelegateCommand(OnViewAllImagesCommand);
@@ -150,6 +151,21 @@ namespace Artelus.ViewModel
             PatientReports.Add(PatientReport);
         }
 
+        private void OnPreviousReportCommand(object args)
+        {
+
+            foreach (Window win in Application.Current.Windows)
+            {
+                if (win.GetType().Name == "MainWindow")
+                {
+                    var reportView = (win) as Artelus.MainWindow;
+                    reportView.ContentSource = new Uri("Views/ReportHistoryView.xaml", UriKind.Relative);
+                    reportView.DataContext = new ReportHistoryViewModel(PatientEntity);
+                }
+            }            
+        }
+
+
         private void OnEditProfileDataCommand(object args)
         {
             foreach (Window win in Application.Current.Windows)
@@ -171,7 +187,7 @@ namespace Artelus.ViewModel
                 {
                     var reportView = (win) as Artelus.MainWindow;
                     reportView.ContentSource = new Uri("Views/ReportView.xaml", UriKind.Relative);
-                    reportView.DataContext = new ReportViewModel(PatientEntity);
+                    reportView.DataContext = new ReportViewModel(PatientEntity,null);
                 }
             }
         }

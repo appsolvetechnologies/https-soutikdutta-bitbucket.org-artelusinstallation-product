@@ -56,7 +56,7 @@ namespace Artelus.ViewModel
                 {
                     var cameraView = (win) as Artelus.MainWindow;
                     cameraView.ContentSource = new Uri("Views/ReportView.xaml", UriKind.Relative);
-                    cameraView.DataContext = new ReportViewModel(model);
+                    cameraView.DataContext = new ReportViewModel(model,null);
                 }
             }
 
