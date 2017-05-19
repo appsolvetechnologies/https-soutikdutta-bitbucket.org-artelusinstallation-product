@@ -1,4 +1,6 @@
-﻿using Artelus.ViewModel;
+﻿using Artelus.Model;
+using Artelus.ViewModel;
+using FirstFloor.ModernUI.Windows.Controls;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,6 +27,12 @@ namespace Artelus.Views
         {
             InitializeComponent();
             this.DataContext = new PatientViewModel();
+        }
+
+        public PatientView(PatientViewModel viewModel, ModernWindow window)
+        {
+            this.DataContext = viewModel;
+            InitializeComponent();
         }
     }
 }

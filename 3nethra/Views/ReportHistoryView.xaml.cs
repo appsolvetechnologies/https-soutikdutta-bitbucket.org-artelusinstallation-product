@@ -25,18 +25,18 @@ namespace Artelus.Views
         public ReportHistoryView()
         {
             InitializeComponent();
-            this.DataContext = new PatientViewModel();
+            //this.DataContext = new ReportHistoryViewModel();
         }
 
-        public ReportHistoryView(ReportHistoryViewModel viewModel, ModernWindow window)
-        {
-            this.DataContext = viewModel;
-            InitializeComponent();
-            viewModel.CloseAction = () =>
-            {
-                window.DialogResult = true;
-                window.Close();
-            };
-        }
+        //public ReportHistoryView(ReportHistoryViewModel viewModel, ModernWindow window)
+        //{
+        //    this.DataContext = viewModel;
+        //    InitializeComponent();
+        //    viewModel.CloseAction = () =>
+        //    {
+        //        window.DialogResult = true;
+        //        window.Close();
+        //    };
+        //}
     }
 }

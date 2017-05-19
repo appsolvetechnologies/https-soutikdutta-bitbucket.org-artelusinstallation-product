@@ -7,6 +7,72 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
-            
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Border Grid.ColumnSpan="2" BorderBrush="#FF1986D1" BorderThickness="0 0 0 1" VerticalAlignment="Top">
+            <StackPanel Orientation="Horizontal">
+                <StackPanel  Orientation="Horizontal" HorizontalAlignment="Left">
+                    <TextBlock FontSize="14" FontWeight="SemiBold" Margin="0 0 10 5" Text="Patient ID:  "/>
+                    <TextBlock FontSize="14" Margin="0 0 0 5" Text="{Binding PatientEntity.Id}"/>
+                </StackPanel>
+                <StackPanel  Orientation="Horizontal" HorizontalAlignment="Left">
+                    <TextBlock FontSize="14" FontWeight="SemiBold" Margin="0 0 10 5" Text="Patient Name:  "/>
+                    <TextBlock FontSize="14" Margin="0 0 0 5" Text="{Binding PatientEntity.Nm}"/>
+                </StackPanel>
+                <Button HorizontalAlignment="Right" Command="{Binding SetHansanetCommand}" Content="{Binding Hansanet}"/>
+            </StackPanel>
+        </Border>
+        <StackPanel Grid.Row="1">
+            <TextBlock FontWeight="Bold" Text="OS Eye:"></TextBlock>
+            <ItemsControl ItemsSource="{Binding PatientReport.OSPosteriorReportDatas}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel></StackPanel>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Vertical" HorizontalAlignment="Left">
+                            <TextBlock Margin="0 0 0 5" Text="{Binding Prediction}"/>
+                            <Image HorizontalAlignment="Left" Source="{Binding ImageUrl}" Height="120" />
+                            <TextBlock Margin="0 5 0 0" Text="{Binding FileName}"/>
+                            <CheckBox Checked="{Binding IsChecked}"></CheckBox>
+                        </StackPanel>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </StackPanel>
+        <StackPanel Grid.Row="1" Grid.Column="1">
+            <TextBlock FontWeight="Bold" Text="OD Eye:"></TextBlock>
+            <ItemsControl ItemsSource="{Binding PatientReport.ODPosteriorReportDatas}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel></StackPanel>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Vertical" HorizontalAlignment="Left">
+                            <TextBlock Margin="0 0 0 5" Text="{Binding Prediction}"/>
+                            <Image HorizontalAlignment="Left" Source="{Binding ImageUrl}" Height="120" />
+                            <TextBlock Margin="0 5 0 0" Text="{Binding FileName}"/>
+                            <CheckBox Checked="{Binding IsChecked}"></CheckBox>
+                        </StackPanel>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </StackPanel>
+        <StackPanel Grid.Row="2" Grid.ColumnSpan="2" Orientation="Horizontal">
+            <CheckBox HorizontalAlignment="Left" Content="Select All" Command="{Binding SelectAllComand}"></CheckBox>
+            <Button HorizontalAlignment="Left" Command="{Binding PredictionCommand}">Prediction</Button>
+            <Button HorizontalAlignment="Right" Command="{Binding SaveCommand}">Next</Button>
+        </StackPanel>
     </Grid>
 </UserControl>

@@ -78,9 +78,35 @@ namespace Artelus.Model
             return validationMessgae;
         }
         public ObservableCollection<ReportData> ReportDatas { get; set; }
-
         public ObservableCollection<ReportData> PosteriorReportDatas { get; set; }
         public ObservableCollection<ReportData> AnteriorReportDatas { get; set; }
+
+        private ObservableCollection<ReportData> _OSPosteriorReportDatas { get; set; }
+
+        public ObservableCollection<ReportData> OSPosteriorReportDatas {
+            get { return _OSPosteriorReportDatas; }
+            set {
+                if (_OSPosteriorReportDatas != value)
+                {
+                    _OSPosteriorReportDatas = value;
+                    RaisePropertyChange("OSPosteriorReportDatas");
+                }
+            }
+        }
+        private ObservableCollection<ReportData> _ODPosteriorReportDatas { get; set; }
+
+        public ObservableCollection<ReportData> ODPosteriorReportDatas
+        {
+            get { return _ODPosteriorReportDatas; }
+            set
+            {
+                if (_ODPosteriorReportDatas != value)
+                {
+                    _ODPosteriorReportDatas = value;
+                    RaisePropertyChange("ODPosteriorReportDatas");
+                }
+            }
+        }
     }
 
     public class ReportData : BaseViewModel, IDataErrorInfo
@@ -202,6 +228,20 @@ namespace Artelus.Model
                 }
             }
         }
+        private bool isChecked{get;set;}
+        public bool IsChecked
+        {
+            get { return isChecked; }
+            set
+            {
+                if (isChecked != value)
+                {
+                    isChecked = value;
+                    RaisePropertyChange("IsChecked");
+                }
+            }
+        }
+
         private BitmapImage bitMapImg;
 
         public BitmapImage BitMapImg

@@ -65,7 +65,7 @@ namespace Artelus.Model
                     InstallID = rdr.GetGuid(36),
                     MDt = rdr.GetDateTime(37),
                     CDt = rdr.GetDateTime(38),
-                    UniqueID=rdr.GetGuid(39),
+                    UniqueID = rdr.GetGuid(39),
                     AllergyDrugsDtl = rdr.IsDBNull(40) == true ? "" : rdr.GetString(40),
                 };
                 list.Add(obj);
@@ -144,7 +144,7 @@ namespace Artelus.Model
             {
                 string sql = "INSERT INTO [Patient] ([name],[pMName],[pLName],[notResident],[ifResidentOfM],[IcNumber],[otherOption],[othersID],[doctosName],[hospitalName],[hospitalID],[hospitaScreening],[p_email],[marital_status],[age],[sex],[permanent_address],[area],[phone_res],[mobile],[occupation],[working_at],[currentMedications],[laser_reatment],[have_cataract],[have_hypertension],[allergy_to_drugs],[have_diabetes],[additional_info],[emg_contact_name],[emg_phone],[name_of_the_stated_onsent],[relation_with_patient],[term_conditation],[collection_id],[install_id],[update_at],[create_at],[UniqueID],[allergy_drugs_details])" +
                             " VALUES({0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11},{12},{13},{14},{15},{16},{17},{18},{19},{20},{21},{22},{23},{24},{25},{26},{27},{28},{29},{30},{31},{32},{33},{34},{35},{36},{37},{38},{39}); ";
-                db.Database.ExecuteSqlCommand(sql, model.Nm, model.MNm, model.LNm, model.NotResident, model.IfResidentOfM, model.IcNumber, model.OtherOption, model.OthersID, model.DocNm, model.HospitalNm, model.HospitalID, model.HospitalScreening, model.Email, model.MaritalStatus, model.Age, model.Sex, model.PerAdr, model.Area, model.ResidentPh, model.Mob, model.Occupation, model.WorkingAt, model.CurrentMedications, model.LaserTreatment, model.Cataract, model.Hypertension, model.AllergyDrugs, model.Diabetic, model.Info, model.EmergContactNm, model.EmergPh, model.StatedConsentPerson, model.Relation, model.TermsCondition, model.CollectionID, model.InstallID, model.MDt, model.CDt, model.UniqueID,model.AllergyDrugsDtl);
+                db.Database.ExecuteSqlCommand(sql, model.Nm, model.MNm, model.LNm, model.NotResident, model.IfResidentOfM, model.IcNumber, model.OtherOption, model.OthersID, model.DocNm, model.HospitalNm, model.HospitalID, model.HospitalScreening, model.Email, model.MaritalStatus == "Married" ? "yes" : "no", model.Age, model.Sex == "Male" ? "m" : "f", model.PerAdr, model.Area, model.ResidentPh, model.Mob, model.Occupation, model.WorkingAt, model.CurrentMedications, model.LaserTreatment, model.Cataract, model.Hypertension, model.AllergyDrugs, model.Diabetic, model.Info, model.EmergContactNm, model.EmergPh, model.StatedConsentPerson, model.Relation, model.TermsCondition, model.CollectionID, model.InstallID, model.MDt, model.CDt, model.UniqueID, model.AllergyDrugsDtl);
                 model.Id = db.Database.SqlQuery<int>("SELECT MAX(p_id) FROM Patient").SingleOrDefault();
             }
             return model.Id;
@@ -154,7 +154,8 @@ namespace Artelus.Model
         {
             using (var db = new ArtelusDbContext())
             {
-                db.Database.ExecuteSqlCommand("UPDATE Patient SET Nm={0},Email={1},Adr={2},Mob={4} WHERE Id={3} ", model.Nm, model.Email, model.PerAdr, model.Id, model.Mob);
+                string sql = "UPDATE [Patient] SET [name] ={0},[pMName] = {1},[pLName] = {2},[ifResidentOfM] = {3},[IcNumber] = {4},[otherOption] = {5},[othersID] = {6},[doctosName] = {7},[hospitalName] = {8},[hospitalID] = {9},[hospitaScreening] = {10},[p_email] ={11},[marital_status] = {12},[age] = {13},[sex] = {14},[permanent_address] = {15},[area] ={16},[phone_res] = {17},[mobile] ={18},[occupation] = {19},[working_at] = {20},[currentMedications] = {21},[laser_reatment] = {22},[have_cataract] = {23},[have_hypertension] = {24},[allergy_to_drugs] = {25},[have_diabetes] = {26},[additional_info] = {27},[emg_contact_name] = {28},[emg_phone] = {29},[name_of_the_stated_onsent] = {30},[relation_with_patient] ={31},update_at] ={32},[allergy_drugs_details] = {33} WHERE p_id={34};";
+                db.Database.ExecuteSqlCommand(sql, model.Nm, model.MNm, model.LNm, model.IfResidentOfM, model.IcNumber, model.OtherOption, model.OthersID, model.DocNm, model.HospitalNm, model.HospitalID, model.HospitalScreening, model.Email, model.MaritalStatus, model.Age, model.Sex, model.PerAdr, model.Area, model.ResidentPh, model.Mob, model.Occupation, model.WorkingAt, model.CurrentMedications, model.LaserTreatment, model.Cataract, model.Hypertension, model.AllergyDrugs, model.Diabetic, model.Info, model.EmergContactNm, model.EmergPh, model.StatedConsentPerson, model.Relation, model.MDt, model.AllergyDrugsDtl, model.Id);
                 db.SaveChanges();
             }
         }
@@ -216,12 +217,16 @@ namespace Artelus.Model
         //}
 
 
-        public List<ReportData> GetLatestOSReport(int reportId)
+        public List<ReportData> GetOSReportData(int reportId, bool isPrediction)
         {
+            string sql = string.Format("select * from ReportData where PatientReportId ={0}and Eye = 'OS' order by Id desc;", reportId);
+            if (isPrediction)
+                sql = string.Format("select * from ReportData where PatientReportId ={0} and Eye = 'OS' and Mode='POSTERIOR_MODE' order by Id desc;", reportId);
+
             List<ReportData> list = new List<ReportData>();
             SqlCeConnection _Conn = new SqlCeConnection(conn);
             _Conn.Open();
-            SqlCeCommand cmd = new SqlCeCommand(string.Format("select * from ReportData where PatientReportId={0} and Eye='OS' order by Id desc;", reportId), _Conn);
+            SqlCeCommand cmd = new SqlCeCommand(sql, _Conn);
             SqlCeDataReader rdr = cmd.ExecuteReader();
             while (rdr.Read())
             {
@@ -251,12 +256,16 @@ namespace Artelus.Model
         //}
 
 
-        public List<ReportData> GetLatestODReport(int reportId)
+        public List<ReportData> GetODReportData(int reportId, bool isPrediction)
         {
+            string sql = string.Format("select * from ReportData where PatientReportId ={0}and Eye = 'OD' order by Id desc;", reportId);
+            if (isPrediction)
+                sql = string.Format("select * from ReportData where PatientReportId ={0} and Eye = 'OD' and Mode='POSTERIOR_MODE' order by Id desc;", reportId);
+
             List<ReportData> list = new List<ReportData>();
             SqlCeConnection _Conn = new SqlCeConnection(conn);
             _Conn.Open();
-            SqlCeCommand cmd = new SqlCeCommand(string.Format("select * from ReportData where PatientReportId={0} and Eye='OD' order by Id desc;", reportId), _Conn);
+            SqlCeCommand cmd = new SqlCeCommand(sql, _Conn);
             SqlCeDataReader rdr = cmd.ExecuteReader();
             while (rdr.Read())
             {

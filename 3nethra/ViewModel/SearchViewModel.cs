@@ -31,7 +31,6 @@ namespace Artelus.ViewModel
 
         private void OnViewProfileCommand(object args)
         {
-
             var model = args as PatientEntity;
             foreach (Window win in Application.Current.Windows)
             {

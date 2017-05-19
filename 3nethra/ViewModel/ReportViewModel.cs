@@ -124,22 +124,33 @@ namespace Artelus.ViewModel
             string rootPath = AppDomain.CurrentDomain.BaseDirectory;
             string path = Path.Combine(rootPath, "Uploads");
             ReportDatas = new ObservableCollection<ReportData>();
-            if (model.Sex == "m")
-                model.Sex = "Male";
-            else
-                model.Sex = "Female";
             PatientEntity = model;
+            if (PatientEntity.Sex == "m")
+                PatientEntity.Sex = "Male";
+            else
+                PatientEntity.Sex = "Female";
+
+            if (PatientEntity.MaritalStatus == "no")
+                PatientEntity.MaritalStatus = "Single";
+            else
+                PatientEntity.MaritalStatus = "Married";
+
+            if (PatientEntity.IfResidentOfM == "yes")
+            {
+                PatientEntity.OtherOption = "IC Number:";
+                PatientEntity.OthersID = PatientEntity.IcNumber;
+            }
             PatientReport = new Patient().GetLastestReport(model.Id);
             if (PatientReport != null)
             {
-                var osResult = new Patient().GetLatestOSReport(PatientReport.Id);
+                var osResult = new Patient().GetOSReportData(PatientReport.Id,false);
                 foreach (var data in osResult)
                 {
                     data.ImageUrl = Path.Combine(path, data.Img);
                     data.FileName = Path.GetFileName(data.ImageUrl);
                     OSReportDatas.Add(data);
                 }
-                var odResult = new Patient().GetLatestODReport(PatientReport.Id);
+                var odResult = new Patient().GetODReportData(PatientReport.Id,false);
                 foreach (var data in odResult)
                 {
                     data.ImageUrl = Path.Combine(path, data.Img);
@@ -170,6 +181,17 @@ namespace Artelus.ViewModel
 
         private void OnPreviousReportCommand(object args)
         {
+
+            foreach (Window win in Application.Current.Windows)
+            {
+                if (win.GetType().Name == "MainWindow")
+                {
+                    var reportView = (win) as Artelus.MainWindow;
+                    reportView.ContentSource = new Uri("Views/ReportHistoryView.xaml", UriKind.Relative);
+                    reportView.DataContext = new ReportHistoryViewModel(PatientEntity);
+                }
+            }
+
             //var reporthVM = new ReportHistoryViewModel(PatientEntity);
             //var window = new ModernWindow
             //{

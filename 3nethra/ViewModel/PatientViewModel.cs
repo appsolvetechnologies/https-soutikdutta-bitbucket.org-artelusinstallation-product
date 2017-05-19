@@ -23,6 +23,17 @@ namespace Artelus.ViewModel
             }
         }
 
+        private bool initialLoad = true;
+        public bool InitialLoad
+        {
+            get { return initialLoad; }
+            set
+            {
+                initialLoad = value;
+                RaisePropertyChange("InitialLoad");
+            }
+        }
+
         private bool showAllergyOption;
         public bool ShowAllergyOption
         {
@@ -44,12 +55,16 @@ namespace Artelus.ViewModel
                 RaisePropertyChange("HideOthers");
             }
         }
-
         private PatientEntity patient;
         public PatientEntity PatientEntity
         {
             get { return patient; }
-            set { patient = value; }
+            set
+            {
+                patient = value;
+                RaisePropertyChange("PatientEntity");
+
+            }
         }
         private IdName selectedOption;
         public IdName SelectedOption
@@ -57,6 +72,8 @@ namespace Artelus.ViewModel
             get { return selectedOption; }
             set
             {
+                if (!InitialLoad)
+                    this.PatientEntity.OthersID = string.Empty;
                 if (value != selectedOption)
                 {
                     if (PatientEntity != null && value != null && value.Name != "Others")
@@ -73,6 +90,7 @@ namespace Artelus.ViewModel
                         this.ShowOtherOption = false;
 
                     selectedOption = value;
+                    InitialLoad = false;
                     RaisePropertyChange("SelectedOption");
                 }
             }
@@ -86,10 +104,20 @@ namespace Artelus.ViewModel
         public PatientViewModel()
         {
             Initialize();
-            SaveCommand = new DelegateCommand(OnSaveCommand);
-            UpdateCommand = new DelegateCommand(OnUpdateCommand);
-            ResidentChangeCommand = new DelegateCommand(OnResidentChangeCommand);
-            AlergyChangeCommand = new DelegateCommand(OnAlergyChangeCommand);
+        }
+
+        public PatientViewModel(PatientEntity model)
+        {
+            Initialize();
+            PatientEntity = model;
+            if (PatientEntity.IfResidentOfM == "no")
+            {
+                this.HideOthers = true;
+                if (PatientEntity.OtherOption != "Passport" && PatientEntity.OtherOption != "Driving License")
+                    ShowOtherOption = true;
+            }
+            if (PatientEntity.AllergyDrugs == "yes")
+                ShowAllergyOption = true;
         }
 
         private void Initialize()
@@ -106,6 +134,10 @@ namespace Artelus.ViewModel
             OtherIDCollection.Add(new IdName() { Id = 2, Name = "Driving License" });
             OtherIDCollection.Add(new IdName() { Id = 3, Name = "Others" });
             PatientEntity.OtherOption = "Passport";
+            SaveCommand = new DelegateCommand(OnSaveCommand);
+            UpdateCommand = new DelegateCommand(OnUpdateCommand);
+            ResidentChangeCommand = new DelegateCommand(OnResidentChangeCommand);
+            AlergyChangeCommand = new DelegateCommand(OnAlergyChangeCommand);
         }
 
         private void OnAlergyChangeCommand(object args)
@@ -170,16 +202,17 @@ namespace Artelus.ViewModel
             }
             else
             {
-                //new Patient().Update(model);
-                //var result = Patients.FirstOrDefault(x => x.Id == model.Id);
-                //if (result != null)
-                //{
-                //    result.Nm = model.Nm;
-                //    result.Email = model.Email;
-                //    result.Adr = model.Adr;
-                //    result.Mob = model.Mob;
-                //}
-                //Clear();
+                model.MDt= DateTime.UtcNow;
+                new Patient().Update(model);
+                foreach (Window win in Application.Current.Windows)
+                {
+                    if (win.GetType().Name == "MainWindow")
+                    {
+                        var cameraView = (win) as Artelus.MainWindow;
+                        cameraView.ContentSource = new Uri("Views/CameraView.xaml", UriKind.Relative);
+                        cameraView.DataContext = new CameraViewModel(model);
+                    }
+                }
             }
 
             //var camVM = new CameraViewModel(model);

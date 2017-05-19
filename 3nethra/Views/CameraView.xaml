@@ -56,7 +56,52 @@
                     <StackPanel Margin="10 30 0 0">
                         <StackPanel>
                             <TextBlock Text="Posterior" Style="{StaticResource Heading2}" Margin="0,0,0,8" />
-                            <DataGrid IsReadOnly="True" Grid.Row="1" Name="posteriorReportDataList" ItemsSource="{Binding PorteriorReportData,UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <StackPanel>
+                                    <TextBlock FontWeight="Bold" Margin="0 0 0 5" Text="OS Eye:"></TextBlock>
+                                    <ItemsControl ItemsSource="{Binding OSPosteriorReportDatas}">
+                                        <ItemsControl.ItemsPanel>
+                                            <ItemsPanelTemplate>
+                                                <StackPanel></StackPanel>
+                                            </ItemsPanelTemplate>
+                                        </ItemsControl.ItemsPanel>
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <StackPanel Orientation="Vertical" HorizontalAlignment="Left">
+                                                    <!--<TextBlock Margin="0 0 0 5" Text="{Binding Prediction}"/>-->
+                                                    <Image HorizontalAlignment="Left" Margin="0 0 0 10" Source="{Binding BitMapImg}" Height="100" />
+                                                    <!--<TextBlock Margin="0 5 0 0" Text="{Binding FileName}"/>-->
+                                                </StackPanel>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+                                </StackPanel>
+                                <StackPanel Grid.Column="1">
+                                    <TextBlock FontWeight="Bold" Margin="0 0 0 5" Text="OD Eye:"></TextBlock>
+                                    <ItemsControl ItemsSource="{Binding ODPosteriorReportDatas}">
+                                        <ItemsControl.ItemsPanel>
+                                            <ItemsPanelTemplate>
+                                                <StackPanel></StackPanel>
+                                            </ItemsPanelTemplate>
+                                        </ItemsControl.ItemsPanel>
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <StackPanel Orientation="Vertical" HorizontalAlignment="Left">
+                                                    <!--<TextBlock Margin="0 0 0 5" Text="{Binding Prediction}"/>-->
+                                                    <Image HorizontalAlignment="Left" Margin="0 0 0 10" Source="{Binding BitMapImg}" Height="100" />
+                                                    <!--<TextBlock Margin="0 5 0 0" Text="{Binding FileName}"/>-->
+                                                </StackPanel>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+                                </StackPanel>
+                            </Grid>
+                            
+                            <!--<DataGrid IsReadOnly="True" Grid.Row="1" Name="posteriorReportDataList" ItemsSource="{Binding PorteriorReportData,UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False">
                                 <DataGrid.Columns>
                                     <mui:DataGridTextColumn Header="Eye"  Binding="{Binding Eye}"/>
                                     <mui:DataGridTextColumn Header="Size"  Binding="{Binding Size}"/>
@@ -75,15 +120,15 @@
                                         </DataGridTemplateColumn.CellTemplate>
                                     </DataGridTemplateColumn>
                                     <mui:DataGridTextColumn Header="Prediction" Binding="{Binding Prediction}"/>
-                                    <!--<DataGridTemplateColumn>
+                                    --><!--<DataGridTemplateColumn>
                                         <DataGridTemplateColumn.CellTemplate>
                                             <DataTemplate>
                                                 <Button Content="Delete" Command="{Binding ElementName=dgPatients,Path=DataContext.DeleteReportDataCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}, Path=DataContext}" />
                                             </DataTemplate>
                                         </DataGridTemplateColumn.CellTemplate>
-                                    </DataGridTemplateColumn>-->
+                                    </DataGridTemplateColumn>--><!--
                                 </DataGrid.Columns>
-                            </DataGrid>
+                            </DataGrid>-->
                             <!--<Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*"/>
@@ -101,40 +146,57 @@
                         </StackPanel>
                         <StackPanel>
                             <TextBlock Text="Anterior" Style="{StaticResource Heading2}" Margin="0,0,0,8" />
-                            <DataGrid IsReadOnly="True" Grid.Row="1" Name="anteriorReportDataList" ItemsSource="{Binding AnteriorReportData,UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False">
-                                <DataGrid.Columns>
-                                    <mui:DataGridTextColumn Header="Eye"  Binding="{Binding Eye}"/>
-                                    <mui:DataGridTextColumn Header="Size"  Binding="{Binding Size}"/>
-                                    <DataGridTemplateColumn Header="Image">
-                                        <DataGridTemplateColumn.CellTemplate>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <StackPanel>
+                                    <TextBlock FontWeight="Bold" Margin="0 0 0 5" Text="OS Eye:"></TextBlock>
+                                    <ItemsControl ItemsSource="{Binding OSAnteriorReportDatas}">
+                                        <ItemsControl.ItemsPanel>
+                                            <ItemsPanelTemplate>
+                                                <StackPanel></StackPanel>
+                                            </ItemsPanelTemplate>
+                                        </ItemsControl.ItemsPanel>
+                                        <ItemsControl.ItemTemplate>
                                             <DataTemplate>
-                                                <Image Source="{Binding ImageUrl}" Width="40px" />
+                                                <StackPanel Orientation="Vertical" HorizontalAlignment="Left">
+                                                    <!--<TextBlock Margin="0 0 0 5" Text="{Binding Prediction}"/>-->
+                                                    <Image HorizontalAlignment="Left" Margin="0 0 0 10" Source="{Binding BitMapImg}" Height="100" />
+                                                    <!--<TextBlock Margin="0 5 0 0" Text="{Binding FileName}"/>-->
+                                                </StackPanel>
                                             </DataTemplate>
-                                        </DataGridTemplateColumn.CellTemplate>
-                                    </DataGridTemplateColumn>
-                                    <DataGridTemplateColumn Header="Quality">
-                                        <DataGridTemplateColumn.CellTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+                                </StackPanel>
+                                <StackPanel Grid.Column="1">
+                                    <TextBlock FontWeight="Bold" Margin="0 0 0 5" Text="OD Eye:"></TextBlock>
+                                    <ItemsControl ItemsSource="{Binding ODAnteriorReportDatas}">
+                                        <ItemsControl.ItemsPanel>
+                                            <ItemsPanelTemplate>
+                                                <StackPanel></StackPanel>
+                                            </ItemsPanelTemplate>
+                                        </ItemsControl.ItemsPanel>
+                                        <ItemsControl.ItemTemplate>
                                             <DataTemplate>
-                                                <TextBlock Text="{Binding Status}"/>
+                                                <StackPanel Orientation="Vertical" HorizontalAlignment="Left">
+                                                    <!--<TextBlock Margin="0 0 0 5" Text="{Binding Prediction}"/>-->
+                                                    <Image HorizontalAlignment="Left" Margin="0 0 0 10" Source="{Binding BitMapImg}" Height="100" />
+                                                    <!--<TextBlock Margin="0 5 0 0" Text="{Binding FileName}"/>-->
+                                                </StackPanel>
                                             </DataTemplate>
-                                        </DataGridTemplateColumn.CellTemplate>
-                                    </DataGridTemplateColumn>
-                                    <mui:DataGridTextColumn Header="Prediction" Binding="{Binding Prediction}"/>
-                                    <!--<DataGridTemplateColumn>
-                                        <DataGridTemplateColumn.CellTemplate>
-                                            <DataTemplate>
-                                                <Button Content="Delete" Command="{Binding ElementName=dgPatients,Path=DataContext.DeleteReportDataCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}, Path=DataContext}" />
-                                            </DataTemplate>
-                                        </DataGridTemplateColumn.CellTemplate>
-                                    </DataGridTemplateColumn>-->
-                                </DataGrid.Columns>
-                            </DataGrid>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+                                </StackPanel>
+                            </Grid>
+
                         </StackPanel>
                     </StackPanel>
                 </Grid>
             </StackPanel>
             <StackPanel Grid.Row="1" HorizontalAlignment="Right">
-                <Button Margin="0 0 5 0" Command="{Binding SaveCommand}">Finish</Button>
+                <Button Margin="0 0 5 0" Command="{Binding SaveCommand}">Next</Button>
             </StackPanel>
         </Grid>
 

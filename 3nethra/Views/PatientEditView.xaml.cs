@@ -1,6 +1,4 @@
-﻿using Artelus.ViewModel;
-using FirstFloor.ModernUI.Windows.Controls;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,14 +16,13 @@ using System.Windows.Shapes;
 namespace Artelus.Views
 {
     /// <summary>
-    /// Interaction logic for PatientProfileView.xaml
+    /// Interaction logic for PatientEditView.xaml
     /// </summary>
-    public partial class PatientProfileView : UserControl
+    public partial class PatientEditView : UserControl
     {
-        public PatientProfileView()
+        public PatientEditView()
         {
             InitializeComponent();
         }
-
     }
 }

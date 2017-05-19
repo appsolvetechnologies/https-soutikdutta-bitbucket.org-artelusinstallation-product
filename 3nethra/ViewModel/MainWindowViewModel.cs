@@ -11,7 +11,7 @@ namespace Artelus
 {
     public class MainWindowViewModel : BaseViewModel
     {
-        private PatientViewModel patientViewModel = new PatientViewModel();
+        //private PatientViewModel patientViewModel = new PatientViewModel();
         private LoginViewModel loginViewModel = new LoginViewModel();
         private BaseViewModel _CurrentViewModel;
         private string alert;
@@ -72,7 +72,7 @@ namespace Artelus
             switch (destination)
             {
                 case "Patient":
-                    CurrentViewModel = patientViewModel;
+                    //CurrentViewModel = patientViewModel;
                     break;
                 case "Login":
                 default:
