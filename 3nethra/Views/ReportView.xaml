@@ -11,160 +11,214 @@
     <UserControl.Resources>
         <converters:DateTimeConverter x:Key="XAMLDateTimeConverter"/>
     </UserControl.Resources>
-     <Grid>
+
+    <Grid Margin="20">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="Auto"></RowDefinition>
-            <RowDefinition Height="Auto"></RowDefinition>
-            <RowDefinition Height="Auto"></RowDefinition>
-                <RowDefinition Height="*"></RowDefinition>
-                <RowDefinition Height="Auto"></RowDefinition>
         </Grid.RowDefinitions>
         <DockPanel>
-            <TextBlock DockPanel.Dock="Left" FontSize="18" FontWeight="DemiBold" Text="Report Summary" Style="{StaticResource Heading1}" Margin="0,0,0,8" />
+            <TextBlock DockPanel.Dock="Left" FontSize="18" FontWeight="DemiBold" Text="Report Summary" Style="{StaticResource Heading1}" Margin="3,0,0,8" />
             <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" HorizontalAlignment="Right">
                 <Button Background="#f05f40" Foreground="White" Height="30px" Margin="0,0,5,0"  FontWeight="DemiBold" Command="{Binding FtpTransferCommand}">Upload</Button>
                 <Button Background="#f05f40" Foreground="White" Height="30px" Margin="0,0,5,0"  FontWeight="DemiBold" >Print</Button>
                 <Button Background="#f05f40" Foreground="White" Height="30px"  Margin="0,0,5,0"  FontWeight="DemiBold">View PDF</Button>
-                <Button Background="#f05f40" Foreground="White" Height="30px" Margin="0,0,5,0"  FontWeight="DemiBold" Command="{Binding SendMailCommand}">Send Mail</Button>
+                <Button Background="#f05f40" Foreground="White" Height="30px" Margin="0,0,5,0"  FontWeight="DemiBold" Command="{Binding FtpTransferCommand}">Send Mail</Button>
                 <Button Background="#f05f40" Foreground="White" Height="30px" HorizontalAlignment="Right" Margin="0,0,5,0" FontWeight="DemiBold" Command="{Binding TakeReportCommand}">Retake Image</Button>
                 <Button Background="#f05f40" Foreground="White" Height="30px" HorizontalAlignment="Right" Margin="0,0,5,0" FontWeight="DemiBold" Command="{Binding PreviousReportCommand}">View Previous Report</Button>
             </StackPanel>
         </DockPanel>
-            <Label BorderBrush="Gray" Grid.Row="1" FontSize="16" FontWeight="Bold" BorderThickness="0 0 0 2" Margin="0 0 0 8">Patient Information</Label>
-            <Grid Grid.Row="2">
+
+        <Grid Grid.Row="1" Margin="0 10 0 0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Label  FontSize="16" FontWeight="Bold" BorderThickness="0 0 0 2" Margin="3 0 0 8">Patient Information</Label>
+                <StackPanel Grid.Column="1" HorizontalAlignment="Right" Orientation="Horizontal">
+                    <!--<Button Background="#f05f40" Foreground="White"  HorizontalAlignment="Right" Command="{Binding TakeReportCommand}">Retake Image</Button>-->
+                    <!--<Button Background="#f05f40" Foreground="White" HorizontalAlignment="Right" Command="{Binding PreviousReportCommand}">View Previous Report</Button>-->
+                </StackPanel>
+            </Grid>
+
+            <Grid Grid.Row="1">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"></ColumnDefinition>
                     <ColumnDefinition Width="*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
-                <StackPanel Margin="0 5 0 5">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"></ColumnDefinition>
-                            <ColumnDefinition Width="*"></ColumnDefinition>
-                        </Grid.ColumnDefinitions>
-                        <TextBlock Text="Patient ID:" FontSize="15" FontWeight="Bold"/>
-                        <TextBlock Grid.Column="1" FontSize="15" FontWeight="Bold" Text="{Binding PatientEntity.Id}"/>
-                    </Grid>
-                    <Grid Margin=" 0 5 0 5">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"></ColumnDefinition>
-                            <ColumnDefinition Width="*"></ColumnDefinition>
-                        </Grid.ColumnDefinitions>
-                        <TextBlock FontSize="15" FontWeight="Bold" Text="Age"/>
-                        <TextBlock FontSize="15" FontWeight="Bold" Grid.Column="1" Text="{Binding PatientEntity.Age}"/>
-                    </Grid>
-                    <Grid Margin="0 5 0 5">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"></ColumnDefinition>
-                            <ColumnDefinition Width="*"></ColumnDefinition>
-                        </Grid.ColumnDefinitions>
-                        <TextBlock FontSize="15" FontWeight="Bold" Text="Have Diabetes"/>
-                        <TextBlock FontSize="15" FontWeight="Bold" Grid.Column="1" Text="{Binding PatientEntity.Diabetic}"/>
-                    </Grid>
-                    <Grid Margin="0 5 0 5">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"></ColumnDefinition>
-                            <ColumnDefinition Width="*"></ColumnDefinition>
-                        </Grid.ColumnDefinitions>
-                        <TextBlock FontSize="15" FontWeight="Bold" Text="Have Hypertension"/>
-                        <TextBlock FontSize="15" FontWeight="Bold" Grid.Column="1" Text="{Binding PatientEntity.Hypertension}"/>
-                    </Grid>
+                <StackPanel Margin=" 3 0 0 0">
+                    <Border Margin="0 0 0 10" Visibility="Visible" BorderThickness="1" CornerRadius="2" BorderBrush="Black">
+                        <StackPanel Margin="5">
+                            <TextBlock  HorizontalAlignment="Center" Text="Personal Profile" FontSize="16" FontWeight="Bold" />
+                            <Separator Height="6"/>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock FontSize="14" FontWeight="Bold" Text="Patient Name:"/>
+                                <TextBlock FontSize="14" FontWeight="Bold" Grid.Column="1" Text="{Binding PatientEntity.Nm}"/>
+
+                            </Grid>
+                            <Separator Height=".5"/>
+                            <Grid Margin=" 0 5 0 5">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="Patient ID:" FontSize="14" FontWeight="Bold"/>
+                                <TextBlock Grid.Column="1" FontSize="14" FontWeight="Bold" Text="{Binding PatientEntity.Id}"/>
+                            </Grid>
+                            <Separator Height=".5"/>
+                            <Grid Margin="0 5 0 5">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock FontSize="14" FontWeight="Bold" Text="Age:"/>
+                                <TextBlock FontSize="14" FontWeight="Bold" Grid.Column="1" Text="{Binding PatientEntity.Age}"/>
+                            </Grid>
+                            <Separator Height=".5"/>
+                            <Grid Margin="0 5 0 5">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock FontSize="14" FontWeight="Bold" Text="Gender:"/>
+                                <TextBlock FontSize="14" FontWeight="Bold" Grid.Column="1" Text="{Binding PatientEntity.Sex}"/>
+
+                            </Grid>
+                        </StackPanel>
+                    </Border>
                 </StackPanel>
-                <StackPanel Grid.Column="1">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"></ColumnDefinition>
-                            <ColumnDefinition Width="*"></ColumnDefinition>
-                        </Grid.ColumnDefinitions>
-                        <TextBlock FontSize="15" FontWeight="Bold" Text="Patient Name"/>
-                        <TextBlock FontSize="15" FontWeight="Bold" Grid.Column="1" Text="{Binding PatientEntity.Nm}"/>
-                    </Grid>
-                    <Grid Margin="0 5 0 5">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"></ColumnDefinition>
-                            <ColumnDefinition Width="*"></ColumnDefinition>
-                        </Grid.ColumnDefinitions>
-                        <TextBlock FontSize="15" FontWeight="Bold" Text="Gender"/>
-                        <TextBlock FontSize="15" FontWeight="Bold" Grid.Column="1" Text="{Binding PatientEntity.Sex}"/>
-                    </Grid>
-                    <Grid Margin="0 5 0 5">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"></ColumnDefinition>
-                            <ColumnDefinition Width="*"></ColumnDefinition>
-                        </Grid.ColumnDefinitions>
-                        <TextBlock FontSize="15" FontWeight="Bold" Text="Allergy To Drugs"/>
-                        <TextBlock FontSize="15" FontWeight="Bold" Grid.Column="1" Text="{Binding PatientEntity.AllergyDrugs}"/>
-                    </Grid>
-                    <Grid Margin="0 5 0 5">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"></ColumnDefinition>
-                            <ColumnDefinition Width="*"></ColumnDefinition>
-                        </Grid.ColumnDefinitions>
-                        <TextBlock FontSize="15" FontWeight="Bold" Text="Have Cataract"/>
-                        <TextBlock FontSize="15" FontWeight="Bold" Grid.Column="1" Text="{Binding PatientEntity.Cataract}"/>
-                    </Grid>
+                <StackPanel Grid.Column="1" Margin="5 0 0 0">
+
+                    <Border Margin="0 0 0 10" Visibility="Visible" BorderThickness="1" CornerRadius="2" BorderBrush="Black">
+                        <StackPanel Margin="5">
+                            <TextBlock  HorizontalAlignment="Center" Text="Medical Profile" FontSize="16" FontWeight="Bold" />
+                            <Separator Height="6"/>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock FontSize="14" FontWeight="Bold" Text="Diabetes:"/>
+                                <TextBlock FontSize="14" FontWeight="Bold" Grid.Column="1" Text="{Binding PatientEntity.Diabetic}"/>
+                            </Grid>
+                            <Separator Height=".5"/>
+                            <Grid Margin="0 5 0 5">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock FontSize="14" FontWeight="Bold" Text="Hypertension:"/>
+                                <TextBlock FontSize="14" FontWeight="Bold" Grid.Column="1" Text="{Binding PatientEntity.Hypertension}"/>
+                            </Grid>
+                            <Separator Height=".5"/>
+                            <Grid Margin="0 5 0 5">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock FontSize="14" FontWeight="Bold" Text="Allergy To Drugs:"/>
+                                <TextBlock FontSize="14" FontWeight="Bold" Grid.Column="1" Text="{Binding PatientEntity.AllergyDrugs}"/>
+                            </Grid>
+                            <Separator Height=".5"/>
+                            <Grid Margin="0 5 0 5">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock FontSize="14" FontWeight="Bold" Text="Cataract:"/>
+                                <TextBlock FontSize="14" FontWeight="Bold" Grid.Column="1" Text="{Binding PatientEntity.Cataract}"/>
+                            </Grid>
+
+
+                        </StackPanel>
+                    </Border>
                 </StackPanel>
             </Grid>
+            <Grid Grid.Row="2" Margin="0,10,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width=".8*">
+
+                    </ColumnDefinition>
+
+                </Grid.ColumnDefinitions>
+
+                <Button  Margin="5 0 0 0"  Foreground="#f05f40" FontSize="18" FontWeight="Bold"  Height="45px"  Command="{Binding CompleteCommand}">EXAMINATION RESULT: "Diabetic Retinopathy Suspected" - Doctor review recommended.       * KINDLY CORRELATE CLINICALLY*</Button>
+            </Grid>
+
+            <!--<Label    FontSize="16" FontWeight="Bold"   HorizontalAlignment="Center" Margin="0 0 0 8">Examination Result:                 * Kindly correlate clinically</Label>-->
+
+
             <Grid Grid.Row="3" Margin="0,10,0,0">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width=".8*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
-                <Button   Foreground="#f05f40" FontSize="18" FontWeight="Bold"  Height="45px"  Command="{Binding CompleteCommand}">EXAMINATION RESULT: No Abnormlities detected                    * KINDLY CORRELATE CLINICALLY</Button>
-            </Grid>
-            <ScrollViewer Grid.Row="4" Margin="0,10,0,0">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"></ColumnDefinition>
-                        <ColumnDefinition Width="*"></ColumnDefinition>
-                    </Grid.ColumnDefinitions>
-                    <StackPanel>
-                        <TextBlock  HorizontalAlignment="Center" Text="OD:" Margin="10 0 0 0" FontWeight="Bold"></TextBlock>
-                        <ItemsControl Margin="0,10,0,0" Grid.Row="1" ItemsSource="{Binding ODReportDatas}">
-                            <ItemsControl.ItemsPanel>
-                                <ItemsPanelTemplate>
-                                    <StackPanel></StackPanel>
-                                </ItemsPanelTemplate>
-                            </ItemsControl.ItemsPanel>
-                            <ItemsControl.ItemTemplate>
-                                <DataTemplate>
-                                    <StackPanel Orientation="Vertical" HorizontalAlignment="Center">
-                                    <TextBlock  FontSize="16" HorizontalAlignment="Center" Margin="0 0 0 5" FontWeight="Bold" Text="{Binding Prediction}"/>
-                                    <Image Source="{Binding ImageUrl}" Height="120" />
-                                    <TextBlock  FontSize="16" HorizontalAlignment="Center" Margin="0 5 0 0" FontWeight="Bold" Text="{Binding FileName}"/>
-                                    </StackPanel>
-                                </DataTemplate>
-                            </ItemsControl.ItemTemplate>
-                        </ItemsControl>
 
-                    </StackPanel>
-                    <StackPanel  Grid.Column="1">
-                        <TextBlock HorizontalAlignment="Center" Text="OS:" Margin="10 0 0 0" FontWeight="Bold"></TextBlock>
-                        <ItemsControl Margin="0,10,0,0" Grid.Row="1" ItemsSource="{Binding OSReportDatas}">
-                            <ItemsControl.ItemsPanel>
-                                <ItemsPanelTemplate>
-                                    <StackPanel></StackPanel>
-                                </ItemsPanelTemplate>
-                            </ItemsControl.ItemsPanel>
-                            <ItemsControl.ItemTemplate>
-                                <DataTemplate>
-                                    <StackPanel Orientation="Vertical" HorizontalAlignment="Center">
-                                    <TextBlock  FontSize="16" Margin="0 0 0 5" FontWeight="Bold" HorizontalAlignment="Center" Text="{Binding Prediction}"/>
-                                        <Image Source="{Binding ImageUrl}" Height="120" />
-                                    <TextBlock  FontSize="16" Margin="0 5 0 0" FontWeight="Bold" Text="{Binding FileName}"/>
-                                </StackPanel>
-                                </DataTemplate>
-                            </ItemsControl.ItemTemplate>
-                        </ItemsControl>
-                    </StackPanel>
-                </Grid>
-            </ScrollViewer>
-            <DockPanel Grid.Row="5">
-                <Button DockPanel.Dock="Left" HorizontalAlignment="Left" Background="#f05f40" Foreground="White" Command="{Binding BackCommand}" Height="40px">Back</Button>
-                <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" HorizontalAlignment="Right">
-                    <Button Background="#f05f40" Foreground="White" Height="40px" HorizontalAlignment="Right" VerticalAlignment="Bottom" FontWeight="DemiBold"    Command="{Binding SaveNextCommand}">Save and Next</Button>
-                    <Button Background="#f05f40" Foreground="White" Height="40px" HorizontalAlignment="Right" VerticalAlignment="Bottom" FontWeight="DemiBold"    Command="{Binding SaveExitCommand}">Save and Exit</Button>
+                <StackPanel>
+                    <TextBlock  HorizontalAlignment="Center" Text="OD:" Margin="10 0 0 0" FontWeight="Bold"></TextBlock>
+                    <DataGrid IsReadOnly="True" Margin="0,10,0,0" Grid.Row="1" Name="dgODReports" ItemsSource="{Binding ODReportDatas}" AutoGenerateColumns="False">
+                        <DataGrid.Columns>
+                            <DataGridTemplateColumn>
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Vertical" HorizontalAlignment="Center">
+                                            <TextBlock  FontSize="16" Margin="0 5 0 0" FontWeight="Bold" Text="{Binding FileName}"/>
+                                            <Image Source="{Binding ImageUrl}" Height="120" />
+                                            <TextBlock  FontSize="16" Margin="0 0 0 5" FontWeight="Bold" Text="{Binding Prediction}"/>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
                 </StackPanel>
-            </DockPanel>
+
+
+                <StackPanel  Grid.Column="1">
+                    <TextBlock HorizontalAlignment="Center" Text="OS:" Margin="10 0 0 0" FontWeight="Bold"></TextBlock>
+                    <DataGrid IsReadOnly="True" Margin="0,10,0,0" Grid.Row="1" Name="dgOSReports" ItemsSource="{Binding OSReportDatas}" AutoGenerateColumns="False">
+                        <DataGrid.Columns>
+                            <DataGridTemplateColumn>
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Vertical" HorizontalAlignment="Center">
+                                            <TextBlock FontSize="16" FontWeight="Bold" Margin="0 5 0 0" Text="{Binding FileName}"/>
+                                            <Image Source="{Binding ImageUrl}" Height="120" />
+                                            <TextBlock FontSize="16" FontWeight="Bold" Margin="0 0 0 5" Text="{Binding Prediction}"/>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    
+                </StackPanel>
+
+               
+
+            </Grid>
+            <StackPanel Grid.Row="4" Margin="0 10 0 0 ">
+                <!--<Label HorizontalAlignment="Center" FontWeight="Bold" FontSize="16">* Kindly correlate clinically</Label>-->
+            </StackPanel>
+            <StackPanel Grid.Row="5" Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button Background="#f05f40" Foreground="White" Height="40px" HorizontalAlignment="Right" VerticalAlignment="Bottom" FontWeight="DemiBold"    Command="{Binding SaveNextCommand}">Save and Next</Button>
+                <Button Background="#f05f40" Foreground="White" Height="40px" HorizontalAlignment="Right" VerticalAlignment="Bottom" FontWeight="DemiBold"    Command="{Binding SaveExitCommand}">Save and Exit</Button>
+            </StackPanel>
+
         </Grid>
+    </Grid>
+
 </UserControl>

@@ -17,16 +17,97 @@
             <RowDefinition Height="Auto"></RowDefinition>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
+            <ColumnDefinition Width=".6*"></ColumnDefinition>
             <ColumnDefinition Width="*"></ColumnDefinition>
-            <ColumnDefinition Width="2*"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        <TextBlock Margin="0 0 0 10" Grid.ColumnSpan="2" Text="Report History" Style="{StaticResource Heading1}" />
+        <TextBlock Margin="0 0 0 10" Grid.ColumnSpan="3" Text="Report History" FontSize="16" FontWeight="Bold" />
         <Grid Grid.Row="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"></RowDefinition>
                 <RowDefinition Height="Auto"></RowDefinition>
             </Grid.RowDefinitions>
-            <StackPanel Margin="0 0 0 10">
+            <StackPanel >
+                <Border Margin="0 0 0 10" Visibility="Visible" BorderThickness="1" CornerRadius="2" BorderBrush="Black">
+
+                    <StackPanel Margin="5">
+                        <TextBlock Text="Personal Profile" FontSize="18" FontWeight="Bold" />
+                        <Separator Height="6"/>
+                        <Grid Margin="0 0 0 10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="Patient ID:" FontWeight="Bold" Margin="0,0,15,0" />
+                            <TextBlock Grid.Column="1" FontSize="14" FontWeight="SemiBold" Text="{Binding PatientEntity.Id}" />
+                        </Grid>
+                        <Separator Height=".7"/>
+                        <Grid Margin="0 0 0 10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="Name:" FontWeight="Bold" Margin="0,0,15,0" />
+                            <TextBlock Grid.Column="1" FontSize="14" FontWeight="SemiBold" Text="{Binding PatientEntity.Nm}" />
+                        </Grid>
+                        <Separator Height=".7"/>
+                        <Grid Margin="0 0 0 10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="{Binding PatientEntity.OtherOption,UpdateSourceTrigger=PropertyChanged}" FontWeight="Bold" Margin="0,0,15,0" />
+                            <TextBlock Grid.Column="1" FontSize="14" FontWeight="SemiBold" Text="{Binding PatientEntity.OthersID}" />
+                        </Grid>
+                        <Separator Height=".7"/>
+                        <Grid Margin="0 0 0 10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="Age:" FontWeight="Bold" Margin="0,0,15,0" />
+                            <TextBlock Grid.Column="1" FontSize="14" FontWeight="SemiBold" Text="{Binding PatientEntity.Age}" />
+                        </Grid>
+                        <Separator Height=".7"/>
+                        <Grid Margin="0 0 0 10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="Phone:" FontWeight="Bold" Margin="0,0,15,0" />
+                            <TextBlock Grid.Column="1" FontSize="14" FontWeight="SemiBold" Text="{Binding PatientEntity.Mob}" />
+                        </Grid>
+                        <Separator Height=".7"/>
+                        <Grid Margin="0 0 0 10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="Gender:" FontWeight="Bold" Margin="0,0,15,0" />
+                            <TextBlock Grid.Column="1" FontSize="14" FontWeight="SemiBold" Text="{Binding PatientEntity.Sex}" />
+                        </Grid>
+                        <Separator Height=".7"/>
+                        <Grid Margin="0 0 0 10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="Email ID:" FontWeight="Bold" Margin="0,0,15,0" />
+                            <TextBlock Grid.Column="1" FontSize="14" FontWeight="SemiBold" Text="{Binding PatientEntity.Email}" />
+                        </Grid>
+                        <Separator Height=".7"/>
+                        <Grid Margin="0 0 0 10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="Marital Status:" FontWeight="Bold" Margin="0,0,15,0" />
+                            <TextBlock Grid.Column="1" FontSize="14" FontWeight="SemiBold" Text="{Binding PatientEntity.MaritalStatus}" />
+                        </Grid>
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+            <!--<StackPanel Margin="0 0 0 10">
                 <StackPanel Orientation="Horizontal" Margin="0 0 0 10">
                     <TextBlock Text="Profile" FontSize="16" FontWeight="Bold" Margin="0,0,15,0" />
                 </StackPanel>
@@ -94,220 +175,85 @@
                     <TextBlock Text="Marital Status:" FontWeight="Bold" Margin="0,0,15,0" />
                     <TextBlock Grid.Column="1" FontSize="14" FontWeight="SemiBold" Text="{Binding PatientEntity.MaritalStatus}" />
                 </Grid>
+            </StackPanel>-->
+            <StackPanel Grid.Row="1">
+                <Border Margin="0 0 0 10" Visibility="Visible" BorderThickness="1" CornerRadius="2" BorderBrush="Black">
+                    <StackPanel Margin="5">
+                        <TextBlock Text="Medical Profile" FontSize="20" FontWeight="Bold" />
+                        <Separator Height="6"/>
+                        <Grid Margin="0 0 0 10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="Hypertension:" FontWeight="Bold" Margin="0,0,15,0" />
+                            <TextBlock Grid.Column="1" FontSize="14" FontWeight="SemiBold" Text="{Binding PatientEntity.Hypertension}" />
+                        </Grid>
+                        <Separator Height=".7"/>
+                        <Grid Margin="0 0 0 10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="Diabetic:" FontWeight="Bold" Margin="0,0,15,0" />
+                            <TextBlock Grid.Column="1" FontSize="14" FontWeight="SemiBold" Text="{Binding PatientEntity.Diabetic}" />
+                        </Grid>
+                        <Separator Height=".7"/>
+                        <Grid Margin="0 0 0 10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="Cataract:" FontWeight="Bold" Margin="0,0,15,0" />
+                            <TextBlock Grid.Column="1" FontSize="14" FontWeight="SemiBold" Text="{Binding PatientEntity.Cataract}" />
+                        </Grid>
+                        <Separator Height=".7"/>
+                        <Grid Margin="0 0 0 10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="Laser Treatment:" FontWeight="Bold" Margin="0,0,15,0" />
+                            <TextBlock Grid.Column="1" FontSize="14" FontWeight="SemiBold" Text="{Binding PatientEntity.LaserTreatment}" />
+                        </Grid>
+                        <Separator Height=".7"/>
+                        <Grid Margin="0 0 0 10" >
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="Allergy to Drugs:" FontWeight="Bold" Margin="0,0,15,0" />
+                            <TextBlock Grid.Column="1" FontSize="14" FontWeight="SemiBold" Text="{Binding PatientEntity.AllergyDrugs}" />
+                        </Grid>
+                        <Separator Height=".7"/>
+                        <Grid Margin="0 0 0 10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="Current Medication:" FontWeight="Bold" Margin="0,0,15,0" />
+                            <TextBlock Grid.Column="1" FontSize="14" FontWeight="SemiBold" Text="{Binding PatientEntity.CurrentMedications}" />
+                        </Grid>
+                        <Separator Height=".7"/>
+                        <Grid Margin="0 0 0 10" Visibility="{Binding ShowAllergyOption,UpdateSourceTrigger=PropertyChanged, Converter={converters:BoolToVisibilityConverter},ConverterParameter='Collapsed'}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="Additional Information:" FontWeight="Bold" Margin="0,0,15,0" />
+                            <TextBlock Grid.Column="1" FontSize="14" FontWeight="SemiBold" Text="{Binding PatientEntity.Info}" />
+                        </Grid>
+                    </StackPanel>
+                </Border>
             </StackPanel>
 
-            <StackPanel Margin="0 10 0 0" Grid.Row="1">
-                <StackPanel Orientation="Horizontal" Margin="0 0 0 10">
-                    <TextBlock Text="Health Information" FontSize="16" FontWeight="Bold" Margin="0,0,15,0" />
-                </StackPanel>
-                <Grid Margin="0 0 0 10">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <TextBlock Text="Hypertension:" FontWeight="Bold" Margin="0,0,15,0" />
-                    <TextBlock Grid.Column="1" FontSize="14" FontWeight="SemiBold" Text="{Binding PatientEntity.Hypertension}" />
-                </Grid>
-                <Grid Margin="0 0 0 10">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <TextBlock Text="Diabetic:" FontWeight="Bold" Margin="0,0,15,0" />
-                    <TextBlock Grid.Column="1" FontSize="14" FontWeight="SemiBold" Text="{Binding PatientEntity.Diabetic}" />
-                </Grid>
-                <Grid Margin="0 0 0 10">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <TextBlock Text="Cataract:" FontWeight="Bold" Margin="0,0,15,0" />
-                    <TextBlock Grid.Column="1" FontSize="14" FontWeight="SemiBold" Text="{Binding PatientEntity.Cataract}" />
-                </Grid>
-                <Grid Margin="0 0 0 10">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <TextBlock Text="Laser Treatment:" FontWeight="Bold" Margin="0,0,15,0" />
-                    <TextBlock Grid.Column="1" FontSize="14" FontWeight="SemiBold" Text="{Binding PatientEntity.LaserTreatment}" />
-                </Grid>
-                <Grid Margin="0 0 0 10" Visibility="{Binding ShowAllergyOption,UpdateSourceTrigger=PropertyChanged, Converter={converters:BoolToOppVisibilityConverter},ConverterParameter='Collapsed'}">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <TextBlock Text="Allergy to Drugs:" FontWeight="Bold" Margin="0,0,15,0" />
-                    <TextBlock Grid.Column="1" FontSize="14" FontWeight="SemiBold" Text="{Binding PatientEntity.AllergyDrugs}" />
-                </Grid>
-
-                <Grid Margin="0 0 0 10" Visibility="{Binding ShowAllergyOption,UpdateSourceTrigger=PropertyChanged, Converter={converters:BoolToVisibilityConverter},ConverterParameter='Collapsed'}">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <TextBlock Text="Allergy to Drugs:" FontWeight="Bold" Margin="0,0,15,0" />
-                    <TextBlock Grid.Column="1" FontSize="14" FontWeight="SemiBold" Text="{Binding PatientEntity.AllergyDrugsDtl}" />
-                </Grid>
-                <Grid Margin="0 0 0 10">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <TextBlock Text="Current Medication:" FontWeight="Bold" Margin="0,0,15,0" />
-                    <TextBlock Grid.Column="1" FontSize="14" FontWeight="SemiBold" Text="{Binding PatientEntity.CurrentMedications}" />
-                </Grid>
-            </StackPanel>
         </Grid>
-       
 
-        <!--<Grid Grid.Row="1">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"></ColumnDefinition>
-                <ColumnDefinition Width="*"></ColumnDefinition>
-            </Grid.ColumnDefinitions>
-            <StackPanel>
-                <Grid Margin="0 0 0 10">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <TextBlock Text="Patient ID:" FontWeight="Bold" Margin="0,0,15,0" />
-                    <TextBlock Grid.Column="1" FontSize="14" FontWeight="SemiBold" Text="{Binding PatientEntity.Id}" />
-                </Grid>
-                <Grid Margin="0 0 0 10">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <TextBlock Text="Name:" FontWeight="Bold" Margin="0,0,15,0" />
-                    <TextBlock Grid.Column="1" FontSize="14" FontWeight="SemiBold" Text="{Binding PatientEntity.Nm}" />
-                </Grid>
-                <Grid Margin="0 0 0 10">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <TextBlock Text="{Binding PatientEntity.OtherOption,UpdateSourceTrigger=PropertyChanged}" FontWeight="Bold" Margin="0,0,15,0" />
-                    <TextBlock Grid.Column="1" FontSize="14" FontWeight="SemiBold" Text="{Binding PatientEntity.OthersID}" />
-                </Grid>
-                <Grid Margin="0 0 0 10">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <TextBlock Text="Age:" FontWeight="Bold" Margin="0,0,15,0" />
-                    <TextBlock Grid.Column="1" FontSize="14" FontWeight="SemiBold" Text="{Binding PatientEntity.Age}" />
-                </Grid>
-                <Grid Margin="0 0 0 10">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <TextBlock Text="Phone:" FontWeight="Bold" Margin="0,0,15,0" />
-                    <TextBlock Grid.Column="1" FontSize="14" FontWeight="SemiBold" Text="{Binding PatientEntity.mob}" />
-                </Grid>
-                <Grid Margin="0 0 0 10">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <TextBlock Text="Gender:" FontWeight="Bold" Margin="0,0,15,0" />
-                    <TextBlock Grid.Column="1" FontSize="14" FontWeight="SemiBold" Text="{Binding PatientEntity.Sex}" />
-                </Grid>
-                <Grid Margin="0 0 0 10">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <TextBlock Text="Email ID:" FontWeight="Bold" Margin="0,0,15,0" />
-                    <TextBlock Grid.Column="1" FontSize="14" FontWeight="SemiBold" Text="{Binding PatientEntity.Email}" />
-                </Grid>
-                <Grid Margin="0 0 0 10">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <TextBlock Text="Marital Status:" FontWeight="Bold" Margin="0,0,15,0" />
-                    <TextBlock Grid.Column="1" FontSize="14" FontWeight="SemiBold" Text="{Binding PatientEntity.MaritalStatus}" />
-                </Grid>              
-            </StackPanel>
-            <StackPanel Grid.Column="1">
-                <Grid Margin="0 0 0 10">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <TextBlock Text="Hypertension:" FontWeight="Bold" Margin="0,0,15,0" />
-                    <TextBlock Grid.Column="1" FontSize="14" FontWeight="SemiBold" Text="{Binding PatientEntity.Hypertension}" />
-                </Grid>
-                <Grid Margin="0 0 0 10">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <TextBlock Text="Diabetic:" FontWeight="Bold" Margin="0,0,15,0" />
-                    <TextBlock Grid.Column="1" FontSize="14" FontWeight="SemiBold" Text="{Binding PatientEntity.Diabetic}" />
-                </Grid>
-                <Grid Margin="0 0 0 10">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <TextBlock Text="Cataract:" FontWeight="Bold" Margin="0,0,15,0" />
-                    <TextBlock Grid.Column="1" FontSize="14" FontWeight="SemiBold" Text="{Binding PatientEntity.Cataract}" />
-                </Grid>
-                <Grid Margin="0 0 0 10">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <TextBlock Text="Laser Treatment:" FontWeight="Bold" Margin="0,0,15,0" />
-                    <TextBlock Grid.Column="1" FontSize="14" FontWeight="SemiBold" Text="{Binding PatientEntity.LaserTreatment}" />
-                </Grid>
-                <Grid Margin="0 0 0 10" Visibility="{Binding ShowAllergyOption,UpdateSourceTrigger=PropertyChanged, Converter={converters:BoolToOppVisibilityConverter},ConverterParameter='Collapsed'}">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <TextBlock Text="Allergy to Drugs:" FontWeight="Bold" Margin="0,0,15,0" />
-                    <TextBlock Grid.Column="1" FontSize="14" FontWeight="SemiBold" Text="{Binding PatientEntity.AllergyDrugs}" />
-                </Grid>
 
-                <Grid Margin="0 0 0 10" Visibility="{Binding ShowAllergyOption,UpdateSourceTrigger=PropertyChanged, Converter={converters:BoolToVisibilityConverter},ConverterParameter='Collapsed'}">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <TextBlock Text="Allergy to Drugs:" FontWeight="Bold" Margin="0,0,15,0" />
-                    <TextBlock Grid.Column="1" FontSize="14" FontWeight="SemiBold" Text="{Binding PatientEntity.AllergyDrugsDtl}" />
-                </Grid>
-                <Grid Margin="0 0 0 10">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <TextBlock Text="Current Medication:" FontWeight="Bold" Margin="0,0,15,0" />
-                    <TextBlock Grid.Column="1" FontSize="14" FontWeight="SemiBold" Text="{Binding PatientEntity.CurrentMedications}" />
-                </Grid>
-            </StackPanel>
-        </Grid>-->
-     
-        <Grid Grid.Column="1" Grid.Row="1">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-            </Grid.RowDefinitions>
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"></ColumnDefinition>
-                    <ColumnDefinition Width="*"></ColumnDefinition>
-                </Grid.ColumnDefinitions>
-                <TextBlock Text="Patient Report" Style="{StaticResource Heading2}" Margin="0,0,0,8" />
 
-            </Grid>
-            <DataGrid IsReadOnly="True" Margin="0,10,0,0" Grid.Row="1" Name="dgPatientReports" ItemsSource="{Binding PatientReports}" AutoGenerateColumns="False">
+        <StackPanel Margin="5 " Grid.Column="1" Grid.Row="1">
+            <TextBlock Text="Patient Report" Style="{StaticResource Heading2}" Margin="5,0,0,8" />
+            <DataGrid IsReadOnly="True" Margin="5,10,0,0"  Name="dgPatientReports" ItemsSource="{Binding PatientReports}" AutoGenerateColumns="False">
                 <DataGrid.Columns>
                     <mui:DataGridTextColumn Header="#ID"  Binding="{Binding Id}"/>
                     <mui:DataGridTextColumn Header="Location"  Binding="{Binding Location}"/>
@@ -321,6 +267,7 @@
                     </DataGridTemplateColumn>
                 </DataGrid.Columns>
             </DataGrid>
-        </Grid>
+        </StackPanel>
+
     </Grid>
 </UserControl>
