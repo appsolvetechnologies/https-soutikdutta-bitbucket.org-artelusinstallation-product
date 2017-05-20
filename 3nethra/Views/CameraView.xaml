@@ -27,19 +27,19 @@
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             <DockPanel>
-                <StackPanel DockPanel.Dock="Right" >
-                <StackPanel  Orientation="Horizontal" Margin="0 0 100 0">
-                    <RadioButton GroupName="CamMode" Content="Posterior" FontSize="18" FontWeight="Bold" Margin="8,0,0,0" IsChecked="{Binding CamMode,UpdateSourceTrigger=PropertyChanged, Converter={StaticResource RadioButtonCheckedConverter}, ConverterParameter='POSTERIOR_MODE'}" />
-                    <RadioButton GroupName="CamMode" Content="Anterior" FontSize="18" FontWeight="Bold" Margin="8,0,0,0" IsChecked="{Binding CamMode,UpdateSourceTrigger=PropertyChanged, Converter={StaticResource RadioButtonCheckedConverter}, ConverterParameter='ANTERIOR_MODE'}" />
-                </StackPanel>
+                <StackPanel DockPanel.Dock="Right">
+                    <StackPanel  Orientation="Horizontal" Margin="0 0 100 0">
+                        <RadioButton GroupName="Eye" FontSize="18" FontWeight="Bold" Content="Right Eye" Margin="8,0,0,0" IsChecked="{Binding CameraEntity.Eye, Converter={StaticResource RadioButtonCheckedConverter}, ConverterParameter='OD'}" />
+                        <RadioButton GroupName="Eye" FontSize="18" FontWeight="Bold" Content="Left Eye" Margin="8,0,0,0" IsChecked="{Binding CameraEntity.Eye, Converter={StaticResource RadioButtonCheckedConverter}, ConverterParameter='OS'}" />
+                        <RadioButton GroupName="CamMode" Content="Posterior" FontSize="18" FontWeight="Bold" Margin="30,0,0,0" IsChecked="{Binding CamMode,UpdateSourceTrigger=PropertyChanged, Converter={StaticResource RadioButtonCheckedConverter}, ConverterParameter='POSTERIOR_MODE'}" />
+                        <RadioButton GroupName="CamMode" Content="Anterior" FontSize="18" FontWeight="Bold" Margin="10,0,0,0" IsChecked="{Binding CamMode,UpdateSourceTrigger=PropertyChanged, Converter={StaticResource RadioButtonCheckedConverter}, ConverterParameter='ANTERIOR_MODE'}" />
+                    </StackPanel>
                 </StackPanel>
                 <StackPanel DockPanel.Dock="Left" Orientation="Horizontal" HorizontalAlignment="Left">
-                    <Button Margin="0 0 5 0" Background="#f05f40" Foreground="White"  FontWeight="DemiBold" Command="{Binding CamStartCommand}">Start</Button>
-                    <Button Margin="0 0 5 0" Background="#f05f40" Foreground="White"  FontWeight="DemiBold" Command="{Binding CamStopCommand}">Stop</Button>
-                    <Button Margin="0 0 5 0" Background="#f05f40" Foreground="White"  FontWeight="DemiBold" Command="{Binding CaptureCommand}">Capture</Button>
-                    <RadioButton GroupName="Eye" FontSize="18" FontWeight="Bold" Content="OD" Margin="8,0,0,0" IsChecked="{Binding CameraEntity.Eye, Converter={StaticResource RadioButtonCheckedConverter}, ConverterParameter='OD'}" />
-                    <RadioButton GroupName="Eye" FontSize="18" FontWeight="Bold" Content="OS" Margin="8,0,0,0" IsChecked="{Binding CameraEntity.Eye, Converter={StaticResource RadioButtonCheckedConverter}, ConverterParameter='OS'}" />
-                 </StackPanel>
+                    <Button Margin="0 0 5 0" FontSize="16" Background="#f05f40" Foreground="White"  FontWeight="DemiBold" Command="{Binding CamStartCommand}">Start</Button>
+                    <Button Margin="0 0 5 0" FontSize="16" Background="#f05f40" Foreground="White"  FontWeight="DemiBold" Command="{Binding CamStopCommand}">Stop</Button>
+                    <Button Margin="0 0 5 0" FontSize="16"  Background="#f05f40" Foreground="White"  FontWeight="DemiBold" Command="{Binding CaptureCommand}">Capture</Button>
+                </StackPanel>
             </DockPanel>
             <Grid Grid.Row="1" Background="Black" Margin="0 10 0 10">
                 <Image Margin="0 5 0 5" Source="{Binding Path=CameraEntity.LiveStream,UpdateSourceTrigger=PropertyChanged}"/>
@@ -72,7 +72,7 @@
                                     <ColumnDefinition Width="*"></ColumnDefinition>
                                 </Grid.ColumnDefinitions>
                                 <StackPanel>
-                                    <TextBlock FontWeight="Bold" Margin="0 0 0 5" Text="OD:"></TextBlock>
+                                    <TextBlock FontWeight="Bold" Margin="0 0 0 5" Text="Right:"></TextBlock>
                                     <ItemsControl ItemsSource="{Binding PatientReport.ODPosteriorReportDatas}">
                                         <ItemsControl.ItemsPanel>
                                             <ItemsPanelTemplate>
@@ -91,7 +91,7 @@
                                     </ItemsControl>
                                 </StackPanel>
                                 <StackPanel  Grid.Column="1">
-                                    <TextBlock FontWeight="Bold" Margin="0 0 0 5" Text="OS:"></TextBlock>
+                                    <TextBlock FontWeight="Bold" Margin="0 0 0 5" Text="Left:"></TextBlock>
                                     <ItemsControl ItemsSource="{Binding PatientReport.OSPosteriorReportDatas}">
                                         <ItemsControl.ItemsPanel>
                                             <ItemsPanelTemplate>
@@ -112,7 +112,7 @@
                                
                             </Grid>                            
                         </StackPanel>
-                        <StackPanel Margin="10 0 0 0" Visibility="{Binding ShowPosterior,UpdateSourceTrigger=PropertyChanged, Converter={converters:BoolToVisibilityConverter},ConverterParameter='Collapsed'}">
+                        <StackPanel Margin="0 10 0 0" Visibility="{Binding ShowPosterior,UpdateSourceTrigger=PropertyChanged, Converter={converters:BoolToVisibilityConverter},ConverterParameter='Collapsed'}">
                             <TextBlock Text="Anterior" Style="{StaticResource Heading2}" Margin="0,0,0,8" />
                             <Grid>
                                 <Grid.ColumnDefinitions>
@@ -120,26 +120,7 @@
                                     <ColumnDefinition Width="*"></ColumnDefinition>
                                 </Grid.ColumnDefinitions>
                                 <StackPanel>
-                                    <TextBlock FontWeight="Bold" Margin="0 0 0 5" Text="OS Eye:"></TextBlock>
-                                    <ItemsControl ItemsSource="{Binding PatientReport.OSAnteriorReportDatas}">
-                                        <ItemsControl.ItemsPanel>
-                                            <ItemsPanelTemplate>
-                                                <StackPanel></StackPanel>
-                                            </ItemsPanelTemplate>
-                                        </ItemsControl.ItemsPanel>
-                                        <ItemsControl.ItemTemplate>
-                                            <DataTemplate>
-                                                <StackPanel Orientation="Vertical" HorizontalAlignment="Left">
-                                                    <!--<TextBlock Margin="0 0 0 5" Text="{Binding Prediction}"/>-->
-                                                    <Image HorizontalAlignment="Left" Margin="0 0 0 10" Source="{Binding BitMapImg}" Height="100" />
-                                                    <!--<TextBlock Margin="0 5 0 0" Text="{Binding FileName}"/>-->
-                                                </StackPanel>
-                                            </DataTemplate>
-                                        </ItemsControl.ItemTemplate>
-                                    </ItemsControl>
-                                </StackPanel>
-                                <StackPanel Grid.Column="1">
-                                    <TextBlock FontWeight="Bold" Margin="0 0 0 5" Text="OD Eye:"></TextBlock>
+                                    <TextBlock FontWeight="Bold" Margin="0 0 0 5" Text="Right:"></TextBlock>
                                     <ItemsControl ItemsSource="{Binding PatientReport.ODAnteriorReportDatas}">
                                         <ItemsControl.ItemsPanel>
                                             <ItemsPanelTemplate>
@@ -157,6 +138,26 @@
                                         </ItemsControl.ItemTemplate>
                                     </ItemsControl>
                                 </StackPanel>
+                                <StackPanel Grid.Column="1">
+                                    <TextBlock FontWeight="Bold" Margin="0 0 0 5" Text="Left:"></TextBlock>
+                                    <ItemsControl ItemsSource="{Binding PatientReport.OSAnteriorReportDatas}">
+                                        <ItemsControl.ItemsPanel>
+                                            <ItemsPanelTemplate>
+                                                <StackPanel></StackPanel>
+                                            </ItemsPanelTemplate>
+                                        </ItemsControl.ItemsPanel>
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <StackPanel Orientation="Vertical" HorizontalAlignment="Left">
+                                                    <!--<TextBlock Margin="0 0 0 5" Text="{Binding Prediction}"/>-->
+                                                    <Image HorizontalAlignment="Left" Margin="0 0 0 10" Source="{Binding BitMapImg}" Height="100" />
+                                                    <!--<TextBlock Margin="0 5 0 0" Text="{Binding FileName}"/>-->
+                                                </StackPanel>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+                                </StackPanel>
+                                
                             </Grid>
                         </StackPanel>
                     </StackPanel>

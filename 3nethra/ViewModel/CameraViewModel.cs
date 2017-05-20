@@ -187,7 +187,7 @@ namespace Artelus.ViewModel
         private void Initialize()
         {
             CameraEntity = new CameraEntity();
-            CameraEntity.Eye = "OS";
+            CameraEntity.Eye = "OD";
             SaveCommand = new DelegateCommand(OnSaveCommand);
             CamStartCommand = new DelegateCommand(OnCamStartCommand);
             CamStopCommand = new DelegateCommand(OnCamStopCommand);
