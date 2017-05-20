@@ -1,4 +1,5 @@
 ﻿using Artelus.Model;
+using FirstFloor.ModernUI.Windows.Controls;
 using Helpers;
 using Newtonsoft.Json;
 using System;
@@ -59,6 +60,7 @@ namespace Artelus.ViewModel
         public DelegateCommand SaveCommand { get; set; }
         public DelegateCommand SetHansanetCommand { get; set; }
         public DelegateCommand StartPredictionCommand { get; set; }
+        public DelegateCommand BackCommand { get; set; }
 
         public PredictionViewModel(PatientEntity model)
         {
@@ -66,6 +68,7 @@ namespace Artelus.ViewModel
             SelectAllCommand = new DelegateCommand(OnSelectAllComand);
             SaveCommand = new DelegateCommand(OnSaveCommand);
             StartPredictionCommand = new DelegateCommand(OnStartPredictionCommand);
+            BackCommand = new DelegateCommand(OnBackCommand);
             PatientEntity = model;
             string rootPath = AppDomain.CurrentDomain.BaseDirectory;
             string path = Path.Combine(rootPath, "Uploads");
@@ -76,22 +79,59 @@ namespace Artelus.ViewModel
                 PatientReport.OSPosteriorReportDatas = new ObservableCollection<ReportData>();
                 PatientReport.ODPosteriorReportDatas = new ObservableCollection<ReportData>();
 
-                var osResult = new Patient().GetOSReportData(PatientReport.Id, true);
+                var osResult = new Patient().GetPosteriorOSReportData(PatientReport.Id, true);
                 foreach (var osData in osResult)
                 {
                     osData.ImageUrl = Path.Combine(path, osData.Img);
+                    osData.BitMapImg = new System.Windows.Media.Imaging.BitmapImage(new Uri(osData.ImageUrl));
                     osData.FileName = Path.GetFileName(osData.ImageUrl);
                     PatientReport.OSPosteriorReportDatas.Add(osData);
                 }
-                var odResult = new Patient().GetODReportData(PatientReport.Id, true);
+                var odResult = new Patient().GetPosteriorODReportData(PatientReport.Id, true);
                 foreach (var odData in odResult)
                 {
                     odData.ImageUrl = Path.Combine(path, odData.Img);
+                    odData.BitMapImg = new System.Windows.Media.Imaging.BitmapImage(new Uri(odData.ImageUrl));
                     odData.FileName = Path.GetFileName(odData.ImageUrl);
                     PatientReport.ODPosteriorReportDatas.Add(odData);
                 }
+
+                PatientReport.OSAnteriorReportDatas = new ObservableCollection<ReportData>();
+                PatientReport.ODAnteriorReportDatas = new ObservableCollection<ReportData>();
+
+                var osAnResult = new Patient().GetOSAnteriorReportData(PatientReport.Id, true);
+                foreach (var osData in osAnResult)
+                {
+                    osData.ImageUrl = Path.Combine(path, osData.Img);
+                    osData.BitMapImg = new System.Windows.Media.Imaging.BitmapImage(new Uri(osData.ImageUrl));
+                    osData.FileName = Path.GetFileName(osData.ImageUrl);
+                    PatientReport.OSAnteriorReportDatas.Add(osData);
+                }
+                var odAnResult = new Patient().GetODAnteriorReportData(PatientReport.Id, true);
+                foreach (var odData in odAnResult)
+                {
+                    odData.ImageUrl = Path.Combine(path, odData.Img);
+                    odData.BitMapImg = new System.Windows.Media.Imaging.BitmapImage(new Uri(odData.ImageUrl));
+                    odData.FileName = Path.GetFileName(odData.ImageUrl);
+                    PatientReport.ODAnteriorReportDatas.Add(odData);
+                }
             }
         }
+
+        private void OnBackCommand(object args)
+        {
+            PatientEntity.PreviousState = "PredictionView";
+            foreach (Window win in Application.Current.Windows)
+            {
+                if (win.GetType().Name == "MainWindow")
+                {
+                    var cameraView = (win) as Artelus.MainWindow;
+                    cameraView.ContentSource = new Uri("Views/CameraView.xaml", UriKind.Relative);
+                    cameraView.DataContext = new CameraViewModel(PatientEntity, PatientReport);
+                }
+            }
+        }
+
 
         private void OnSetHansanetCommand(object args)
         {
@@ -136,46 +176,62 @@ namespace Artelus.ViewModel
             {
                 if (item.IsChecked)
                 {
-                    string predictionResult = RestCalls.RestPredict(item.ImageUrl, prediction);
-
-                    JavaScriptSerializer serializer = new JavaScriptSerializer();
-                    PredictionEntity obj = JsonConvert.DeserializeObject<PredictionEntity>(predictionResult);
-
-                    //PredictionEntity obj = new PredictionEntity();
-                    //  obj.result = "Bad Image";
-                    if (obj.result.StartsWith("Bad"))
+                    try
                     {
-                        item.Prediction = obj.result.Replace("(0)", "").Trim();
-                        new Patient().UpdateReportData(item.Id, item.Prediction);
+                        string predictionResult = RestCalls.RestPredict(item.ImageUrl, prediction);
+
+                        JavaScriptSerializer serializer = new JavaScriptSerializer();
+                        PredictionEntity obj = JsonConvert.DeserializeObject<PredictionEntity>(predictionResult);
+
+                        //PredictionEntity obj = new PredictionEntity();
+                        //  obj.result = "Bad Image";
+                        if (obj.result.StartsWith("Bad"))
+                        {
+                            item.Prediction = obj.result.Replace("(0)", "").Trim();
+                            new Patient().UpdateReportData(item.Id, item.Prediction);
+                        }
+                        else
+                        {
+                            item.Prediction = obj.result.Replace(" (1). ", "").Replace(" (0). ", "").Trim();
+                            new Patient().UpdateReportData(item.Id, item.Prediction);
+                        }
                     }
-                    else
+                    catch
                     {
-                        item.Prediction = obj.result.Replace(" (1). ", "").Replace(" (0). ", "").Trim();
-                        new Patient().UpdateReportData(item.Id, item.Prediction);
+                        ModernDialog.ShowMessage("Prediction Internal Server Error.", "Prediction", MessageBoxButton.OK);
                     }
+
                 }
             }
             foreach (var item in PatientReport.ODPosteriorReportDatas)
             {
                 if (item.IsChecked)
                 {
-                    string predictionResult = RestCalls.RestPredict(item.ImageUrl, prediction);
-
-                    JavaScriptSerializer serializer = new JavaScriptSerializer();
-                    PredictionEntity obj = JsonConvert.DeserializeObject<PredictionEntity>(predictionResult);
-
-                    //PredictionEntity obj = new PredictionEntity();
-                    //  obj.result = "Bad Image";
-                    if (obj.result.StartsWith("Bad"))
+                    try
                     {
-                        item.Prediction = obj.result.Replace("(0)", "").Trim();
-                        new Patient().UpdateReportData(item.Id, item.Prediction);
+                        string predictionResult = RestCalls.RestPredict(item.ImageUrl, prediction);
+
+                        JavaScriptSerializer serializer = new JavaScriptSerializer();
+                        PredictionEntity obj = JsonConvert.DeserializeObject<PredictionEntity>(predictionResult);
+
+                        //PredictionEntity obj = new PredictionEntity();
+                        //  obj.result = "Bad Image";
+                        if (obj.result.StartsWith("Bad"))
+                        {
+                            item.Prediction = obj.result.Replace("(0)", "").Trim();
+                            new Patient().UpdateReportData(item.Id, item.Prediction);
+                        }
+                        else
+                        {
+                            item.Prediction = obj.result.Replace(" (1). ", "").Replace(" (0). ", "").Trim();
+                            new Patient().UpdateReportData(item.Id, item.Prediction);
+                        }
                     }
-                    else
+                    catch
                     {
-                        item.Prediction = obj.result.Replace(" (1). ", "").Replace(" (0). ", "").Trim();
-                        new Patient().UpdateReportData(item.Id, item.Prediction);
+                        ModernDialog.ShowMessage("Prediction Internal Server Error.", "Prediction", MessageBoxButton.OK);
                     }
+
                 }
             }
 

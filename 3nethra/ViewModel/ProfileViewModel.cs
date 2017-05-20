@@ -131,7 +131,7 @@ namespace Artelus.ViewModel
             PatientReport = new Patient().GetLastestReport(model.Id);
             if (PatientReport != null)
             {
-                var osResult = new Patient().GetOSReportData(PatientReport.Id,false);
+                var osResult = new Patient().GetPosteriorOSReportData(PatientReport.Id,false);
                 foreach (var data in osResult)
                 {
                     PatientReport.OSPosteriorReportDatas = new ObservableCollection<ReportData>();
@@ -139,7 +139,7 @@ namespace Artelus.ViewModel
                     data.FileName = Path.GetFileName(data.ImageUrl);
                     PatientReport.OSPosteriorReportDatas.Add(data);
                 }
-                var odResult = new Patient().GetODReportData(PatientReport.Id,false);
+                var odResult = new Patient().GetPosteriorODReportData(PatientReport.Id,false);
                 foreach (var data in odResult)
                 {
                     PatientReport.ODPosteriorReportDatas = new ObservableCollection<ReportData>();
@@ -200,7 +200,7 @@ namespace Artelus.ViewModel
             var patientReports = new Patient().GetAllReport(PatientEntity.Id);
             foreach (var item in patientReports)
             {
-                var osResult = new Patient().GetOSReportData(item.Id, false);
+                var osResult = new Patient().GetPosteriorOSReportData(item.Id, false);
                 foreach (var data in osResult)
                 {
                     item.OSPosteriorReportDatas = new ObservableCollection<ReportData>();
@@ -208,7 +208,7 @@ namespace Artelus.ViewModel
                     data.FileName = Path.GetFileName(data.ImageUrl);
                     item.OSPosteriorReportDatas.Add(data);
                 }
-                var odResult = new Patient().GetODReportData(item.Id, false);
+                var odResult = new Patient().GetPosteriorODReportData(item.Id, false);
                 foreach (var data in odResult)
                 {
                     item.ODPosteriorReportDatas = new ObservableCollection<ReportData>();

@@ -22,7 +22,6 @@ namespace Artelus.ViewModel
         //OD-Right
         //OS-Left
         CameraAPI camera;
-        private int patientReportId;
         private bool flag = true;
         public bool Flag
         {
@@ -45,8 +44,6 @@ namespace Artelus.ViewModel
                 RaisePropertyChange("CamMode");
             }
         }
-
-
         public bool ManualCapture
         {
             get { return manualCapture; }
@@ -66,15 +63,6 @@ namespace Artelus.ViewModel
                 RaisePropertyChange("ShowPosterior");
             }
         }
-        public int PatientReportId
-        {
-            get { return patientReportId; }
-            set
-            {
-                patientReportId = value;
-                RaisePropertyChange("PatientReportId");
-            }
-        }
         private CameraEntity cameraEntity;
         public CameraEntity CameraEntity
         {
@@ -87,6 +75,16 @@ namespace Artelus.ViewModel
             get { return patient; }
             set { patient = value; }
         }
+        private PatientReport patientReport;
+        public PatientReport PatientReport
+        {
+            get { return patientReport; }
+            set
+            {
+                patientReport = value;
+                RaisePropertyChange("PatientReport");
+            }
+        }
         public DelegateCommand SaveCommand { get; set; }
         public DelegateCommand CamStartCommand { get; set; }
         public DelegateCommand CamStopCommand { get; set; }
@@ -95,6 +93,7 @@ namespace Artelus.ViewModel
         public DelegateCommand CamAnteriorCommand { get; set; }
         public DelegateCommand CaptureCommand { get; set; }
         public DelegateCommand DeleteReportDataCommand { get; set; }
+        public DelegateCommand BackCommand { get; set; }
         public Action CloseAction { get; set; }
         private ObservableCollection<ReportData> anteriorReportData = new ObservableCollection<ReportData>();
         public ObservableCollection<ReportData> AnteriorReportData
@@ -150,7 +149,6 @@ namespace Artelus.ViewModel
             }
         }
 
-
         private ObservableCollection<ReportData> _OSPosteriorReportDatas = new ObservableCollection<ReportData>();
         public ObservableCollection<ReportData> OSPosteriorReportDatas
         {
@@ -178,10 +176,12 @@ namespace Artelus.ViewModel
             }
         }
 
-        public CameraViewModel(PatientEntity patient)
+        public CameraViewModel(PatientEntity patient, PatientReport report = null)
         {
             PatientEntity = patient;
             Initialize();
+            if (report != null)
+                PatientReport = report;
         }
 
         private void Initialize()
@@ -195,7 +195,8 @@ namespace Artelus.ViewModel
             CamAnteriorCommand = new DelegateCommand(OnCamAnteriorCommand);
             CaptureCommand = new DelegateCommand(OnCaptureCommand);
             ReportViewCommand = new DelegateCommand(OnReportViewCommand);
-
+            BackCommand = new DelegateCommand(OnBackCommand);
+            PatientReport = new PatientReport();
             camera = CameraAPI.GetInstance();
             camera.Connect();
             camera.NewFrameEvent += new NewFrameHandler(camera_NewFrameEvent);
@@ -206,7 +207,7 @@ namespace Artelus.ViewModel
 
         private void OnReportViewCommand(object args)
         {
-            var patientVM = new ReportViewModel(PatientEntity,null);
+            var patientVM = new ReportViewModel(PatientEntity, null);
             var window = new ModernWindow
             {
                 Style = (Style)App.Current.Resources["BlankWindow"],
@@ -218,6 +219,28 @@ namespace Artelus.ViewModel
             var closeResult = window.ShowDialog();
         }
 
+        private void OnBackCommand(object args)
+        {
+            var result = MessageBoxResult.Yes;
+            if (OSPosteriorReportDatas.Count > 0 || ODPosteriorReportDatas.Count > 0 || OSAnteriorReportDatas.Count > 0 || ODAnteriorReportDatas.Count > 0)
+                result = ModernDialog.ShowMessage("You will loose the capture image.", "Are you sure?", MessageBoxButton.YesNo);
+
+            if (result == MessageBoxResult.Yes)
+            {
+                camera.StopLive();
+                camera.Disconnect();
+                PatientEntity.PreviousState = "CameraView";
+                foreach (Window win in Application.Current.Windows)
+                {
+                    if (win.GetType().Name == "MainWindow")
+                    {
+                        var profileView = (win) as Artelus.MainWindow;
+                        profileView.ContentSource = new Uri("Views/PatientEditView.xaml", UriKind.Relative);
+                        profileView.DataContext = new PatientViewModel(PatientEntity);
+                    }
+                }
+            }
+        }
 
         private void OnCaptureCommand(object args)
         {
@@ -232,99 +255,74 @@ namespace Artelus.ViewModel
             //SaveReportData();
         }
 
-        void SaveReportData()
-        {
-            if (PatientEntity != null)
-            {
-                if (PatientReportId == 0)
-                    PatientReportId = new Patient().AddReport(PatientEntity.Id, "HSR Layout");
-
-
-                string rootPath = AppDomain.CurrentDomain.BaseDirectory;
-                string path = Path.Combine(rootPath, "Uploads", PatientEntity.UniqueID.ToString(), PatientReportId.ToString());
-                if (!Directory.Exists(path))
-                    Directory.CreateDirectory(path);
-
-                string fileName = CameraEntity.Eye + "_" + DateTime.Now.Ticks.ToString() + ".png";
-                string filePath = Path.Combine(path, fileName);
-                Save(CameraEntity.CaptureStream, filePath);
-
-                int reportDataId = new Patient().AddReportData(PatientReportId, "POSTERIOR_MODE", CameraEntity.Eye, Path.Combine(PatientEntity.UniqueID.ToString(), PatientReportId.ToString(), fileName), null, null);
-
-                string size = Program.FileSize(filePath);
-                System.Windows.Application.Current.Dispatcher.Invoke((Action)delegate
-                {
-                    string prediction = "sushruta";
-                    //if (this.hansanet != "Disable Hansanet")
-                    //    prediction = "hansasushruta";
-                    string predictionResult = RestCalls.RestPredict(filePath, prediction);
-
-                    JavaScriptSerializer serializer = new JavaScriptSerializer();
-                    PredictionEntity obj = JsonConvert.DeserializeObject<PredictionEntity>(predictionResult);
-
-                    //PredictionEntity obj = new PredictionEntity();
-                    //  obj.result = "Bad Image";
-                    if (obj.result.StartsWith("Bad"))
-                    {
-                        string result = obj.result.Replace("(0)", "").Trim();
-                        PosteriorReportData.Add(new Model.ReportData() { Id = reportDataId, Eye = CameraEntity.Eye, ImageUrl = filePath, Mode = CameraAPI.OperatingMode.POSTERIOR_MODE.ToString(), Size = size, Status = false, Prediction = result });
-                        //new Patient().UpdateReportData(reportDataId, result, size);
-                    }
-                    else
-                    {
-                        string result = obj.result.Replace(" (1). ", "").Replace(" (0). ", "").Trim();
-                        PosteriorReportData.Add(new Model.ReportData() { Id = reportDataId, Eye = CameraEntity.Eye, ImageUrl = filePath, Mode = CameraAPI.OperatingMode.POSTERIOR_MODE.ToString(), Size = size, Status = true, Prediction = result });
-                        //new Patient().UpdateReportData(reportDataId, result, size);
-                    }
-                });
-                flag = false;
-            }
-        }
-
         private void OnSaveCommand(object args)
         {
             camera.StopLive();
             camera.Disconnect();
 
+
             if (PatientEntity != null)
             {
-                if (PatientReportId == 0)
-                    PatientReportId = new Patient().AddReport(PatientEntity.Id, "HSR Layout");
-
+                if (PatientReport.Id == 0)
+                {
+                    UserEntity user = new User().Get(Program.UserId());
+                    PatientReport.PatientId = PatientEntity.Id;
+                    PatientReport.Dt = DateTime.UtcNow;
+                    PatientReport.Location = user.Location;
+                    PatientReport.InstallID = user.InstallID;
+                    PatientReport.UniqueID = Guid.NewGuid();
+                    PatientReport.Id = new Patient().AddReport(PatientReport);
+                }
 
                 string rootPath = AppDomain.CurrentDomain.BaseDirectory;
-                string path = Path.Combine(rootPath, "Uploads", PatientEntity.UniqueID.ToString(), PatientReportId.ToString());
+                string path = Path.Combine(rootPath, "Uploads", PatientEntity.UniqueID.ToString(), PatientReport.UniqueID.ToString());
                 if (!Directory.Exists(path))
                     Directory.CreateDirectory(path);
+                if (PatientReport.OSPosteriorReportDatas != null)
+                    foreach (var item in PatientReport.OSPosteriorReportDatas)
+                    {
+                        if (item.Id == 0)
+                        {
+                            string fileName = item.Eye + "_" + DateTime.UtcNow.Ticks.ToString() + ".png";
+                            string filePath = Path.Combine(path, fileName);
+                            Save(item.BitMapImg, filePath);
+                            new Patient().AddReportData(PatientReport.Id, "POSTERIOR_MODE", item.Eye, Path.Combine(PatientEntity.UniqueID.ToString(), PatientReport.UniqueID.ToString(), fileName), null, Program.FileSize(filePath));
+                        }
+                    }
+                if (PatientReport.ODPosteriorReportDatas != null)
+                    foreach (var item in PatientReport.ODPosteriorReportDatas)
+                    {
+                        if (item.Id == 0)
+                        {
+                            string fileName = item.Eye + "_" + DateTime.UtcNow.Ticks.ToString() + ".png";
+                            string filePath = Path.Combine(path, fileName);
+                            Save(item.BitMapImg, filePath);
+                            new Patient().AddReportData(PatientReport.Id, "POSTERIOR_MODE", item.Eye, Path.Combine(PatientEntity.UniqueID.ToString(), PatientReport.UniqueID.ToString(), fileName), null, Program.FileSize(filePath));
+                        }
 
-                foreach (var item in OSPosteriorReportDatas)
-                {
-                    string fileName = item.Eye + "_" + DateTime.UtcNow.Ticks.ToString() + ".png";
-                    string filePath = Path.Combine(path, fileName);
-                    Save(item.BitMapImg, filePath);
-                    new Patient().AddReportData(PatientReportId, "POSTERIOR_MODE", item.Eye, Path.Combine(PatientEntity.UniqueID.ToString(), PatientReportId.ToString(), fileName), null, Program.FileSize(filePath));
-                }
-                foreach (var item in ODPosteriorReportDatas)
-                {
-                    string fileName = item.Eye + "_" + DateTime.UtcNow.Ticks.ToString() + ".png";
-                    string filePath = Path.Combine(path, fileName);
-                    Save(item.BitMapImg, filePath);
-                    new Patient().AddReportData(PatientReportId, "POSTERIOR_MODE", item.Eye, Path.Combine(PatientEntity.UniqueID.ToString(), PatientReportId.ToString(), fileName), null, Program.FileSize(filePath));
-                }
-                foreach (var item in OSAnteriorReportDatas)
-                {
-                    string fileName = item.Eye + "_" + DateTime.UtcNow.Ticks.ToString() + ".png";
-                    string filePath = Path.Combine(path, fileName);
-                    Save(item.BitMapImg, filePath);
-                    new Patient().AddReportData(PatientReportId, "ANTERIOR_MODE", item.Eye, Path.Combine(PatientEntity.UniqueID.ToString(), PatientReportId.ToString(), fileName), null, Program.FileSize(filePath));
-                }
-                foreach (var item in ODAnteriorReportDatas)
-                {
-                    string fileName = item.Eye + "_" + DateTime.UtcNow.Ticks.ToString() + ".png";
-                    string filePath = Path.Combine(path, fileName);
-                    Save(item.BitMapImg, filePath);
-                    new Patient().AddReportData(PatientReportId, "ANTERIOR_MODE", item.Eye, Path.Combine(PatientEntity.UniqueID.ToString(), PatientReportId.ToString(), null, fileName), null, Program.FileSize(filePath));
-                }
+                    }
+                if (PatientReport.OSAnteriorReportDatas != null)
+                    foreach (var item in PatientReport.OSAnteriorReportDatas)
+                    {
+                        if (item.Id == 0)
+                        {
+                            string fileName = item.Eye + "_" + DateTime.UtcNow.Ticks.ToString() + ".png";
+                            string filePath = Path.Combine(path, fileName);
+                            Save(item.BitMapImg, filePath);
+                            new Patient().AddReportData(PatientReport.Id, "ANTERIOR_MODE", item.Eye, Path.Combine(PatientEntity.UniqueID.ToString(), PatientReport.UniqueID.ToString(), fileName), null, Program.FileSize(filePath));
+                        }
+                    }
+                if (PatientReport.ODAnteriorReportDatas != null)
+                    foreach (var item in PatientReport.ODAnteriorReportDatas)
+                    {
+                        if (item.Id == 0)
+                        {
+                            string fileName = item.Eye + "_" + DateTime.UtcNow.Ticks.ToString() + ".png";
+                            string filePath = Path.Combine(path, fileName);
+                            Save(item.BitMapImg, filePath);
+                            new Patient().AddReportData(PatientReport.Id, "ANTERIOR_MODE", item.Eye, Path.Combine(PatientEntity.UniqueID.ToString(), PatientReport.UniqueID.ToString(), fileName), null, Program.FileSize(filePath));
+                        }
+                    }
 
                 foreach (Window win in Application.Current.Windows)
                 {
@@ -335,68 +333,7 @@ namespace Artelus.ViewModel
                         predictionView.DataContext = new PredictionViewModel(PatientEntity);
                     }
                 }
-
-
-                //string fileName = CameraEntity.Eye + "_" + DateTime.Now.Ticks.ToString() + ".png";
-                //string filePath = Path.Combine(path, fileName);
-                //Save(CameraEntity.CaptureStream, filePath);
-
-                //int reportDataId = new Patient().AddReportData(PatientReportId, "POSTERIOR_MODE", CameraEntity.Eye, Path.Combine(PatientEntity.UniqueID.ToString(), PatientReportId.ToString(), fileName), null, null);
-
-                //string size = Program.FileSize(filePath);
-                //System.Windows.Application.Current.Dispatcher.Invoke((Action)delegate
-                //{
-                //    string prediction = "sushruta";
-                //    if (this.hansanet != "Disable Hansanet")
-                //        prediction = "hansasushruta";
-                //    string predictionResult = RestCalls.RestPredict(filePath, prediction);
-
-                //    JavaScriptSerializer serializer = new JavaScriptSerializer();
-                //    PredictionEntity obj = JsonConvert.DeserializeObject<PredictionEntity>(predictionResult);
-
-                //    //PredictionEntity obj = new PredictionEntity();
-                //    //  obj.result = "Bad Image";
-                //    if (obj.result.StartsWith("Bad"))
-                //    {
-                //        string result = obj.result.Replace("(0)", "").Trim();
-                //        PosteriorReportData.Add(new Model.ReportData() { Id = reportDataId, Eye = CameraEntity.Eye, ImageUrl = filePath, Mode = CameraAPI.OperatingMode.POSTERIOR_MODE.ToString(), Size = size, Status = false, Prediction = result });
-                //        new Patient().UpdateReportData(reportDataId, result, size);
-                //    }
-                //    else
-                //    {
-                //        string result = obj.result.Replace(" (1). ", "").Replace(" (0). ", "").Trim();
-                //        PosteriorReportData.Add(new Model.ReportData() { Id = reportDataId, Eye = CameraEntity.Eye, ImageUrl = filePath, Mode = CameraAPI.OperatingMode.POSTERIOR_MODE.ToString(), Size = size, Status = true, Prediction = result });
-                //        new Patient().UpdateReportData(reportDataId, result, size);
-                //    }
-                //});
-                //flag = false;
             }
-
-
-
-            //foreach (Window win in Application.Current.Windows)
-            //{
-            //    if (win.GetType().Name == "MainWindow")
-            //    {
-            //        var cameraView = (win) as Artelus.MainWindow;
-            //        cameraView.ContentSource = new Uri("Views/ReportView.xaml", UriKind.Relative);
-            //        cameraView.DataContext = new ReportViewModel(PatientEntity);
-            //    }
-            //}
-            //Clear();
-            //this.CloseAction();
-            //var patientVM = new ReportViewModel(PatientEntity);
-            //var window = new ModernWindow
-            //{
-            //    Style = (Style)App.Current.Resources["BlankWindow"],
-            //    Title = "Patient Report",
-            //    IsTitleVisible = true,
-            //    WindowState = WindowState.Maximized
-            //};
-            //window.Content = new ReportView(patientVM, window);
-            //var closeResult = window.ShowDialog();
-
-
         }
 
         void Save(BitmapImage image, string filePath)
@@ -450,16 +387,32 @@ namespace Artelus.ViewModel
                         if (CamMode == CameraAPI.OperatingMode.POSTERIOR_MODE.ToString())
                         {
                             if (CameraEntity.Eye == "OS")
-                                OSPosteriorReportDatas.Add(new ReportData() { Eye = "OS", BitMapImg = img });
+                            {
+                                if (PatientReport.OSPosteriorReportDatas == null)
+                                    PatientReport.OSPosteriorReportDatas = new ObservableCollection<ReportData>();
+                                PatientReport.OSPosteriorReportDatas.Add(new ReportData() { Eye = "OS", BitMapImg = img });
+                            }
                             else
-                                ODPosteriorReportDatas.Add(new ReportData() { Eye = "OD", BitMapImg = img });
+                            {
+                                if (PatientReport.ODPosteriorReportDatas == null)
+                                    PatientReport.ODPosteriorReportDatas = new ObservableCollection<ReportData>();
+                                PatientReport.ODPosteriorReportDatas.Add(new ReportData() { Eye = "OD", BitMapImg = img });
+                            }
                         }
                         else if (CamMode == CameraAPI.OperatingMode.ANTERIOR_MODE.ToString())
                         {
                             if (CameraEntity.Eye == "OS")
-                                OSAnteriorReportDatas.Add(new ReportData() { Eye = "OS", BitMapImg = img });
+                            {
+                                if (PatientReport.OSAnteriorReportDatas == null)
+                                    PatientReport.OSAnteriorReportDatas = new ObservableCollection<ReportData>();
+                                PatientReport.OSAnteriorReportDatas.Add(new ReportData() { Eye = "OS", BitMapImg = img });
+                            }
                             else
-                                ODAnteriorReportDatas.Add(new ReportData() { Eye = "OD", BitMapImg = img });
+                            {
+                                if (PatientReport.ODAnteriorReportDatas == null)
+                                    PatientReport.ODAnteriorReportDatas = new ObservableCollection<ReportData>();
+                                PatientReport.ODAnteriorReportDatas.Add(new ReportData() { Eye = "OD", BitMapImg = img });
+                            }
                         }
                     }
                     //SaveReportData();

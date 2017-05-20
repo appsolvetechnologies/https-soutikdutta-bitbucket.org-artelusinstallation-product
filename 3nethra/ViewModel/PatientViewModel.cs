@@ -26,7 +26,7 @@ namespace Artelus.ViewModel
                 RaisePropertyChange("ShowOtherOption");
             }
         }
-
+        
         private bool initialLoad = true;
         public bool InitialLoad
         {
@@ -259,9 +259,17 @@ namespace Artelus.ViewModel
                 {
                     if (win.GetType().Name == "MainWindow")
                     {
-                        var cameraView = (win) as Artelus.MainWindow;
-                        cameraView.ContentSource = new Uri("Views/PatientProfileView.xaml", UriKind.Relative);
-                        cameraView.DataContext = new ProfileViewModel(model);
+                        var artelus = (win) as Artelus.MainWindow;
+
+                        if (string.IsNullOrEmpty(PatientEntity.PreviousState))
+                        {
+                            artelus.ContentSource = new Uri("Views/PatientProfileView.xaml", UriKind.Relative);
+                            artelus.DataContext = new ProfileViewModel(model);
+                        }
+                        else if (PatientEntity.PreviousState == "CameraView") {
+                            artelus.ContentSource = new Uri("Views/CameraView.xaml", UriKind.Relative);
+                            artelus.DataContext = new CameraViewModel(model);
+                        }                      
                     }
                 }
             }

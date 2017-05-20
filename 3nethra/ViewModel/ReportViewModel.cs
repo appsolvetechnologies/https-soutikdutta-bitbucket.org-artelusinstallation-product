@@ -1,4 +1,5 @@
-﻿using Artelus.Model;
+﻿using Artelus.Common;
+using Artelus.Model;
 using Artelus.Views;
 using FirstFloor.ModernUI.Windows.Controls;
 using Helpers;
@@ -118,9 +119,15 @@ namespace Artelus.ViewModel
         public DelegateCommand PreviousReportCommand { get; set; }
         public DelegateCommand SaveNextCommand { get; set; }
         public DelegateCommand SaveExitCommand { get; set; }
+        public DelegateCommand SendMailCommand { get; set; }
+        public DelegateCommand BackCommand { get; set; }
+
         public Action CloseAction { get; set; }
+
         public ReportViewModel(PatientEntity model, PatientReport obj)
         {
+            BackCommand = new DelegateCommand(OnBackCommand);
+
             string rootPath = AppDomain.CurrentDomain.BaseDirectory;
             string path = Path.Combine(rootPath, "Uploads");
             ReportDatas = new ObservableCollection<ReportData>();
@@ -148,14 +155,14 @@ namespace Artelus.ViewModel
 
             if (PatientReport != null)
             {
-                var osResult = new Patient().GetOSReportData(PatientReport.Id, false);
+                var osResult = new Patient().GetPosteriorOSReportData(PatientReport.Id, false);
                 foreach (var data in osResult)
                 {
                     data.ImageUrl = Path.Combine(path, data.Img);
                     data.FileName = Path.GetFileName(data.ImageUrl);
                     OSReportDatas.Add(data);
                 }
-                var odResult = new Patient().GetODReportData(PatientReport.Id, false);
+                var odResult = new Patient().GetPosteriorODReportData(PatientReport.Id, false);
                 foreach (var data in odResult)
                 {
                     data.ImageUrl = Path.Combine(path, data.Img);
@@ -183,8 +190,23 @@ namespace Artelus.ViewModel
             ViewReportDataCommand = new DelegateCommand(OnViewReportDataCommand);
             SaveNextCommand = new DelegateCommand(OnSaveNextCommand);
             SaveExitCommand = new DelegateCommand(OnSaveExitCommand);
+            SendMailCommand = new DelegateCommand(OnSendMailCommand);
         }
 
+
+        private void OnBackCommand(object args)
+        {
+            PatientEntity.PreviousState = "ReportView";
+            foreach (Window win in Application.Current.Windows)
+            {
+                if (win.GetType().Name == "MainWindow")
+                {
+                    var predictionView = (win) as Artelus.MainWindow;
+                    predictionView.ContentSource = new Uri("Views/ImagePredictionView.xaml", UriKind.Relative);
+                    predictionView.DataContext = new PredictionViewModel(PatientEntity);
+                }
+            }
+        }
         private void OnPreviousReportCommand(object args)
         {
 
@@ -327,6 +349,7 @@ namespace Artelus.ViewModel
                 }
             }
         }
+
         private void OnViewReportDataCommand(object args)
         {
             PatientReport = args as PatientReport;
@@ -346,6 +369,11 @@ namespace Artelus.ViewModel
                 }
             }
         }
+
+        private void OnSendMailCommand(object args) {
+
+            //Mail.Send(PatientEntity.Email, "Test Report",);
+        }
         private void OnSaveNextCommand(object args)
         {
             foreach (Window win in Application.Current.Windows)
@@ -358,8 +386,9 @@ namespace Artelus.ViewModel
 
                     var artelus = (win) as Artelus.MainWindow;
                     artelus.ContentSource = new Uri("Views/PatientView.xaml", UriKind.Relative);
-                    var dataContext = win.DataContext as MainWindowViewModel;
-                    dataContext.CurrentViewModel = new PatientViewModel();
+                    //var dataContext = win.DataContext as MainWindowViewModel;
+                    artelus.DataContext = new PatientViewModel();
+                    //dataContext.CurrentViewModel = new PatientViewModel();
                 }
             }
         }

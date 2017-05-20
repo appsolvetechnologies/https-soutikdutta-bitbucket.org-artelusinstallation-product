@@ -38,18 +38,12 @@ namespace Artelus.Model
             return model;
         }
 
-        public IdNameCollection GetLocations()
+        public UserEntity Get(int id)
         {
-            var locations = new List<Location>();
-            IdNameCollection locationColl = new IdNameCollection();
             using (var db = new ArtelusDbContext())
             {
-                locations = db.Database.SqlQuery<Location>("Select * From Location").ToList();
+                return db.Database.SqlQuery<UserEntity>("Select * From Users Where Id={0}", id).First(); ;
             }
-            foreach (var loc in locations)
-                locationColl.Add(new IdName() { Id = loc.Id, Name = loc.Nm + " - " + loc.PinCode });
-
-            return locationColl;
         }
 
         public bool Update(UserEntity user)

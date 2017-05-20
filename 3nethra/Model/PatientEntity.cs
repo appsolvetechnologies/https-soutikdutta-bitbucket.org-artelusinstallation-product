@@ -52,6 +52,16 @@ namespace Artelus.Model
         private string errMsg;
         private string profile;
         private string medicalInsurance;
+        private string previousState;
+        public string PreviousState
+        {
+            get { return previousState; }
+            set
+            {
+                previousState = value;
+                RaisePropertyChange("PreviousState");
+            }
+        }
         public int Id
         {
             get { return id; }

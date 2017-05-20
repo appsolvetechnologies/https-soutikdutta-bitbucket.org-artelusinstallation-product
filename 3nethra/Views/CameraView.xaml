@@ -16,6 +16,10 @@
             <ColumnDefinition Width="2.1*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+        </Grid.RowDefinitions>
         <Grid x:Name="grdCamera">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
@@ -69,7 +73,7 @@
                                 </Grid.ColumnDefinitions>
                                 <StackPanel>
                                     <TextBlock FontWeight="Bold" Margin="0 0 0 5" Text="OD:"></TextBlock>
-                                    <ItemsControl ItemsSource="{Binding ODPosteriorReportDatas}">
+                                    <ItemsControl ItemsSource="{Binding PatientReport.ODPosteriorReportDatas}">
                                         <ItemsControl.ItemsPanel>
                                             <ItemsPanelTemplate>
                                                 <StackPanel></StackPanel>
@@ -88,7 +92,7 @@
                                 </StackPanel>
                                 <StackPanel  Grid.Column="1">
                                     <TextBlock FontWeight="Bold" Margin="0 0 0 5" Text="OS:"></TextBlock>
-                                    <ItemsControl ItemsSource="{Binding OSPosteriorReportDatas}">
+                                    <ItemsControl ItemsSource="{Binding PatientReport.OSPosteriorReportDatas}">
                                         <ItemsControl.ItemsPanel>
                                             <ItemsPanelTemplate>
                                                 <StackPanel></StackPanel>
@@ -117,7 +121,7 @@
                                 </Grid.ColumnDefinitions>
                                 <StackPanel>
                                     <TextBlock FontWeight="Bold" Margin="0 0 0 5" Text="OS Eye:"></TextBlock>
-                                    <ItemsControl ItemsSource="{Binding OSAnteriorReportDatas}">
+                                    <ItemsControl ItemsSource="{Binding PatientReport.OSAnteriorReportDatas}">
                                         <ItemsControl.ItemsPanel>
                                             <ItemsPanelTemplate>
                                                 <StackPanel></StackPanel>
@@ -136,7 +140,7 @@
                                 </StackPanel>
                                 <StackPanel Grid.Column="1">
                                     <TextBlock FontWeight="Bold" Margin="0 0 0 5" Text="OD Eye:"></TextBlock>
-                                    <ItemsControl ItemsSource="{Binding ODAnteriorReportDatas}">
+                                    <ItemsControl ItemsSource="{Binding PatientReport.ODAnteriorReportDatas}">
                                         <ItemsControl.ItemsPanel>
                                             <ItemsPanelTemplate>
                                                 <StackPanel></StackPanel>
@@ -157,11 +161,12 @@
                         </StackPanel>
                     </StackPanel>
                 </Grid>
-            </StackPanel>
-            <StackPanel Grid.Row="1" HorizontalAlignment="Right">
-                <Button Background="#f05f40" Foreground="White" Height="40px" FontWeight="DemiBold" Margin="0 0 5 0" Command="{Binding SaveCommand}">Next</Button>
-            </StackPanel>
+            </StackPanel>           
         </Grid>
 
+        <DockPanel Grid.Row="1" Grid.ColumnSpan="2">
+            <Button DockPanel.Dock="Left" Background="#f05f40" Foreground="White" Height="40px" FontWeight="DemiBold" Margin="0 0 5 0" Command="{Binding BackCommand}">Back</Button>
+            <Button DockPanel.Dock="Right" HorizontalAlignment="Right" Background="#f05f40" Foreground="White" Height="40px" FontWeight="DemiBold" Margin="0 0 5 0" Command="{Binding SaveCommand}">Next</Button>
+        </DockPanel>
     </Grid>
 </UserControl>

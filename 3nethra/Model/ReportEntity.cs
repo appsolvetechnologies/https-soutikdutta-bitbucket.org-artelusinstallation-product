@@ -69,6 +69,32 @@ namespace Artelus.Model
             }
         }
 
+        private Guid installID;
+        public Guid InstallID {
+            get { return installID; }
+            set
+            {
+                if (installID != value)
+                {
+                    installID = value;
+                    RaisePropertyChange("InstallID");
+                }
+            }
+        }
+        private Guid uniqueID;
+        public Guid UniqueID
+        {
+            get { return uniqueID; }
+            set
+            {
+                if (uniqueID != value)
+                {
+                    uniqueID = value;
+                    RaisePropertyChange("UniqueID");
+                }
+            }
+        }
+
         public string this[string columnName] => Validate(columnName);
 
      //   public string Error => throw new NotImplementedException();
@@ -82,7 +108,6 @@ namespace Artelus.Model
         public ObservableCollection<ReportData> AnteriorReportDatas { get; set; }
 
         private ObservableCollection<ReportData> _OSPosteriorReportDatas { get; set; }
-
         public ObservableCollection<ReportData> OSPosteriorReportDatas {
             get { return _OSPosteriorReportDatas; }
             set {
@@ -94,7 +119,6 @@ namespace Artelus.Model
             }
         }
         private ObservableCollection<ReportData> _ODPosteriorReportDatas { get; set; }
-
         public ObservableCollection<ReportData> ODPosteriorReportDatas
         {
             get { return _ODPosteriorReportDatas; }
@@ -104,6 +128,33 @@ namespace Artelus.Model
                 {
                     _ODPosteriorReportDatas = value;
                     RaisePropertyChange("ODPosteriorReportDatas");
+                }
+            }
+        }
+
+        private ObservableCollection<ReportData> _OSAnteriorReportDatas = new ObservableCollection<ReportData>();
+        public ObservableCollection<ReportData> OSAnteriorReportDatas
+        {
+            get { return _OSAnteriorReportDatas; }
+            set
+            {
+                if (value != _OSAnteriorReportDatas)
+                {
+                    _OSAnteriorReportDatas = value;
+                    RaisePropertyChange("OSAnteriorReportDatas");
+                }
+            }
+        }
+        private ObservableCollection<ReportData> _ODAnteriorReportDatas = new ObservableCollection<ReportData>();
+        public ObservableCollection<ReportData> ODAnteriorReportDatas
+        {
+            get { return _ODAnteriorReportDatas; }
+            set
+            {
+                if (value != _ODAnteriorReportDatas)
+                {
+                    _ODAnteriorReportDatas = value;
+                    RaisePropertyChange("ODAnteriorReportDatas");
                 }
             }
         }
