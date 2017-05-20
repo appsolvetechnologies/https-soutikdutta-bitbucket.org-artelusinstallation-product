@@ -25,16 +25,17 @@
             <DockPanel>
                 <StackPanel DockPanel.Dock="Right" >
                 <StackPanel  Orientation="Horizontal" Margin="0 0 100 0">
-                    <RadioButton GroupName="CamMode" Content="Posterior" FontSize="18" FontWeight="Bold" Margin="8,0,0,0" IsChecked="{Binding CamMode,UpdateSourceTrigger=PropertyChanged, Converter={StaticResource RadioButtonCheckedConverter}, ConverterParameter='POSTERIOR_MODE'}" />
-                    <RadioButton GroupName="CamMode" Content="Anterior" FontSize="18" FontWeight="Bold" Margin="8,0,0,0" IsChecked="{Binding CamMode,UpdateSourceTrigger=PropertyChanged, Converter={StaticResource RadioButtonCheckedConverter}, ConverterParameter='ANTERIOR_MODE'}" />
+                        <RadioButton GroupName="Eye" FontSize="18" FontWeight="Bold" Content="Right Eye" Margin="8,0,0,0" IsChecked="{Binding CameraEntity.Eye, Converter={StaticResource RadioButtonCheckedConverter}, ConverterParameter='OD'}" />
+                        <RadioButton GroupName="Eye" FontSize="18" FontWeight="Bold" Content="Left Eye" Margin="8,0,0,0" IsChecked="{Binding CameraEntity.Eye, Converter={StaticResource RadioButtonCheckedConverter}, ConverterParameter='OS'}" />
+                        <RadioButton GroupName="CamMode" Content="Posterior" FontSize="18" FontWeight="Bold" Margin="30,0,0,0" IsChecked="{Binding CamMode,UpdateSourceTrigger=PropertyChanged, Converter={StaticResource RadioButtonCheckedConverter}, ConverterParameter='POSTERIOR_MODE'}" />
+                    <RadioButton GroupName="CamMode" Content="Anterior" FontSize="18" FontWeight="Bold" Margin="10,0,0,0" IsChecked="{Binding CamMode,UpdateSourceTrigger=PropertyChanged, Converter={StaticResource RadioButtonCheckedConverter}, ConverterParameter='ANTERIOR_MODE'}" />
                 </StackPanel>
                 </StackPanel>
                 <StackPanel DockPanel.Dock="Left" Orientation="Horizontal" HorizontalAlignment="Left">
-                    <Button Margin="0 0 5 0" Background="#f05f40" Foreground="White"  FontWeight="DemiBold" Command="{Binding CamStartCommand}">Start</Button>
-                    <Button Margin="0 0 5 0" Background="#f05f40" Foreground="White"  FontWeight="DemiBold" Command="{Binding CamStopCommand}">Stop</Button>
-                    <Button Margin="0 0 5 0" Background="#f05f40" Foreground="White"  FontWeight="DemiBold" Command="{Binding CaptureCommand}">Capture</Button>
-                    <RadioButton GroupName="Eye" FontSize="18" FontWeight="Bold" Content="OD" Margin="8,0,0,0" IsChecked="{Binding CameraEntity.Eye, Converter={StaticResource RadioButtonCheckedConverter}, ConverterParameter='OD'}" />
-                    <RadioButton GroupName="Eye" FontSize="18" FontWeight="Bold" Content="OS" Margin="8,0,0,0" IsChecked="{Binding CameraEntity.Eye, Converter={StaticResource RadioButtonCheckedConverter}, ConverterParameter='OS'}" />
+                    <Button Margin="0 0 5 0" FontSize="16" Background="#f05f40" Foreground="White"  FontWeight="DemiBold" Command="{Binding CamStartCommand}">Start</Button>
+                    <Button Margin="0 0 5 0" FontSize="16" Background="#f05f40" Foreground="White"  FontWeight="DemiBold" Command="{Binding CamStopCommand}">Stop</Button>
+                    <Button Margin="0 0 5 0" FontSize="16"  Background="#f05f40" Foreground="White"  FontWeight="DemiBold" Command="{Binding CaptureCommand}">Capture</Button>
+                 
                  </StackPanel>
             </DockPanel>
             <Grid Grid.Row="1" Background="Black" Margin="0 10 0 10">
@@ -68,7 +69,7 @@
                                     <ColumnDefinition Width="*"></ColumnDefinition>
                                 </Grid.ColumnDefinitions>
                                 <StackPanel>
-                                    <TextBlock FontWeight="Bold" Margin="0 0 0 5" Text="OD:"></TextBlock>
+                                    <TextBlock FontWeight="Bold" Margin="0 0 0 5" Text="Right:"></TextBlock>
                                     <ItemsControl ItemsSource="{Binding ODPosteriorReportDatas}">
                                         <ItemsControl.ItemsPanel>
                                             <ItemsPanelTemplate>
@@ -87,7 +88,7 @@
                                     </ItemsControl>
                                 </StackPanel>
                                 <StackPanel  Grid.Column="1">
-                                    <TextBlock FontWeight="Bold" Margin="0 0 0 5" Text="OS:"></TextBlock>
+                                    <TextBlock FontWeight="Bold" Margin="0 0 0 5" Text="Left:"></TextBlock>
                                     <ItemsControl ItemsSource="{Binding OSPosteriorReportDatas}">
                                         <ItemsControl.ItemsPanel>
                                             <ItemsPanelTemplate>
@@ -116,7 +117,7 @@
                                     <ColumnDefinition Width="*"></ColumnDefinition>
                                 </Grid.ColumnDefinitions>
                                 <StackPanel>
-                                    <TextBlock FontWeight="Bold" Margin="0 0 0 5" Text="OS Eye:"></TextBlock>
+                                    <TextBlock FontWeight="Bold" Margin="0 0 0 5" Text="Left:"></TextBlock>
                                     <ItemsControl ItemsSource="{Binding OSAnteriorReportDatas}">
                                         <ItemsControl.ItemsPanel>
                                             <ItemsPanelTemplate>
@@ -135,7 +136,7 @@
                                     </ItemsControl>
                                 </StackPanel>
                                 <StackPanel Grid.Column="1">
-                                    <TextBlock FontWeight="Bold" Margin="0 0 0 5" Text="OD Eye:"></TextBlock>
+                                    <TextBlock FontWeight="Bold" Margin="0 0 0 5" Text="Right:"></TextBlock>
                                     <ItemsControl ItemsSource="{Binding ODAnteriorReportDatas}">
                                         <ItemsControl.ItemsPanel>
                                             <ItemsPanelTemplate>
