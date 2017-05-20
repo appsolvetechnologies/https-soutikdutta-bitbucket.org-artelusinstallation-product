@@ -8,5 +8,9 @@
         xmlns:local="clr-namespace:Artelus"
         xmlns:views = "clr-namespace:Artelus.Views"
         xmlns:viewModels = "clr-namespace:Artelus.ViewModel"
-        Title="Artelus" IsTitleVisible="True" WindowState="Maximized">   
+        Title="Artelus" IsTitleVisible="True" WindowState="Maximized">
+    <!--<mui:ModernWindow.TitleLinks>
+        <mui:Link DisplayName="Log Off" />
+        <mui:Link DisplayName="Exit" />
+    </mui:ModernWindow.TitleLinks>-->
 </mui:ModernWindow>
