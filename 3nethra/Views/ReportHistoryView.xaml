@@ -14,7 +14,7 @@
     <Grid Margin="0 20 0 0">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"></RowDefinition>
-            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width=".6*"></ColumnDefinition>
@@ -22,7 +22,8 @@
             <ColumnDefinition Width="*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <TextBlock Margin="0 0 0 10" Grid.ColumnSpan="3" Text="Report History" FontSize="16" FontWeight="Bold" />
-        <Grid Grid.Row="1">
+        <ScrollViewer Grid.Row="1">
+        <Grid >
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"></RowDefinition>
                 <RowDefinition Height="Auto"></RowDefinition>
@@ -238,20 +239,21 @@
                         <Grid Margin="0 0 0 10" Visibility="{Binding ShowAllergyOption,UpdateSourceTrigger=PropertyChanged, Converter={converters:BoolToVisibilityConverter},ConverterParameter='Collapsed'}">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="1.2"/>
                             </Grid.ColumnDefinitions>
-                            <TextBlock Text="Additional Information:" FontWeight="Bold" Margin="0,0,15,0" />
-                            <TextBlock Grid.Column="1" FontSize="14" FontWeight="SemiBold" Text="{Binding PatientEntity.Info}" />
+                            <TextBlock Text="Additional Information:" FontWeight="Bold" Margin="0,0,0,0" />
+                            <TextBlock Grid.Column="1" FontSize="14" FontWeight="SemiBold" TextWrapping="Wrap" Text="{Binding PatientEntity.Info}" />
                         </Grid>
                     </StackPanel>
                 </Border>
             </StackPanel>
 
         </Grid>
+        </ScrollViewer>
 
 
-
-        <StackPanel Margin="5 " Grid.Column="1" Grid.Row="1">
+        <ScrollViewer Grid.Column="1" Grid.Row="1">
+        <StackPanel Margin="5 " >
             <TextBlock Text="Patient Report" Style="{StaticResource Heading2}" Margin="5,0,0,8" />
             <DataGrid IsReadOnly="True" Margin="5,10,0,0"  Name="dgPatientReports" ItemsSource="{Binding PatientReports}" AutoGenerateColumns="False">
                 <DataGrid.Columns>
@@ -268,6 +270,6 @@
                 </DataGrid.Columns>
             </DataGrid>
         </StackPanel>
-
+        </ScrollViewer>
     </Grid>
 </UserControl>

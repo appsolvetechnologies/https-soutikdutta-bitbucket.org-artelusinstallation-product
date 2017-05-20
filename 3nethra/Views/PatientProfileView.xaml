@@ -161,7 +161,7 @@
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
                         <TextBlock Text="Additional Information:" FontWeight="Bold" Margin="0,0,15,0" />
-                        <TextBlock Grid.Column="1" FontSize="14" FontWeight="SemiBold" Text="{Binding PatientEntity.Info}" />
+                        <TextBlock Grid.Column="1" FontSize="14" FontWeight="SemiBold"  TextWrapping="Wrap" Text="{Binding PatientEntity.Info}" />
                     </Grid>
                 </StackPanel>
             </Border>
