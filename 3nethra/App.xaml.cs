@@ -22,7 +22,7 @@ namespace Artelus
             string basedir = AppDomain.CurrentDomain.BaseDirectory;
 
             string path = Path.Combine(basedir, localDB);
-            string absolute = Path.GetDirectoryName(relative);
+            string absolute = Path.GetDirectoryName(path);
             AppDomain.CurrentDomain.SetData("DataDirectory", absolute);
 
 

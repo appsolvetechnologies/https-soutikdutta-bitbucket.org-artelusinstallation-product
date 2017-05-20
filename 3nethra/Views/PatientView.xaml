@@ -109,7 +109,7 @@
                    
                     <StackPanel Margin="5">
                         <TextBlock FontSize="15" FontWeight="Medium" Text="Permanent Address:" Margin="0 0 0 5"/>
-                        <TextBox AcceptsReturn="True" TextWrapping="Wrap" MinLines="3" Text="{Binding Path=PatientEntity.PerAdr,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
+                        <TextBox AcceptsReturn="True" TextWrapping="Wrap" MinLines="2" Text="{Binding Path=PatientEntity.PerAdr,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
                     </StackPanel>                   
 
                     <Grid Margin="5">
