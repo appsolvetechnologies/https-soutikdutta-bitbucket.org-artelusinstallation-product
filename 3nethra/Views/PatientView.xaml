@@ -26,7 +26,7 @@
                 <StackPanel Margin="0 0 5 0">
                     <Grid Margin="5">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="2*"/>
+                            <ColumnDefinition Width="2.2*"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
                         <StackPanel>
@@ -43,9 +43,11 @@
                                 <TextBox Text="{Binding Path=PatientEntity.LNm,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
                             </StackPanel>
                         </StackPanel>
-                        <StackPanel Grid.Column="1" Orientation="Horizontal">
+                        <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
                             <Image Margin="2 0 2 0" Height="150" Source="{Binding Path=PatientEntity.Profile,UpdateSourceTrigger=PropertyChanged}"></Image>
-                            <Button Background="#f05f40" Command="{Binding AddPhotoCommand, UpdateSourceTrigger=PropertyChanged}" Foreground="White" VerticalAlignment="Bottom" Padding="3">Add Photo</Button>
+                            <Button Command="{Binding AddPhotoCommand, UpdateSourceTrigger=PropertyChanged}" BorderBrush="Transparent" Padding="0" Margin="0" VerticalAlignment="Bottom">
+                                <Image Width="30" Margin="0" Source="{Binding CameraIcon,UpdateSourceTrigger=PropertyChanged}"></Image>
+                            </Button>
                         </StackPanel>                       
                     </Grid>
                     <StackPanel Margin="5" Orientation="Horizontal">
