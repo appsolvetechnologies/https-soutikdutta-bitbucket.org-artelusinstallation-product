@@ -37,7 +37,6 @@ namespace Artelus.ViewModel
 
         private void OnLoginCommand(object args)
         {
-
             var model = args as UserEntity;
             if (model != null)
             {
@@ -53,7 +52,7 @@ namespace Artelus.ViewModel
                         {
                             Style = (Style)App.Current.Resources["BlankWindow"],
                             Title = "Settings",
-                            IsTitleVisible = true,
+                            IsTitleVisible = true
                         };
                         window.Content = new SettingsView(settingVM, window);
                         window.Width = SystemParameters.MaximizedPrimaryScreenWidth - (SystemParameters.MaximizedPrimaryScreenWidth - 500);

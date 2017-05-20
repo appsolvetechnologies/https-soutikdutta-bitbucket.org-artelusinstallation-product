@@ -27,7 +27,7 @@
                 <TextBox Text="{Binding Path=User.Location,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
             </StackPanel>
             <StackPanel Margin="0 0 0 10">
-                <TextBlock Text="PinCode" FontSize="15" FontWeight="Medium" Margin="0 0 0 5"/>
+                <TextBlock Text="Pin Code" FontSize="15" FontWeight="Medium" Margin="0 0 0 5"/>
                 <TextBox Text="{Binding Path=User.PinCode,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
             </StackPanel>
             <StackPanel Margin="0 0 0 10">

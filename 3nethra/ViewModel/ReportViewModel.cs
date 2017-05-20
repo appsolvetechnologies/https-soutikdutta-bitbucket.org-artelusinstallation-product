@@ -116,8 +116,8 @@ namespace Artelus.ViewModel
         public DelegateCommand FtpTransferCommand { get; set; }
         public DelegateCommand ViewReportDataCommand { get; set; }
         public DelegateCommand PreviousReportCommand { get; set; }
-
-        public DelegateCommand CompleteCommand { get; set; }
+        public DelegateCommand SaveNextCommand { get; set; }
+        public DelegateCommand SaveExitCommand { get; set; }
         public Action CloseAction { get; set; }
         public ReportViewModel(PatientEntity model, PatientReport obj)
         {
@@ -181,7 +181,8 @@ namespace Artelus.ViewModel
             PreviousReportCommand = new DelegateCommand(OnPreviousReportCommand);
             FtpTransferCommand = new DelegateCommand(OnFtpTransferCommand);
             ViewReportDataCommand = new DelegateCommand(OnViewReportDataCommand);
-
+            SaveNextCommand = new DelegateCommand(OnSaveNextCommand);
+            SaveExitCommand = new DelegateCommand(OnSaveExitCommand);
         }
 
         private void OnPreviousReportCommand(object args)
@@ -344,6 +345,29 @@ namespace Artelus.ViewModel
                     ShowReport = true;
                 }
             }
+        }
+        private void OnSaveNextCommand(object args)
+        {
+            foreach (Window win in Application.Current.Windows)
+            {
+                if (win.GetType().Name == "MainWindow")
+                {
+                    //var patientView = (win) as Artelus.MainWindow;
+                    //patientView.ContentSource = new Uri("Views/PatientView.xaml", UriKind.Relative);
+                    //patientView.DataContext = new PatientViewModel();
+
+                    var artelus = (win) as Artelus.MainWindow;
+                    artelus.ContentSource = new Uri("Views/PatientView.xaml", UriKind.Relative);
+                    var dataContext = win.DataContext as MainWindowViewModel;
+                    dataContext.CurrentViewModel = new PatientViewModel();
+                }
+            }
+        }
+        private void OnSaveExitCommand(object args)
+        {
+            var result = ModernDialog.ShowMessage("Do you want to close the application?", "Are you sure?", MessageBoxButton.YesNo);
+            if (result == MessageBoxResult.Yes)
+                Application.Current.Shutdown();
         }
     }
 }

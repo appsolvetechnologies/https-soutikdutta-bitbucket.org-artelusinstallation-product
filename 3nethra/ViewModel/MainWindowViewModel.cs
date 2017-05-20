@@ -11,7 +11,6 @@ namespace Artelus
 {
     public class MainWindowViewModel : BaseViewModel
     {
-        //private PatientViewModel patientViewModel = new PatientViewModel();
         private LoginViewModel loginViewModel = new LoginViewModel();
         private BaseViewModel _CurrentViewModel;
         private string alert;

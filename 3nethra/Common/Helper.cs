@@ -12,6 +12,8 @@ namespace Artelus.Common
             {
                 if (win.GetType().Name == "MainWindow")
                 {
+                    var artelus = (win) as Artelus.MainWindow;
+                    artelus.ContentSource = new Uri("Views/LoginView.xaml", UriKind.Relative);
                     var dataContext = win.DataContext as MainWindowViewModel;
                     dataContext.IsAuthorize = false;
                     dataContext.CurrentViewModel = new LoginViewModel();
@@ -23,19 +25,12 @@ namespace Artelus.Common
         {
             foreach (Window win in Application.Current.Windows)
             {
-
                 if (win.GetType().Name == "MainWindow")
                 {
-                    var Artelus = (win) as Artelus.MainWindow;
-                    //new Uri()
-                    //string path = AppDomain.CurrentDomain.BaseDirectory + "Views\\PatientView.xaml";
-                    //Artelus.ContentSource = new Uri(path,UriKind.Relative);
-                    Artelus.ContentSource = new Uri("Views/PatientView.xaml", UriKind.Relative);
-                    //if (isConfigured)
-                    //    Artelus.ContentSource = new Uri("Views/PatientView.xaml", UriKind.Relative);
-                    //else
-                    //    Artelus.ContentSource = new Uri("Views/SettingsView.xaml", UriKind.Relative);
-
+                    var artelus = (win) as Artelus.MainWindow;
+                    artelus.ContentSource = new Uri("Views/PatientView.xaml", UriKind.Relative);
+                    var dataContext = artelus.DataContext as MainWindowViewModel;
+                    dataContext.IsAuthorize = true;
                 }
             }
         }

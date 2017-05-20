@@ -132,6 +132,13 @@ namespace Artelus.ViewModel
             }
             if (PatientEntity.AllergyDrugs == "yes")
                 ShowAllergyOption = true;
+            string path = Path.Combine(Program.BaseDir(), "Uploads", model.UniqueID.ToString());
+            string file = Path.Combine(path, model.UniqueID.ToString() + ".png");
+
+            if (File.Exists(file))
+                model.Profile = file;
+            else
+                model.Profile = AppDomain.CurrentDomain.BaseDirectory + "Resources\\profile.gif";
         }
 
         private void Initialize()
@@ -212,18 +219,18 @@ namespace Artelus.ViewModel
             if (model.Id == 0)
             {
                 model.UniqueID = Guid.NewGuid();
-                if (fileNm != "profile.gif")
-                {
-                    string path = Path.Combine(Program.BaseDir(), "Uploads", model.UniqueID.ToString());
-                    if (!Directory.Exists(path))
-                        Directory.CreateDirectory(path);
-                    string file = Path.Combine(path, model.UniqueID.ToString() + ".png");
-                    Image img = Image.FromFile(model.Profile);
-                    img.Save(file);
-                }
                 model.Id = new Patient().Add(model);
                 if (model.Id > 0)
-                {                    
+                {
+                    if (fileNm != "profile.gif")
+                    {
+                        string path = Path.Combine(Program.BaseDir(), "Uploads", model.UniqueID.ToString());
+                        if (!Directory.Exists(path))
+                            Directory.CreateDirectory(path);
+                        string file = Path.Combine(path, model.UniqueID.ToString() + ".png");
+                        Image img = Image.FromFile(model.Profile);
+                        img.Save(file);
+                    }
                     foreach (Window win in Application.Current.Windows)
                     {
                         if (win.GetType().Name == "MainWindow")
@@ -244,7 +251,9 @@ namespace Artelus.ViewModel
                     string path = Path.Combine(Program.BaseDir(), "Uploads", model.UniqueID.ToString());
                     if (!Directory.Exists(path))
                         Directory.CreateDirectory(path);
-                    string file = Path.Combine(path, model.UniqueID.ToString() + ".png"); Image.FromFile(model.Profile).Save(path);
+                    string file = Path.Combine(path, model.UniqueID.ToString() + ".png");
+                    Image img = Image.FromFile(model.Profile);
+                    img.Save(file);
                 }
                 foreach (Window win in Application.Current.Windows)
                 {
@@ -256,18 +265,6 @@ namespace Artelus.ViewModel
                     }
                 }
             }
-
-            //var camVM = new CameraViewModel(model);
-            //var window = new ModernWindow
-            //{
-            //    Style = (Style)App.Current.Resources["BlankWindow"],
-            //    Title = "Camera",
-            //    IsTitleVisible = true,
-            //    WindowState = WindowState.Maximized
-            //};
-            //window.Content = new CameraView(camVM, window);
-            //var closeResult = window.ShowDialog();
-            //this.Clear();
         }
 
         private void OnUpdateCommand(object args)

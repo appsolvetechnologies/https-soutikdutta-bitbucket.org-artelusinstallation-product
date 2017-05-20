@@ -203,8 +203,8 @@
                 <!--<Label HorizontalAlignment="Center" FontWeight="Bold" FontSize="16">* Kindly correlate clinically</Label>-->
             </StackPanel>
             <StackPanel Grid.Row="5" Orientation="Horizontal" HorizontalAlignment="Right">
-                <Button Background="#f05f40" Foreground="White" Height="40px" HorizontalAlignment="Right" VerticalAlignment="Bottom" FontWeight="DemiBold"    Command="{Binding CompleteCommand}">Save and Next </Button>
-                <Button Background="#f05f40" Foreground="White" Height="40px" HorizontalAlignment="Right" VerticalAlignment="Bottom" FontWeight="DemiBold"    Command="{Binding CompleteCommand}">Save and Exit</Button>
+                <Button Background="#f05f40" Foreground="White" Height="40px" HorizontalAlignment="Right" VerticalAlignment="Bottom" FontWeight="DemiBold"    Command="{Binding SaveNextCommand}">Save and Next </Button>
+                <Button Background="#f05f40" Foreground="White" Height="40px" HorizontalAlignment="Right" VerticalAlignment="Bottom" FontWeight="DemiBold"    Command="{Binding SaveExitCommand}">Save and Exit</Button>
             </StackPanel>
             
         </Grid> 
