@@ -53,6 +53,7 @@ namespace Artelus.Model
         private string profile;
         private string medicalInsurance;
         private string previousState;
+        private bool showRelation;
         public string PreviousState
         {
             get { return previousState; }
@@ -155,6 +156,18 @@ namespace Artelus.Model
                 {
                     otherOption = value;
                     RaisePropertyChange("OtherOption");
+                }
+            }
+        }
+        public bool ShowRelation
+        {
+            get { return showRelation; }
+            set
+            {
+                if (showRelation != value)
+                {
+                    showRelation = value;
+                    RaisePropertyChange("ShowRelation");
                 }
             }
         }
@@ -409,7 +422,7 @@ namespace Artelus.Model
                     RaisePropertyChange("AllergyDrugsDtl");
                 }
             }
-        }        
+        }
         public string Diabetic
         {
             get { return diabetic; }
@@ -465,6 +478,11 @@ namespace Artelus.Model
             {
                 if (statedConsentPerson != value)
                 {
+                    if (this.Nm != null && !this.Nm.Contains(value))
+                        this.ShowRelation = true;
+                    else
+                        this.ShowRelation = false;
+
                     statedConsentPerson = value;
                     RaisePropertyChange("StatedConsentPerson");
                 }
@@ -477,6 +495,7 @@ namespace Artelus.Model
             {
                 if (relation != value)
                 {
+
                     relation = value;
                     RaisePropertyChange("Relation");
                 }
@@ -663,7 +682,7 @@ namespace Artelus.Model
                 case "Mob":
                     if (String.IsNullOrEmpty(mob))
                         validationMessgae = "Cannot be empty.";
-                    else if (mob.Length <10 || mob.Length > 15)
+                    else if (mob.Length < 10 || mob.Length > 15)
 
                     {
                         validationMessgae = "Please enter a valid mobile number.";

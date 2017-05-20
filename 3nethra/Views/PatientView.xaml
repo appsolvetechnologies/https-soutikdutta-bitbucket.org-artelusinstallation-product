@@ -216,8 +216,8 @@
                         </Grid.ColumnDefinitions>
                         <TextBlock FontSize="15" FontWeight="Medium" Text="Allergy to Drugs:"/>
                         <StackPanel Grid.Column="1" HorizontalAlignment="Left" Orientation="Horizontal">
-                            <RadioButton GroupName="AllergyDrugs" Command="{Binding AlergyChangeCommand,UpdateSourceTrigger=PropertyChanged}" Content="Yes" FontSize="15" FontWeight="Medium" Margin="8,0,0,0" IsChecked="{Binding PatientEntity.AllergyDrugs, Converter={StaticResource RadioButtonCheckedConverter}, ConverterParameter='yes'}" />
-                            <RadioButton GroupName="AllergyDrugs" Command="{Binding AlergyChangeCommand,UpdateSourceTrigger=PropertyChanged}" Content="No" FontSize="15" FontWeight="Medium" Margin="8,0,0,0" IsChecked="{Binding PatientEntity.AllergyDrugs, Converter={StaticResource RadioButtonCheckedConverter}, ConverterParameter='no'}" />
+                            <RadioButton GroupName="AllergyDrugs" Content="Yes" FontSize="15" FontWeight="Medium" Margin="8,0,0,0" IsChecked="{Binding PatientEntity.AllergyDrugs, Converter={StaticResource RadioButtonCheckedConverter}, ConverterParameter='yes'}" />
+                            <RadioButton GroupName="AllergyDrugs" Content="No" FontSize="15" FontWeight="Medium" Margin="8,0,0,0" IsChecked="{Binding PatientEntity.AllergyDrugs, Converter={StaticResource RadioButtonCheckedConverter}, ConverterParameter='no'}" />
                         </StackPanel>
                     </Grid>
                     <StackPanel Margin="5" Visibility="{Binding ShowAllergyOption,UpdateSourceTrigger=PropertyChanged, Converter={converters:BoolToVisibilityConverter},ConverterParameter='Collapsed'}">
@@ -257,7 +257,7 @@
                         <TextBlock FontSize="15" FontWeight="Medium" Text="Name of the person giving consent (if different from patient):" Margin="0 0 0 5"/>
                         <TextBox Text="{Binding Path=PatientEntity.StatedConsentPerson,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
                     </StackPanel>
-                    <StackPanel Margin="5">
+                    <StackPanel Margin="5" Visibility="{Binding Path=PatientEntity.ShowRelation,UpdateSourceTrigger=PropertyChanged, Converter={converters:BoolToVisibilityConverter},ConverterParameter='Collapsed'}">
                         <TextBlock FontSize="15" FontWeight="Medium" Text="Relation with the Patient (if applicable):" Margin="0 0 0 5"/>
                         <TextBox Text="{Binding Path=PatientEntity.Relation,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
                     </StackPanel>
