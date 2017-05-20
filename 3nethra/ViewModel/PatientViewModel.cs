@@ -208,24 +208,22 @@ namespace Artelus.ViewModel
                 model.OtherOption = string.Empty;
                 model.OthersID = string.Empty;
             }
-
+            string fileNm = Path.GetFileName(model.Profile);
             if (model.Id == 0)
             {
                 model.UniqueID = Guid.NewGuid();
-                string fileNm = Path.GetFileName(model.Profile);
                 if (fileNm != "profile.gif")
                 {
                     string path = Path.Combine(Program.BaseDir(), "Uploads", model.UniqueID.ToString());
-                    Image.FromFile(model.Profile).Save(path);
+                    if (!Directory.Exists(path))
+                        Directory.CreateDirectory(path);
+                    string file = Path.Combine(path, model.UniqueID.ToString() + ".png");
+                    Image img = Image.FromFile(model.Profile);
+                    img.Save(file);
                 }
                 model.Id = new Patient().Add(model);
                 if (model.Id > 0)
-                {
-                    if (fileNm != "profile.gif" && !model.Profile.Contains(model.UniqueID.ToString()))
-                    {
-                        string path = Path.Combine(Program.BaseDir(), "Uploads", model.UniqueID.ToString());
-                        Image.FromFile(model.Profile).Save(path);
-                    }
+                {                    
                     foreach (Window win in Application.Current.Windows)
                     {
                         if (win.GetType().Name == "MainWindow")
@@ -241,6 +239,13 @@ namespace Artelus.ViewModel
             {
                 model.MDt = DateTime.UtcNow;
                 new Patient().Update(model);
+                if (fileNm != "profile.gif" && !model.Profile.Contains(model.UniqueID.ToString()))
+                {
+                    string path = Path.Combine(Program.BaseDir(), "Uploads", model.UniqueID.ToString());
+                    if (!Directory.Exists(path))
+                        Directory.CreateDirectory(path);
+                    string file = Path.Combine(path, model.UniqueID.ToString() + ".png"); Image.FromFile(model.Profile).Save(path);
+                }
                 foreach (Window win in Application.Current.Windows)
                 {
                     if (win.GetType().Name == "MainWindow")
