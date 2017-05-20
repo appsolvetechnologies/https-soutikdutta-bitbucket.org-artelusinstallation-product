@@ -119,6 +119,7 @@
     </ApplicationDefinition>
     <Compile Include="Common\EnumFunctionality.cs" />
     <Compile Include="Common\Helper.cs" />
+    <Compile Include="Common\Mail.cs" />
     <Compile Include="Common\PasswordHelper.cs" />
     <Compile Include="Common\Program.cs" />
     <Compile Include="Model\ArtelusDbContext.cs" />
@@ -157,7 +158,6 @@
     </Compile>
     <Compile Include="Views\PatientView.xaml.cs">
       <DependentUpon>PatientView.xaml</DependentUpon>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Views\ReportHistoryView.xaml.cs">
       <DependentUpon>ReportHistoryView.xaml</DependentUpon>
@@ -206,7 +206,6 @@
     <Page Include="Views\PatientView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Page>
     <Page Include="Views\ReportHistoryView.xaml">
       <SubType>Designer</SubType>
