@@ -17,7 +17,7 @@ namespace Artelus
     {
         private void Application_Startup(object sender, StartupEventArgs e)
         {
-            string relative = @"D:\Project\product\3nethra\3nethra.sdf";
+            //string relative = @"D:\Project\product\3nethra\3nethra.sdf";
             string localDB = ConfigurationManager.AppSettings["localDB"].ToString();
             string basedir = AppDomain.CurrentDomain.BaseDirectory;
 
