@@ -23,6 +23,7 @@ namespace Artelus.Views
     /// </summary>
     public partial class PatientView : UserControl
     {
+        private int _errors = 0;
         public PatientView()
         {
             InitializeComponent();
@@ -34,5 +35,18 @@ namespace Artelus.Views
             this.DataContext = viewModel;
             InitializeComponent();
         }
+
+        private void Validation_Error(object sender, ValidationErrorEventArgs e)
+        {
+            if (e.Action == ValidationErrorEventAction.Added)
+                _errors++;
+
+            else
+                _errors--;
+
+            var dataContext = this.DataContext as PatientViewModel;
+            dataContext.ErrorCount = _errors;
+        }
+
     }
 }

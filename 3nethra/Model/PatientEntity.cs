@@ -683,13 +683,20 @@ namespace Artelus.Model
                     if (String.IsNullOrEmpty(mob))
                         validationMessgae = "Cannot be empty.";
                     else if (mob.Length < 10 || mob.Length > 15)
-
                     {
                         validationMessgae = "Please enter a valid mobile number.";
                     }
-
-
                     break;
+
+                case "Sex":
+                    if (String.IsNullOrEmpty(sex))
+                        validationMessgae = "Cannot be empty.";
+                    break;
+                case "TermsCondition":
+                    if (String.IsNullOrEmpty(termsCondition))
+                        validationMessgae = "Cannot be empty.";
+                    break;
+
             }
             return validationMessgae;
         }

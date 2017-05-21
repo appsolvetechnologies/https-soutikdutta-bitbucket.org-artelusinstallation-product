@@ -16,6 +16,19 @@ namespace Artelus.ViewModel
     public class PatientViewModel : BaseViewModel
     {
         //Properties 
+        private int errorCount;
+        public int ErrorCount
+        {
+            get { return errorCount; }
+            set
+            {
+                if (value != errorCount)
+                {
+                    errorCount = value;
+                    RaisePropertyChange("ErrorCount");
+                }
+            }
+        }
         private bool showOtherOption;
         public bool ShowOtherOption
         {
@@ -204,25 +217,51 @@ namespace Artelus.ViewModel
 
         private void OnSaveCommand(object args)
         {
-            var model = args as PatientEntity;
-            model.CDt = DateTime.UtcNow;
-            model.MDt = DateTime.UtcNow;
-            model.CollectionID = 123;
-            model.InstallID = new User().GetInstallID(Program.UserId());
+            if (this.ErrorCount == 0)
+            {
+                var model = args as PatientEntity;
+                model.CDt = DateTime.UtcNow;
+                model.MDt = DateTime.UtcNow;
+                model.CollectionID = 123;
+                model.InstallID = new User().GetInstallID(Program.UserId());
 
-            if (model.IfResidentOfM == "yes")
-            {
-                model.OtherOption = string.Empty;
-                model.OthersID = string.Empty;
-            }
-            string fileNm = Path.GetFileName(model.Profile);
-            if (model.Id == 0)
-            {
-                model.UniqueID = Guid.NewGuid();
-                model.Id = new Patient().Add(model);
-                if (model.Id > 0)
+                if (model.IfResidentOfM == "yes")
                 {
-                    if (fileNm != "profile.gif")
+                    model.OtherOption = string.Empty;
+                    model.OthersID = string.Empty;
+                }
+                string fileNm = Path.GetFileName(model.Profile);
+                if (model.Id == 0)
+                {
+                    model.UniqueID = Guid.NewGuid();
+                    model.Id = new Patient().Add(model);
+                    if (model.Id > 0)
+                    {
+                        if (fileNm != "profile.gif")
+                        {
+                            string path = Path.Combine(Program.BaseDir(), "Uploads", model.UniqueID.ToString());
+                            if (!Directory.Exists(path))
+                                Directory.CreateDirectory(path);
+                            string file = Path.Combine(path, model.UniqueID.ToString() + ".png");
+                            Image img = Image.FromFile(model.Profile);
+                            img.Save(file);
+                        }
+                        foreach (Window win in Application.Current.Windows)
+                        {
+                            if (win.GetType().Name == "MainWindow")
+                            {
+                                var cameraView = (win) as Artelus.MainWindow;
+                                cameraView.ContentSource = new Uri("Views/CameraView.xaml", UriKind.Relative);
+                                cameraView.DataContext = new CameraViewModel(model);
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    model.MDt = DateTime.UtcNow;
+                    new Patient().Update(model);
+                    if (fileNm != "profile.gif" && !model.Profile.Contains(model.UniqueID.ToString()))
                     {
                         string path = Path.Combine(Program.BaseDir(), "Uploads", model.UniqueID.ToString());
                         if (!Directory.Exists(path))
@@ -235,44 +274,24 @@ namespace Artelus.ViewModel
                     {
                         if (win.GetType().Name == "MainWindow")
                         {
-                            var cameraView = (win) as Artelus.MainWindow;
-                            cameraView.ContentSource = new Uri("Views/CameraView.xaml", UriKind.Relative);
-                            cameraView.DataContext = new CameraViewModel(model);
-                        }
-                    }
-                }
-            }
-            else
-            {
-                model.MDt = DateTime.UtcNow;
-                new Patient().Update(model);
-                if (fileNm != "profile.gif" && !model.Profile.Contains(model.UniqueID.ToString()))
-                {
-                    string path = Path.Combine(Program.BaseDir(), "Uploads", model.UniqueID.ToString());
-                    if (!Directory.Exists(path))
-                        Directory.CreateDirectory(path);
-                    string file = Path.Combine(path, model.UniqueID.ToString() + ".png");
-                    Image img = Image.FromFile(model.Profile);
-                    img.Save(file);
-                }
-                foreach (Window win in Application.Current.Windows)
-                {
-                    if (win.GetType().Name == "MainWindow")
-                    {
-                        var artelus = (win) as Artelus.MainWindow;
+                            var artelus = (win) as Artelus.MainWindow;
 
-                        if (string.IsNullOrEmpty(PatientEntity.PreviousState))
-                        {
-                            artelus.ContentSource = new Uri("Views/PatientProfileView.xaml", UriKind.Relative);
-                            artelus.DataContext = new ProfileViewModel(model);
+                            if (string.IsNullOrEmpty(PatientEntity.PreviousState))
+                            {
+                                artelus.ContentSource = new Uri("Views/PatientProfileView.xaml", UriKind.Relative);
+                                artelus.DataContext = new ProfileViewModel(model);
+                            }
+                            else if (PatientEntity.PreviousState == "CameraView")
+                            {
+                                artelus.ContentSource = new Uri("Views/CameraView.xaml", UriKind.Relative);
+                                artelus.DataContext = new CameraViewModel(model);
+                            }
                         }
-                        else if (PatientEntity.PreviousState == "CameraView") {
-                            artelus.ContentSource = new Uri("Views/CameraView.xaml", UriKind.Relative);
-                            artelus.DataContext = new CameraViewModel(model);
-                        }                      
                     }
                 }
             }
+            else ModernDialog.ShowMessage("Please fill all the required fields!", "Error", MessageBoxButton.OK);
+
         }
 
         private void OnUpdateCommand(object args)
@@ -319,6 +338,7 @@ namespace Artelus.ViewModel
             PatientEntity.StatedConsentPerson = string.Empty;
             PatientEntity.Relation = string.Empty;
             PatientEntity.TermsCondition = string.Empty;
+            PatientEntity.MedicalInsurance = string.Empty;
         }
     }
 }
