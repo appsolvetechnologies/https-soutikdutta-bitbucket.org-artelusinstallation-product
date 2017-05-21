@@ -52,8 +52,8 @@
                     </Grid>
                     <StackPanel Margin="5" Orientation="Horizontal">
                         <TextBlock FontSize="15" FontWeight="Medium" Text="Resident of Malaysia:"/>
-                        <RadioButton Background="#f05f40" GroupName="IfResidentOfM" FontSize="15" FontWeight="Medium" Content="No" Margin="8,0,0,0" Command="{Binding ResidentChangeCommand,UpdateSourceTrigger=PropertyChanged}" IsChecked="{Binding PatientEntity.IfResidentOfM, Converter={StaticResource RadioButtonCheckedConverter}, ConverterParameter='no'}" />
-                        <RadioButton  Background="#f05f40" GroupName="IfResidentOfM" FontSize="15" FontWeight="Medium" Content="Yes" Margin="8,0,0,0" Command="{Binding ResidentChangeCommand,UpdateSourceTrigger=PropertyChanged}" IsChecked="{Binding PatientEntity.IfResidentOfM, Converter={StaticResource RadioButtonCheckedConverter}, ConverterParameter='yes'}" />
+                        <RadioButton Background="#f05f40" GroupName="IfResidentOfM" FontSize="15" FontWeight="Medium" Content="No" Margin="8,0,0,0" Command="{Binding ResidentChangeCommand,UpdateSourceTrigger=PropertyChanged}" IsChecked="{Binding PatientEntity.IfResidentOfM, Converter={StaticResource RadioButtonCheckedConverter}, ConverterParameter='No'}" />
+                        <RadioButton  Background="#f05f40" GroupName="IfResidentOfM" FontSize="15" FontWeight="Medium" Content="Yes" Margin="8,0,0,0" Command="{Binding ResidentChangeCommand,UpdateSourceTrigger=PropertyChanged}" IsChecked="{Binding PatientEntity.IfResidentOfM, Converter={StaticResource RadioButtonCheckedConverter}, ConverterParameter='Yes'}" />
                     </StackPanel>
                     <StackPanel Margin="5" Visibility="{Binding HideOthers,UpdateSourceTrigger=PropertyChanged, Converter={converters:BoolToOppVisibilityConverter},ConverterParameter='Collapsed'}">
                         <TextBlock FontSize="15"  FontWeight="Medium" Text="IC Number:*" Margin="0 0 0 5"/>
@@ -171,8 +171,8 @@
                         </Grid.ColumnDefinitions>
                         <TextBlock FontSize="15" FontWeight="Medium" Text="Laser Treatment:"/>
                         <StackPanel Grid.Column="1" HorizontalAlignment="Left" Orientation="Horizontal">
-                            <RadioButton GroupName="LaserTreatment" Content="Yes" FontSize="15" FontWeight="Medium" Margin="8,0,0,0" IsChecked="{Binding PatientEntity.LaserTreatment, Converter={StaticResource RadioButtonCheckedConverter}, ConverterParameter='yes'}" />
-                            <RadioButton GroupName="LaserTreatment" Content="No" FontSize="15" FontWeight="Medium" Margin="8,0,0,0" IsChecked="{Binding PatientEntity.LaserTreatment, Converter={StaticResource RadioButtonCheckedConverter}, ConverterParameter='no'}" />
+                            <RadioButton GroupName="LaserTreatment" Content="Yes" FontSize="15" FontWeight="Medium" Margin="8,0,0,0" IsChecked="{Binding PatientEntity.LaserTreatment, Converter={StaticResource RadioButtonCheckedConverter}, ConverterParameter='Yes'}" />
+                            <RadioButton GroupName="LaserTreatment" Content="No" FontSize="15" FontWeight="Medium" Margin="8,0,0,0" IsChecked="{Binding PatientEntity.LaserTreatment, Converter={StaticResource RadioButtonCheckedConverter}, ConverterParameter='No'}" />
                         </StackPanel>
                     </Grid>
                     <Grid Margin="5">
@@ -182,8 +182,8 @@
                         </Grid.ColumnDefinitions>
                         <TextBlock FontSize="15" FontWeight="Medium" Text="Cataract:"/>
                         <StackPanel Grid.Column="1" HorizontalAlignment="Left" Orientation="Horizontal">
-                            <RadioButton GroupName="Cataract" Content="Yes" FontSize="15" FontWeight="Medium" Margin="8,0,0,0" IsChecked="{Binding PatientEntity.Cataract, Converter={StaticResource RadioButtonCheckedConverter}, ConverterParameter='yes'}" />
-                            <RadioButton GroupName="Cataract" Content="No" FontSize="15" FontWeight="Medium" Margin="8,0,0,0" IsChecked="{Binding PatientEntity.Cataract, Converter={StaticResource RadioButtonCheckedConverter}, ConverterParameter='no'}" />
+                            <RadioButton GroupName="Cataract" Content="Yes" FontSize="15" FontWeight="Medium" Margin="8,0,0,0" IsChecked="{Binding PatientEntity.Cataract, Converter={StaticResource RadioButtonCheckedConverter}, ConverterParameter='Yes'}" />
+                            <RadioButton GroupName="Cataract" Content="No" FontSize="15" FontWeight="Medium" Margin="8,0,0,0" IsChecked="{Binding PatientEntity.Cataract, Converter={StaticResource RadioButtonCheckedConverter}, ConverterParameter='No'}" />
                         </StackPanel>
                     </Grid>
                     <Grid Margin="5">
@@ -193,8 +193,8 @@
                         </Grid.ColumnDefinitions>
                         <TextBlock FontSize="15" FontWeight="Medium" Text="Diabetic:"/>
                         <StackPanel Grid.Column="1" HorizontalAlignment="Left" Orientation="Horizontal">
-                            <RadioButton GroupName="Diabetic" Content="Yes" FontSize="15" FontWeight="Medium" Margin="8,0,0,0" IsChecked="{Binding PatientEntity.Diabetic, Converter={StaticResource RadioButtonCheckedConverter}, ConverterParameter='yes'}" />
-                            <RadioButton GroupName="Diabetic" Content="No" FontSize="15" FontWeight="Medium" Margin="8,0,0,0" IsChecked="{Binding PatientEntity.Diabetic, Converter={StaticResource RadioButtonCheckedConverter}, ConverterParameter='no'}" />
+                            <RadioButton GroupName="Diabetic" Content="Yes" FontSize="15" FontWeight="Medium" Margin="8,0,0,0" IsChecked="{Binding PatientEntity.Diabetic, Converter={StaticResource RadioButtonCheckedConverter}, ConverterParameter='Yes'}" />
+                            <RadioButton GroupName="Diabetic" Content="No" FontSize="15" FontWeight="Medium" Margin="8,0,0,0" IsChecked="{Binding PatientEntity.Diabetic, Converter={StaticResource RadioButtonCheckedConverter}, ConverterParameter='No'}" />
                         </StackPanel>
                     </Grid>
                     <Grid Margin="5">
@@ -205,7 +205,7 @@
                         <TextBlock FontSize="15" FontWeight="Medium" Text="Hypertension:"/>
                         <StackPanel Grid.Column="1" HorizontalAlignment="Left" Orientation="Horizontal">
                             <RadioButton GroupName="Hypertension" Content="Yes" FontSize="15" FontWeight="Medium" Margin="8,0,0,0" IsChecked="{Binding PatientEntity.Hypertension, Converter={StaticResource RadioButtonCheckedConverter}, ConverterParameter='yes'}" />
-                            <RadioButton GroupName="Hypertension" Content="No" FontSize="15" FontWeight="Medium" Margin="8,0,0,0" IsChecked="{Binding PatientEntity.Hypertension, Converter={StaticResource RadioButtonCheckedConverter}, ConverterParameter='no'}" />
+                            <RadioButton GroupName="Hypertension" Content="No" FontSize="15" FontWeight="Medium" Margin="8,0,0,0" IsChecked="{Binding PatientEntity.Hypertension, Converter={StaticResource RadioButtonCheckedConverter}, ConverterParameter='No'}" />
                         </StackPanel>
                     </Grid>
                     <Grid Margin="5">
@@ -215,8 +215,8 @@
                         </Grid.ColumnDefinitions>
                         <TextBlock FontSize="15" FontWeight="Medium" Text="Allergy to Drugs:"/>
                         <StackPanel Grid.Column="1" HorizontalAlignment="Left" Orientation="Horizontal">
-                            <RadioButton GroupName="AllergyDrugs" Content="Yes" FontSize="15" FontWeight="Medium" Margin="8,0,0,0" IsChecked="{Binding PatientEntity.AllergyDrugs, Converter={StaticResource RadioButtonCheckedConverter}, ConverterParameter='yes'}" />
-                            <RadioButton GroupName="AllergyDrugs" Content="No" FontSize="15" FontWeight="Medium" Margin="8,0,0,0" IsChecked="{Binding PatientEntity.AllergyDrugs, Converter={StaticResource RadioButtonCheckedConverter}, ConverterParameter='no'}" />
+                            <RadioButton GroupName="AllergyDrugs" Content="Yes" FontSize="15" FontWeight="Medium" Margin="8,0,0,0" IsChecked="{Binding PatientEntity.AllergyDrugs, Converter={StaticResource RadioButtonCheckedConverter}, ConverterParameter='Yes'}" />
+                            <RadioButton GroupName="AllergyDrugs" Content="No" FontSize="15" FontWeight="Medium" Margin="8,0,0,0" IsChecked="{Binding PatientEntity.AllergyDrugs, Converter={StaticResource RadioButtonCheckedConverter}, ConverterParameter='No'}" />
                         </StackPanel>
                     </Grid>
                     <StackPanel Margin="5" Visibility="{Binding ShowAllergyOption,UpdateSourceTrigger=PropertyChanged, Converter={converters:BoolToVisibilityConverter},ConverterParameter='Collapsed'}">
@@ -230,8 +230,8 @@
                         </Grid.ColumnDefinitions>
                         <TextBlock FontSize="15" FontWeight="Medium" Text="Current Medications if Any:"/>
                         <StackPanel Grid.Column="1" HorizontalAlignment="Left" Orientation="Horizontal">
-                            <RadioButton GroupName="CurrentMedications" Content="Yes" FontSize="15" FontWeight="Medium" Margin="8,0,0,0" IsChecked="{Binding PatientEntity.CurrentMedications, Converter={StaticResource RadioButtonCheckedConverter}, ConverterParameter='yes'}" />
-                            <RadioButton GroupName="CurrentMedications" Content="No" FontSize="15" FontWeight="Medium" Margin="8,0,0,0" IsChecked="{Binding PatientEntity.CurrentMedications, Converter={StaticResource RadioButtonCheckedConverter}, ConverterParameter='no'}" />
+                            <RadioButton GroupName="CurrentMedications" Content="Yes" FontSize="15" FontWeight="Medium" Margin="8,0,0,0" IsChecked="{Binding PatientEntity.CurrentMedications, Converter={StaticResource RadioButtonCheckedConverter}, ConverterParameter='Yes'}" />
+                            <RadioButton GroupName="CurrentMedications" Content="No" FontSize="15" FontWeight="Medium" Margin="8,0,0,0" IsChecked="{Binding PatientEntity.CurrentMedications, Converter={StaticResource RadioButtonCheckedConverter}, ConverterParameter='No'}" />
                         </StackPanel>
                     </Grid>
                     <StackPanel Margin="5">

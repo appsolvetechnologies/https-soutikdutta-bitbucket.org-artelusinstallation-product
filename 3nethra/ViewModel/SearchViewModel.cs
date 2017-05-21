@@ -18,6 +18,9 @@ namespace Artelus.ViewModel
         public DelegateCommand ViewProfileCommand { get; set; }
         public DelegateCommand ViewReportCommand { get; set; }
 
+        public IdNameCollection Filtercollection { get; set; } = new IdNameCollection();
+
+        public DelegateCommand SearchCommand { get; set; }
         public SearchViewModel()
         {
             Patients = new ObservableCollection<PatientEntity>();
@@ -30,8 +33,14 @@ namespace Artelus.ViewModel
                 item.MaritalStatus = item.MaritalStatus == "yes" ? "Y" : "N";
                 Patients.Add(item);
             }
-               
+
+            Filtercollection.Add(new IdName() { Id = 1, Name = "Patient ID" });
+            Filtercollection.Add(new IdName() { Id = 2, Name = "Patient Name" });
+            Filtercollection.Add(new IdName() { Id = 3, Name = "Email" });
+            Filtercollection.Add(new IdName() { Id = 4, Name = "Mobile" });
+
         }
+
 
         private void OnViewProfileCommand(object args)
         {
