@@ -3,6 +3,7 @@ using Artelus.Model;
 using Artelus.Views;
 using FirstFloor.ModernUI.Windows.Controls;
 using Helpers;
+using SelectPdf;
 using System;
 using System.Windows;
 
@@ -29,17 +30,7 @@ namespace Artelus.ViewModel
         public DelegateCommand LoginCommand { get; set; }
 
         public LoginViewModel()
-        {
-            //HtmlToPdf converter = new HtmlToPdf();
-
-            // convert the url to pdf 
-            //PdfDocument doc = converter.ConvertUrl(url);
-
-            // save pdf document 
-            //doc.Save(file);
-
-            // close pdf document 
-            //doc.Close();
+        {            
             Logo = AppDomain.CurrentDomain.BaseDirectory + "Resources\\logo.png";
             User = new UserEntity();
             LoginCommand = new DelegateCommand(OnLoginCommand);

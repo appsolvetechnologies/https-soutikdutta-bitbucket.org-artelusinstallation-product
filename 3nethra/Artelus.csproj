@@ -85,6 +85,9 @@
     <Reference Include="Renci.SshNet, Version=2016.0.0.0, Culture=neutral, PublicKeyToken=1cee9f8bde3db106, processorArchitecture=MSIL">
       <HintPath>..\packages\SSH.NET.2016.0.0\lib\net40\Renci.SshNet.dll</HintPath>
     </Reference>
+    <Reference Include="Select.HtmlToPdf, Version=17.1.0.0, Culture=neutral, PublicKeyToken=e0ae9f6e27a97018, processorArchitecture=MSIL">
+      <HintPath>..\packages\Select.HtmlToPdf.17.1.0\lib\net40\Select.HtmlToPdf.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.configuration" />
@@ -122,6 +125,7 @@
     <Compile Include="Common\Mail.cs" />
     <Compile Include="Common\PasswordHelper.cs" />
     <Compile Include="Common\Program.cs" />
+    <Compile Include="Common\WebBrowserUtility.cs" />
     <Compile Include="Model\ArtelusDbContext.cs" />
     <Compile Include="Model\CameraEntity.cs" />
     <Compile Include="Model\ReportEntity.cs" />
@@ -135,6 +139,7 @@
     <Compile Include="ViewModel\LoginViewModel.cs" />
     <Compile Include="ViewModel\MainWindowViewModel.cs" />
     <Compile Include="ViewModel\PatientViewModel.cs" />
+    <Compile Include="ViewModel\PDFViewModel.cs" />
     <Compile Include="ViewModel\PredictionViewModel.cs" />
     <Compile Include="ViewModel\ProfileViewModel.cs" />
     <Compile Include="ViewModel\ReportHistoryViewModel.cs" />
@@ -158,6 +163,9 @@
     </Compile>
     <Compile Include="Views\PatientView.xaml.cs">
       <DependentUpon>PatientView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PDFView.xaml.cs">
+      <DependentUpon>PDFView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ReportHistoryView.xaml.cs">
       <DependentUpon>ReportHistoryView.xaml</DependentUpon>
@@ -204,6 +212,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\PatientView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\PDFView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -254,6 +266,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="3nethra.sdf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\report.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Resource Include="Resources\camera.png">

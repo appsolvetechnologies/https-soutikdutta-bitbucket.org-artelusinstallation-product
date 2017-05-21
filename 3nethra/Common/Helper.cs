@@ -34,6 +34,10 @@ namespace Artelus.Common
                 }
             }
         }
+        public static string ReadAllTextReportFile()
+        {
+            return System.IO.File.ReadAllText(Program.BaseDir()+"Resources\\report.html");
+        }
 
         public static void Alert(string msg, bool isAuthorize = false)
         {
