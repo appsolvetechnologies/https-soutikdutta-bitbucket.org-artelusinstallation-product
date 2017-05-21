@@ -9,12 +9,12 @@ namespace Artelus.Common
 {
     public static class Mail
     {
-        public static void Send(string to, string subject, string body, bool isBodyHTML, List<string> files)
+        public static void Send(string to, string subject, string body, bool isBodyHTML, List<string> files, string cc)
         {
-            Send(string.Empty, string.Empty, to, subject, body, isBodyHTML, files);
+            Send(string.Empty, string.Empty, to, subject, body, isBodyHTML, files, cc);
         }
 
-        static void Send(string from, string replyTo, string to, string subject, string body, bool isbodyHTML, List<string> files)
+        static void Send(string from, string replyTo, string to, string subject, string body, bool isbodyHTML, List<string> files, string cc)
         {
             try
             {
@@ -34,6 +34,12 @@ namespace Artelus.Common
                 msg.Subject = subject;
                 msg.Body = body;
                 msg.IsBodyHtml = isbodyHTML;
+                if (!string.IsNullOrEmpty(cc))
+                {
+                    List<string> ccEmails = cc.Split(',').ToList();
+                    foreach (string e in ccEmails)
+                        msg.CC.Add(new MailAddress(e));
+                }
                 if (files.Count > 0)
                 {
                     foreach (var file in files)

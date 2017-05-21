@@ -39,7 +39,7 @@ namespace Artelus.ViewModel
                 RaisePropertyChange("ShowOtherOption");
             }
         }
-        
+
         private bool initialLoad = true;
         public bool InitialLoad
         {
@@ -130,6 +130,8 @@ namespace Artelus.ViewModel
         public IdNameCollection OtherIDCollection { get; set; } = new IdNameCollection();
         public PatientViewModel()
         {
+            if (PatientEntity != null)
+                this.Clear();
             Initialize();
         }
 

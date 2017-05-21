@@ -16,6 +16,26 @@ namespace Artelus.ViewModel
 {
     public class PredictionViewModel : BaseViewModel
     {
+        private int progressValue;
+        public int ProgressValue
+        {
+            get { return progressValue; }
+            set
+            {
+                progressValue = value;
+                RaisePropertyChange("ProgressValue");
+            }
+        }
+        private bool isEnabled = true;
+        public bool IsEnabled
+        {
+            get { return isEnabled; }
+            set
+            {
+                isEnabled = value;
+                RaisePropertyChange("IsEnabled");
+            }
+        }
         private bool selectAll;
         public bool SelectAll
         {
@@ -162,16 +182,26 @@ namespace Artelus.ViewModel
 
         }
 
+        private void dispatcherTimer_Tick(object sender, EventArgs e)
+        {
+            ProgressValue++;
+        }
         private void OnStartPredictionCommand(object args)
         {
             string prediction = "sushruta";
             if (this.hansanet != "Enable Hansanet")
                 prediction = "hansasushruta";
 
+            //System.Windows.Threading.DispatcherTimer dispatcherTimer = new System.Windows.Threading.DispatcherTimer();
+            //dispatcherTimer.Tick += dispatcherTimer_Tick;
+            //dispatcherTimer.Interval = TimeSpan.FromMilliseconds(1000 );
+            //ProgressValue = 0;
+            //dispatcherTimer.Start();
 
             //System.Windows.Application.Current.Dispatcher.Invoke((Action)delegate
             //{
 
+            this.IsEnabled = false;
             foreach (var item in PatientReport.OSPosteriorReportDatas)
             {
                 if (item.IsChecked)
@@ -235,6 +265,9 @@ namespace Artelus.ViewModel
                 }
             }
 
+            this.IsEnabled = true;
+            //dispatcherTimer.Stop();
+            //ProgressValue = 0;
             //});
         }
     }

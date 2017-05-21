@@ -5,42 +5,69 @@ using Helpers;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace Artelus.ViewModel
 {
     public class SearchViewModel : BaseViewModel
     {
-        public ObservableCollection<PatientEntity> Patients { get; set; }
+        public string searchText;
+        public string SearchText
+        {
+            get { return searchText; }
+            set
+            {
+                if (searchText != value)
+                {
+                    searchText = value;
+                    RaisePropertyChange("SearchText");
+                }
+            }
+        }
+        private IdName selectedOption;
+        public IdName SelectedOption
+        {
+            get { return selectedOption; }
+            set
+            {
+                selectedOption = value;
+                RaisePropertyChange("SelectedOption");
+            }
+        }
+        private ObservableCollection<PatientEntity> patients = new ObservableCollection<PatientEntity>();
+        public ObservableCollection<PatientEntity> Patients
+        {
+            get { return patients; }
+            set
+            {
+                if (value != patients)
+                {
+                    patients = value;
+                    RaisePropertyChange("Patients");
+                }
+            }
+        }
         public DelegateCommand ViewProfileCommand { get; set; }
         public DelegateCommand ViewReportCommand { get; set; }
-
-        public IdNameCollection Filtercollection { get; set; } = new IdNameCollection();
-
+        public IdNameCollection FilterCollection { get; set; } = new IdNameCollection();
         public DelegateCommand SearchCommand { get; set; }
         public SearchViewModel()
         {
             Patients = new ObservableCollection<PatientEntity>();
             ViewProfileCommand = new DelegateCommand(OnViewProfileCommand);
             ViewReportCommand = new DelegateCommand(OnViewReportCommand);
-
-            var result = new Patient().GetAll();
-            foreach (var item in result)
-            {
-                item.MaritalStatus = item.MaritalStatus == "yes" ? "Y" : "N";
-                Patients.Add(item);
-            }
-
-            Filtercollection.Add(new IdName() { Id = 1, Name = "Patient ID" });
-            Filtercollection.Add(new IdName() { Id = 2, Name = "Patient Name" });
-            Filtercollection.Add(new IdName() { Id = 3, Name = "Email" });
-            Filtercollection.Add(new IdName() { Id = 4, Name = "Mobile" });
-
+            SearchCommand = new DelegateCommand(OnSearchCommand);
+            Patients = new Patient().GetAll();
+            //foreach (var item in result)
+            //{
+            //    item.MaritalStatus = item.MaritalStatus == "yes" ? "Y" : "N";
+            //    Patients.Add(item);
+            //}
+            FilterCollection.Add(new IdName() { Id = "p_id", Name = "Patient ID" });
+            FilterCollection.Add(new IdName() { Id = "name", Name = "Patient Name" });
+            FilterCollection.Add(new IdName() { Id = "p_email", Name = "Email" });
+            FilterCollection.Add(new IdName() { Id = "mobile", Name = "Mobile" });
         }
-
 
         private void OnViewProfileCommand(object args)
         {
@@ -56,6 +83,20 @@ namespace Artelus.ViewModel
             }
         }
 
+        private void OnSearchCommand(object args)
+        {
+            if (SelectedOption.Id.ToString() == "p_id")
+            {
+                int n;
+                if (!int.TryParse(SearchText, out n))
+                {
+                    ModernDialog.ShowMessage("Patient ID should be a number", "Error", MessageBoxButton.OK);
+                    return;
+                }
+            }
+            Patients = new Patient().GetAll(SelectedOption.Id.ToString(), SearchText);
+        }
+
         private void OnViewReportCommand(object args)
         {
             var model = args as PatientEntity;
@@ -65,20 +106,9 @@ namespace Artelus.ViewModel
                 {
                     var cameraView = (win) as Artelus.MainWindow;
                     cameraView.ContentSource = new Uri("Views/ReportView.xaml", UriKind.Relative);
-                    cameraView.DataContext = new ReportViewModel(model,null);
+                    cameraView.DataContext = new ReportViewModel(model, null);
                 }
             }
-
-            //var reportVM = new ReportViewModel(model);
-            //var window = new ModernWindow
-            //{
-            //    Style = (Style)App.Current.Resources["BlankWindow"],
-            //    Title = "Camera",
-            //    IsTitleVisible = true,
-            //    WindowState = WindowState.Maximized
-            //};
-            //window.Content = new ReportView(reportVM, window);
-            //var closeResult = window.ShowDialog();
         }
     }
 }
