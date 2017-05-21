@@ -4,23 +4,28 @@ using System.Configuration;
 using System.Data.SqlServerCe;
 using System.Linq;
 using Newtonsoft.Json;
+using System.Collections.ObjectModel;
 
 namespace Artelus.Model
 {
     public class Patient
     {
         string conn = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
-        public List<PatientEntity> GetAll()
+        public ObservableCollection<PatientEntity> GetAll(string column = null, string searchText = null)
         {
-            List<PatientEntity> list = new List<PatientEntity>();
-            //using (var db = new ArtelusDbContext())
-            //{
-            //    list = db.Database.SqlQuery<PatientEntity>("Select * from Patient").ToList();
-            //}
+            string sql = "Select * from Patient";
+            if (!string.IsNullOrEmpty(searchText))
+            {
+                if (column != null && column != "p_id")
+                    sql = "select * from patient where " + column + " like '%" + searchText + "%';";
+                else if (column != null && column == "p_id")
+                    sql = "select * from patient where p_id=" + int.Parse(searchText);
+            }
 
+            ObservableCollection<PatientEntity> list = new ObservableCollection<PatientEntity>();
             SqlCeConnection _Conn = new SqlCeConnection(conn);
             _Conn.Open();
-            SqlCeCommand cmd = new SqlCeCommand("Select * from Patient", _Conn);
+            SqlCeCommand cmd = new SqlCeCommand(sql, _Conn);
             SqlCeDataReader rdr = cmd.ExecuteReader();
             while (rdr.Read())
             {
@@ -40,7 +45,7 @@ namespace Artelus.Model
                     HospitalID = rdr.IsDBNull(11) == true ? "" : rdr.GetString(11),
                     HospitalScreening = rdr.IsDBNull(12) == true ? "" : rdr.GetString(12),
                     Email = rdr.GetString(13),
-                    MaritalStatus = rdr.GetString(14),
+                    MaritalStatus = rdr.GetString(14) == "Yes" ? "Y" : "N",
                     Age = rdr.GetInt32(15),
                     Sex = rdr.GetString(16),
                     PerAdr = rdr.IsDBNull(17) == true ? "" : rdr.GetString(17),
@@ -67,6 +72,7 @@ namespace Artelus.Model
                     CDt = rdr.GetDateTime(38),
                     UniqueID = rdr.GetGuid(39),
                     AllergyDrugsDtl = rdr.IsDBNull(40) == true ? "" : rdr.GetString(40),
+                    MedicalInsurance = rdr.IsDBNull(41) == true ? "" : rdr.GetString(41)
                 };
                 list.Add(obj);
             }

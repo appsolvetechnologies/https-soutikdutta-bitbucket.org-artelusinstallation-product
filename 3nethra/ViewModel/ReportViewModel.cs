@@ -8,6 +8,7 @@ using SelectPdf;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -329,8 +330,9 @@ namespace Artelus.ViewModel
 
                 // var keyFile = new PrivateKeyFile(@"D:\Project\3nethra\3nethra\machine.pem");
                 //var keyFiles = new[] { keyFile };
-                var username = "ftpuser2";
-                var pwd = "ftp";
+                string ftpHost = ConfigurationManager.AppSettings["ftpHost"].ToString();
+                string ftpUserName = ConfigurationManager.AppSettings["ftpUserName"].ToString();
+                string ftpPassword = ConfigurationManager.AppSettings["ftpPassword"].ToString();
 
                 //var methods = new List<AuthenticationMethod>();
                 //methods.Add(new PrivateKeyAuthenticationMethod("password", pwd));
@@ -338,7 +340,7 @@ namespace Artelus.ViewModel
                 //var con = new ConnectionInfo("192.168.0.133", username,methods);
 
                 //new SftpClient()
-                using (var client = new SftpClient("192.168.0.133", username, pwd))
+                using (var client = new SftpClient(ftpHost, ftpUserName, ftpPassword))
                 {
                     client.Connect();
                     client.ChangeDirectory("/home/ftpuser2/FTPCollection");
