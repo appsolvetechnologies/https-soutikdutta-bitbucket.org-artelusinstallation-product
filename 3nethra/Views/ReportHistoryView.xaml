@@ -94,7 +94,7 @@
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
                             <TextBlock Text="Email ID:" FontWeight="Bold" Margin="0,0,15,0" />
-                            <TextBlock Grid.Column="1" FontSize="14" FontWeight="SemiBold" Text="{Binding PatientEntity.Email}" />
+                            <TextBlock Grid.Column="1" TextWrapping="Wrap" FontSize="14" FontWeight="SemiBold" Text="{Binding PatientEntity.Email}" />
                         </Grid>
                         <Separator Height=".7"/>
                         <Grid Margin="0 0 0 10">

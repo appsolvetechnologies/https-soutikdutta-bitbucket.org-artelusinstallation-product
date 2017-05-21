@@ -12,6 +12,14 @@
         <converters:DateTimeConverter x:Key="XAMLDateTimeConverter"/>
     </UserControl.Resources>
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*">
+                
+            </ColumnDefinition>
+            <ColumnDefinition Width="0.350*">
+
+            </ColumnDefinition>
+        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
@@ -21,11 +29,10 @@
             <DataGrid.Columns>
                 <mui:DataGridTextColumn Header="#"  Binding="{Binding Id}"/>
                 <mui:DataGridTextColumn Header="First Name"  Binding="{Binding Nm}"/>
-                <mui:DataGridTextColumn Header="Middle Name"  Binding="{Binding MNm}"/>
-                <mui:DataGridTextColumn Header="Last Name"  Binding="{Binding LNm}"/>
+                <!--<mui:DataGridTextColumn Header="Middle Name"  Binding="{Binding MNm}"/>
+                <mui:DataGridTextColumn Header="Last Name"  Binding="{Binding LNm}"/>-->
                 <mui:DataGridTextColumn Header="Email"  Binding="{Binding Email}"/>
                 <mui:DataGridTextColumn Header="Mobile"  Binding="{Binding Mob}"/>
-                <mui:DataGridTextColumn Header="Marital Status"  Binding="{Binding MaritalStatus}"/>
                 <mui:DataGridTextColumn Header="Age"  Binding="{Binding Age}"/>
                 <mui:DataGridTextColumn Header="City" Binding="{Binding Area}" />
                 <mui:DataGridTextColumn Header="Created On" Binding="{Binding CDt,Converter={StaticResource XAMLDateTimeConverter},ConverterParameter='MonDateTime'}" />

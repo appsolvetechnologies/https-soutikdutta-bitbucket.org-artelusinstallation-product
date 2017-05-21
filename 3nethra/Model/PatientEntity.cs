@@ -1,6 +1,7 @@
 ﻿using Helpers;
 using System;
 using System.ComponentModel;
+using System.Text.RegularExpressions;
 using System.Windows.Media.Imaging;
 
 namespace Artelus.Model
@@ -702,15 +703,23 @@ namespace Artelus.Model
         }
         bool IsValidEmail(string email)
         {
-            try
-            {
-                var addr = new System.Net.Mail.MailAddress(email);
-                return addr.Address == email;
-            }
-            catch
-            {
+            //try
+            //{
+            //    var addr = new System.Net.Mail.MailAddress(email);
+            //    return addr.Address == email;
+            //}
+            //catch
+            //{
+            //    return false;
+            //}
+
+            Regex regex = new Regex(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$");
+            Match match = regex.Match(email);
+            if (match.Success)
+                return true;
+            else
                 return false;
-            }
-        }
+        
+    }
     }
 }
