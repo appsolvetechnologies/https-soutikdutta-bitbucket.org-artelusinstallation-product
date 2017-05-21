@@ -10,7 +10,7 @@ namespace Artelus.Common
         public static string BaseDirectory(string file)
         {
             //var directory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-            string directory = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Artelus\PhoenixClient";
+            string directory = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Artelus";
             return Path.Combine(directory, file);
         }
 

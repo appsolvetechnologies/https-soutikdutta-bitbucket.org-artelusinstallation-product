@@ -21,7 +21,9 @@ namespace Artelus
             //string localDB = ConfigurationManager.AppSettings["localDB"].ToString();
             //string basedir = AppDomain.CurrentDomain.BaseDirectory;
 
-            string path = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Artelus";
+            var path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+
+            //string path = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Artelus";
             AppDomain.CurrentDomain.SetData("DataDirectory", path);
 
             //string path = Path.Combine(basedir, localDB);

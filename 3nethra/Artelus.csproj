@@ -71,13 +71,11 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\FirstFloor.ModernUI.dll</HintPath>
     </Reference>
-    <Reference Include="ForusImaging, Version=1.0.0.0, Culture=neutral, PublicKeyToken=53c8500c9d54edb1, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>bin\x86\Debug\ForusImaging.dll</HintPath>
+    <Reference Include="ForusImaging">
+      <HintPath>..\ForusImaging.dll</HintPath>
     </Reference>
-    <Reference Include="ImageEnhancementHelper, Version=1.0.0.0, Culture=neutral, PublicKeyToken=53c8500c9d54edb1, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>bin\x86\Debug\ImageEnhancementHelper.dll</HintPath>
+    <Reference Include="ImageEnhancementHelper">
+      <HintPath>..\ImageEnhancementHelper.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.10.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -107,9 +105,8 @@
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
-    <Reference Include="TrIPS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=53c8500c9d54edb1, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>bin\x86\Debug\TrIPS.dll</HintPath>
+    <Reference Include="TrIPS">
+      <HintPath>..\TrIPS.dll</HintPath>
     </Reference>
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
@@ -268,18 +265,106 @@
     <Content Include="3nethra.sdf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+	<Content Include="Resources\ForusSDK\cvextern.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+	<Content Include="Resources\ForusSDK\Emgu.CV.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\ForusSDK\Emgu.CV.ML.dll">
+	  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	</Content>
+	 <Content Include="Resources\ForusSDK\Emgu.CV.UI.dll">
+	  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	</Content>
+	<Content Include="Resources\ForusSDK\Emgu.Util.dll">
+	  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	</Content>
+	<Content Include="Resources\ForusSDK\ExifLibrary.dll">
+	  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	</Content>
+	<Content Include="Resources\ForusSDK\ForusImaging.dll">
+	  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	</Content>
+	<Content Include="Resources\ForusSDK\ForusImaging.pdb">
+	  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	</Content>
+	<Content Include="Resources\ForusSDK\ImageEnhancement.dll">
+	  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	</Content>
+	<Content Include="Resources\ForusSDK\ImageEnhancementHelper.dll">
+	  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	</Content>
+		<Content Include="Resources\ForusSDK\ImageEnhancementHelper.pdb">
+	  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	</Content>
+
+		<Content Include="Resources\ForusSDK\opencv_calib3d220.dll">
+	  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	</Content>
+    <Content Include="Resources\ForusSDK\opencv_contrib220.dll">
+	  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	</Content>
+	 <Content Include="Resources\ForusSDK\opencv_core220.dll">
+	  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	</Content>
+     <Content Include="Resources\ForusSDK\opencv_features2d220.dll">
+	  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	</Content>
+	<Content Include="Resources\ForusSDK\opencv_ffmpeg220.dll">
+	  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	</Content>
+	<Content Include="Resources\ForusSDK\opencv_flann220.dll">
+	  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	</Content>
+	<Content Include="Resources\ForusSDK\opencv_gpu220.dll">
+	  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	</Content>
+	<Content Include="Resources\ForusSDK\opencv_highgui220.dll">
+	  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	</Content>
+	<Content Include="Resources\ForusSDK\opencv_imgproc220.dll">
+	  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	</Content>
+	<Content Include="Resources\ForusSDK\opencv_legacy220.dll">
+	  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	</Content>
+	<Content Include="Resources\ForusSDK\opencv_ml220.dll">
+	  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	</Content>
+    <Content Include="Resources\ForusSDK\opencv_objdetect220.dll">
+	  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	</Content>
+     <Content Include="Resources\ForusSDK\opencv_video220.dll">
+	  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	</Content>
+	<Content Include="Resources\ForusSDK\TrIPS.dll">
+	  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	</Content>
+	<Content Include="Resources\ForusSDK\TrIPS.pdb">
+	  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	</Content>
+   <Content Include="Resources\ForusSDK\ueye_api.dll">
+	  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	</Content>
+    <Content Include="Resources\Mask_1MP.bmp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Mask_3MP.bmp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\report.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Resource Include="Resources\camera.png">
+    <Content Include="Resources\camera.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\profile.gif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Resources\profile.gif">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Resources\logo.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
+    </Content>
+    <Content Include="Resources\logo.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Helpers\Helpers.csproj">

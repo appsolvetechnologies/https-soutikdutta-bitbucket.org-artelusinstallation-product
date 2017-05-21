@@ -1,0 +1,5 @@
+D:\Project\product\Helpers\bin\x86\Release\Helpers.dll
+D:\Project\product\Helpers\bin\x86\Release\Helpers.pdb
+D:\Project\product\Helpers\bin\x86\Release\Monday.dll
+D:\Project\product\Helpers\obj\x86\Release\Helpers.dll
+D:\Project\product\Helpers\obj\x86\Release\Helpers.pdb
