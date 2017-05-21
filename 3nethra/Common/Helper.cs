@@ -21,6 +21,8 @@ namespace Artelus.Common
             }
         }
 
+        public static string ContactEmails() => "pwalia@artelus.com,rkodhandapani@artelus.com";
+
         public static void Profile(bool isConfigured)
         {
             foreach (Window win in Application.Current.Windows)
@@ -36,7 +38,7 @@ namespace Artelus.Common
         }
         public static string ReadAllTextReportFile()
         {
-            return System.IO.File.ReadAllText(Program.BaseDir()+"Resources\\report.html");
+            return System.IO.File.ReadAllText(Program.BaseDir() + "Resources\\report.html");
         }
 
         public static void Alert(string msg, bool isAuthorize = false)

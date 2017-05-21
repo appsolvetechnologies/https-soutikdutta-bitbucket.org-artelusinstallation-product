@@ -449,7 +449,20 @@ namespace Artelus.ViewModel
         private void OnSendMailCommand(object args)
         {
 
-            //Mail.Send(PatientEntity.Email, "Test Report",);
+            string body = "Hi " + PatientEntity.Nm + ",<br><br>" + "Please find your report attachment.";
+
+            List<string> attachment = new List<string>();
+            string rootPath = AppDomain.CurrentDomain.BaseDirectory;
+            string path = Path.Combine(rootPath, "Uploads", PatientEntity.UniqueID.ToString(), PatientReport.UniqueID.ToString());
+            List<string> files = Directory.EnumerateFiles(path).ToList();
+            foreach (var file in files)
+            {
+                string fileName = Path.GetFileName(file);
+                if (fileName != "report.html")
+                    attachment.Add(file);
+            }
+
+            Mail.Send(PatientEntity.Email, "Artelus Report", body, true, attachment, Helper.ContactEmails());
         }
         private void OnSaveNextCommand(object args)
         {
