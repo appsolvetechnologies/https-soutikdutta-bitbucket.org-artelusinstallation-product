@@ -1,11 +1,19 @@
 ﻿using Artelus.ViewModel;
 using System;
+using System.IO;
 using System.Windows;
 
 namespace Artelus.Common
 {
     public class Helper
     {
+        public static string BaseDirectory(string file)
+        {
+            //var directory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            string directory = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Artelus\PhoenixClient";
+            return Path.Combine(directory, file);
+        }
+
         public static void LogOff()
         {
             foreach (Window win in Application.Current.Windows)
