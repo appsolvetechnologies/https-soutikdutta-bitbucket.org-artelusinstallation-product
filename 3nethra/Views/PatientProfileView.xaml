@@ -81,7 +81,7 @@
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
                         <TextBlock Text="Email ID:" FontWeight="Bold" Margin="0,0,15,0" />
-                        <TextBlock Grid.Column="1" FontSize="14" FontWeight="SemiBold" Text="{Binding PatientEntity.Email}" />
+                        <TextBlock Grid.Column="1" TextWrapping="Wrap" FontSize="14" FontWeight="SemiBold" Text="{Binding PatientEntity.Email}" />
                     </Grid>
                     <Separator Height=".7"/>
                     <Grid Margin="0 0 0 10">
@@ -208,9 +208,9 @@
                                         <TextBlock FontSize="14" Margin="0 0 0 5" HorizontalAlignment="Right" Text="{Binding Dt,Converter={StaticResource XAMLDateTimeConverter},ConverterParameter='MonDateTime'}"/>
                                     </StackPanel>
                                 </Border>
-                                <StackPanel Grid.Row="1">
-                                    <TextBlock FontWeight="Bold" Text="OS Eye:"></TextBlock>
-                                    <ItemsControl ItemsSource="{Binding OSPosteriorReportDatas}">
+                                <StackPanel Grid.Row="1" >
+                                    <TextBlock FontWeight="Bold" Text="Right Eye:"></TextBlock>
+                                    <ItemsControl ItemsSource="{Binding ODPosteriorReportDatas}">
                                         <ItemsControl.ItemsPanel>
                                             <ItemsPanelTemplate>
                                                 <StackPanel></StackPanel>
@@ -227,9 +227,10 @@
                                         </ItemsControl.ItemTemplate>
                                     </ItemsControl>
                                 </StackPanel>
+
                                 <StackPanel Grid.Row="1" Grid.Column="1">
-                                    <TextBlock FontWeight="Bold" Text="OD Eye:"></TextBlock>
-                                    <ItemsControl ItemsSource="{Binding ODPosteriorReportDatas}">
+                                    <TextBlock FontWeight="Bold" Text="Left Eye:"></TextBlock>
+                                    <ItemsControl ItemsSource="{Binding OSPosteriorReportDatas}">
                                         <ItemsControl.ItemsPanel>
                                             <ItemsPanelTemplate>
                                                 <StackPanel></StackPanel>

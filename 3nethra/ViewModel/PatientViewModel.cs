@@ -139,13 +139,13 @@ namespace Artelus.ViewModel
         {
             Initialize();
             PatientEntity = model;
-            if (PatientEntity.IfResidentOfM == "no")
+            if (PatientEntity.IfResidentOfM == "No")
             {
                 this.HideOthers = true;
                 if (PatientEntity.OtherOption != "Passport" && PatientEntity.OtherOption != "Driving License")
                     ShowOtherOption = true;
             }
-            if (PatientEntity.AllergyDrugs == "yes")
+            if (PatientEntity.AllergyDrugs == "Yes")
                 ShowAllergyOption = true;
             string path = Path.Combine(Program.BaseDir(), "Uploads", model.UniqueID.ToString());
             string file = Path.Combine(path, model.UniqueID.ToString() + ".png");
@@ -161,13 +161,13 @@ namespace Artelus.ViewModel
             CameraIcon = AppDomain.CurrentDomain.BaseDirectory + "Resources\\camera.png";
             PatientEntity = new PatientEntity();
             PatientEntity.Profile = AppDomain.CurrentDomain.BaseDirectory + "Resources\\profile.gif";
-            PatientEntity.IfResidentOfM = "yes";
-            PatientEntity.LaserTreatment = "no";
-            PatientEntity.Cataract = "no";
-            PatientEntity.Diabetic = "no";
-            PatientEntity.Hypertension = "no";
-            PatientEntity.AllergyDrugs = "no";
-            PatientEntity.CurrentMedications = "no";
+            PatientEntity.IfResidentOfM = "Yes";
+            PatientEntity.LaserTreatment = "No";
+            PatientEntity.Cataract = "No";
+            PatientEntity.Diabetic = "No";
+            PatientEntity.Hypertension = "No";
+            PatientEntity.AllergyDrugs = "No";
+            PatientEntity.CurrentMedications = "No";
             OtherIDCollection.Add(new IdName() { Id = 1, Name = "Passport" });
             OtherIDCollection.Add(new IdName() { Id = 2, Name = "Driving License" });
             OtherIDCollection.Add(new IdName() { Id = 3, Name = "Others" });
@@ -190,7 +190,7 @@ namespace Artelus.ViewModel
 
         private void OnAlergyChangeCommand(object args)
         {
-            if (PatientEntity.AllergyDrugs == "yes")
+            if (PatientEntity.AllergyDrugs == "Yes")
             {
                 PatientEntity.AllergyDrugsDtl = string.Empty;
                 this.ShowAllergyOption = true;
@@ -202,7 +202,7 @@ namespace Artelus.ViewModel
         private void OnResidentChangeCommand(object args)
         {
 
-            if (PatientEntity.IfResidentOfM == "no")
+            if (PatientEntity.IfResidentOfM == "No")
             {
                 PatientEntity.OthersID = string.Empty;
                 if (SelectedOption != null && SelectedOption.Name == "Others")
@@ -227,7 +227,7 @@ namespace Artelus.ViewModel
                 model.CollectionID = 123;
                 model.InstallID = new User().GetInstallID(Program.UserId());
 
-                if (model.IfResidentOfM == "yes")
+                if (model.IfResidentOfM == "Yes")
                 {
                     model.OtherOption = string.Empty;
                     model.OthersID = string.Empty;
@@ -316,7 +316,7 @@ namespace Artelus.ViewModel
             PatientEntity.Email = string.Empty;
             PatientEntity.PerAdr = string.Empty;
             PatientEntity.Mob = string.Empty;
-            PatientEntity.IfResidentOfM = "yes";
+            PatientEntity.IfResidentOfM = "Yes";
             PatientEntity.MaritalStatus = string.Empty;
             PatientEntity.Age = 0;
             PatientEntity.Sex = string.Empty;
@@ -328,12 +328,12 @@ namespace Artelus.ViewModel
             PatientEntity.DocNm = string.Empty;
             PatientEntity.HospitalNm = string.Empty;
             PatientEntity.HospitalID = string.Empty;
-            PatientEntity.LaserTreatment = "no";
-            PatientEntity.Cataract = "no";
-            PatientEntity.Diabetic = "no";
-            PatientEntity.Hypertension = "no";
-            PatientEntity.AllergyDrugs = "no";
-            PatientEntity.CurrentMedications = "no";
+            PatientEntity.LaserTreatment = "No";
+            PatientEntity.Cataract = "No";
+            PatientEntity.Diabetic = "No";
+            PatientEntity.Hypertension = "No";
+            PatientEntity.AllergyDrugs = "No";
+            PatientEntity.CurrentMedications = "No";
             PatientEntity.Info = string.Empty;
             PatientEntity.EmergContactNm = string.Empty;
             PatientEntity.AllergyDrugsDtl = string.Empty;
