@@ -341,8 +341,12 @@
 		<col def="S0">ISDotNetInstallerArgsUninstall</col>
 		<col def="S0">ISDotNetInstallerArgsRollback</col>
 		<row><td>Artelus.Content_Files</td><td>{7CA73EF5-64F9-46E6-BD7C-50018D08ACB4}</td><td>ARTELUS2</td><td>2</td><td/><td>artelus.content_files</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>Artelus.Content_Files1</td><td>{A3B395D9-950A-400A-8F91-9FACA1E9EC25}</td><td>ARTELUS</td><td>2</td><td/><td>artelus.content_files1</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>Artelus.Content_Files2</td><td>{5D11EC22-C54F-4489-BAB9-527D5502741B}</td><td>ARTELUS3</td><td>2</td><td/><td>artelus.content_files2</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>Artelus.Primary_output</td><td>{07BCD163-939E-4C0E-B231-3894FA18211E}</td><td>ARTELUS</td><td>2</td><td/><td>artelus.primary_output</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>ISX_DEFAULTCOMPONENT</td><td>{313F5B2F-A9A2-4F44-A47D-77147F5D50B3}</td><td>ARTELUS2</td><td>2</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>ISX_DEFAULTCOMPONENT1</td><td>{55F932AA-376D-4920-8EFB-0141A52C620D}</td><td>LocalAppDataFolder</td><td>2</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>ISX_DEFAULTCOMPONENT2</td><td>{B6754F95-F163-47FC-9A6E-579ECA888E2E}</td><td>ARTELUS3</td><td>2</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 	</table>
 
 	<table name="Condition">
@@ -1051,12 +1055,20 @@
 	<table name="CreateFolder">
 		<col key="yes" def="s72">Directory_</col>
 		<col key="yes" def="s72">Component_</col>
+		<row><td>ARTELUS</td><td>Artelus.Content_Files1</td></row>
 		<row><td>ARTELUS</td><td>Artelus.Primary_output</td></row>
 		<row><td>ARTELUS2</td><td>Artelus.Content_Files</td></row>
 		<row><td>ARTELUS2</td><td>ISX_DEFAULTCOMPONENT</td></row>
+		<row><td>ARTELUS3</td><td>Artelus.Content_Files2</td></row>
+		<row><td>ARTELUS3</td><td>ISX_DEFAULTCOMPONENT2</td></row>
 		<row><td>INSTALLDIR</td><td>Artelus.Content_Files</td></row>
+		<row><td>INSTALLDIR</td><td>Artelus.Content_Files1</td></row>
+		<row><td>INSTALLDIR</td><td>Artelus.Content_Files2</td></row>
 		<row><td>INSTALLDIR</td><td>Artelus.Primary_output</td></row>
 		<row><td>INSTALLDIR</td><td>ISX_DEFAULTCOMPONENT</td></row>
+		<row><td>INSTALLDIR</td><td>ISX_DEFAULTCOMPONENT1</td></row>
+		<row><td>INSTALLDIR</td><td>ISX_DEFAULTCOMPONENT2</td></row>
+		<row><td>LocalAppDataFolder</td><td>ISX_DEFAULTCOMPONENT1</td></row>
 	</table>
 
 	<table name="CustomAction">
@@ -1139,6 +1151,7 @@
 		<row><td>ARTELUS</td><td>ProgramFilesFolder</td><td>Artelus</td><td/><td>0</td><td/></row>
 		<row><td>ARTELUS1</td><td>ARTELUS</td><td>Artelus</td><td/><td>0</td><td/></row>
 		<row><td>ARTELUS2</td><td>AppDataFolder</td><td>Artelus</td><td/><td>0</td><td/></row>
+		<row><td>ARTELUS3</td><td>LocalAppDataFolder</td><td>Artelus</td><td/><td>0</td><td/></row>
 		<row><td>AdminToolsFolder</td><td>TARGETDIR</td><td>.:Admint~1|AdminTools</td><td/><td>0</td><td/></row>
 		<row><td>AppDataFolder</td><td>TARGETDIR</td><td>.:APPLIC~1|Application Data</td><td/><td>0</td><td/></row>
 		<row><td>CommonAppDataFolder</td><td>TARGETDIR</td><td>.:Common~1|CommonAppData</td><td/><td>0</td><td/></row>
@@ -1871,8 +1884,12 @@
 		<col key="yes" def="s38">Feature_</col>
 		<col key="yes" def="s72">Component_</col>
 		<row><td>AlwaysInstall</td><td>Artelus.Content_Files</td></row>
+		<row><td>AlwaysInstall</td><td>Artelus.Content_Files1</td></row>
+		<row><td>AlwaysInstall</td><td>Artelus.Content_Files2</td></row>
 		<row><td>AlwaysInstall</td><td>Artelus.Primary_output</td></row>
 		<row><td>AlwaysInstall</td><td>ISX_DEFAULTCOMPONENT</td></row>
+		<row><td>AlwaysInstall</td><td>ISX_DEFAULTCOMPONENT1</td></row>
+		<row><td>AlwaysInstall</td><td>ISX_DEFAULTCOMPONENT2</td></row>
 	</table>
 
 	<table name="File">
@@ -1888,6 +1905,8 @@
 		<col def="I4">ISAttributes</col>
 		<col def="S72">ISComponentSubFolder_</col>
 		<row><td>artelus.content_files</td><td>Artelus.Content_Files</td><td>Artelus.Content Files</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;Artelus&gt;|ContentFiles</td><td>3</td><td/></row>
+		<row><td>artelus.content_files1</td><td>Artelus.Content_Files1</td><td>Artelus.Content Files</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;Artelus&gt;|ContentFiles</td><td>3</td><td/></row>
+		<row><td>artelus.content_files2</td><td>Artelus.Content_Files2</td><td>Artelus.Content Files</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;Artelus&gt;|ContentFiles</td><td>3</td><td/></row>
 		<row><td>artelus.primary_output</td><td>Artelus.Primary_output</td><td>Artelus.Primary output</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;Artelus&gt;|Built</td><td>3</td><td/></row>
 	</table>
 
@@ -2031,8 +2050,12 @@
 		<col def="S0">HTTPLocation</col>
 		<col def="S0">Miscellaneous</col>
 		<row><td>Artelus.Content_Files</td><td/><td/><td>_4B172866_5090_490F_AFDA_DC3F418E8EF9_FILTER</td><td/><td/><td/><td/></row>
+		<row><td>Artelus.Content_Files1</td><td/><td/><td>_9C073B77_24B1_49D5_B606_C1B7FB9A7E9B_FILTER</td><td/><td/><td/><td/></row>
+		<row><td>Artelus.Content_Files2</td><td/><td/><td>_18B3CD0B_D7BF_4F01_B1AF_475E24A269C2_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>Artelus.Primary_output</td><td/><td/><td>_D3627322_7009_47F7_BD45_6E7DAB308968_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>ISX_DEFAULTCOMPONENT</td><td/><td/><td>_69E12DFF_ECC6_4FB8_B45E_34E682404F11_FILTER</td><td/><td/><td/><td/></row>
+		<row><td>ISX_DEFAULTCOMPONENT1</td><td/><td/><td>_9442704A_300A_46D8_A0C2_FB1E27FA6857_FILTER</td><td/><td/><td/><td/></row>
+		<row><td>ISX_DEFAULTCOMPONENT2</td><td/><td/><td>_D7389C24_22F6_4E5F_B649_8B0EEDE21DCB_FILTER</td><td/><td/><td/><td/></row>
 	</table>
 
 	<table name="ISCustomActionReference">
