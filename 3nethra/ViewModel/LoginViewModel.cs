@@ -74,8 +74,6 @@ namespace Artelus.ViewModel
             }
         }
 
-
-
         private void Clear()
         {
             User.Id = 0;
