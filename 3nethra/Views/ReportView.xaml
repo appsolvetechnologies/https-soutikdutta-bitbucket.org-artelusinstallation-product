@@ -24,7 +24,7 @@
             <TextBlock DockPanel.Dock="Left" FontSize="18" FontWeight="DemiBold" Text="Report Summary" Style="{StaticResource Heading1}" Margin="3,0,0,8" />
             <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" HorizontalAlignment="Right">
                 <Button Background="#f05f40" Foreground="White" Height="30px" Margin="0,0,5,0"  FontWeight="DemiBold" Command="{Binding FtpTransferCommand}">Upload</Button>
-                <Button Background="#f05f40" Foreground="White" Height="30px" Margin="0,0,5,0"  FontWeight="DemiBold" >Print</Button>
+                <!--<Button Background="#f05f40" Foreground="White" Height="30px" Margin="0,0,5,0"  FontWeight="DemiBold" Command="{Binding PrintPDFCommand}" >Print</Button>-->
                 <Button Background="#f05f40" Foreground="White" Height="30px"  Margin="0,0,5,0"  FontWeight="DemiBold" Command="{Binding ViewPDFCommand}">View PDF</Button>
                 <Button Background="#f05f40" Foreground="White" Height="30px" Margin="0,0,5,0"  FontWeight="DemiBold" Command="{Binding SendMailCommand}">Send Mail</Button>
                 <Button Background="#f05f40" Foreground="White" Height="30px" HorizontalAlignment="Right" Margin="0,0,5,0" FontWeight="DemiBold" Command="{Binding TakeReportCommand}">Retake Image</Button>
@@ -83,7 +83,6 @@
                 </Border>
             </StackPanel>
             <StackPanel Grid.Column="1" Margin="5 0 0 0">
-
                 <Border Margin="0 0 0 10" Visibility="Visible" BorderThickness="1" CornerRadius="2" BorderBrush="Black">
                     <StackPanel Margin="5">
                         <TextBlock  HorizontalAlignment="Center" Text="Medical Profile" FontSize="16" FontWeight="Bold" />
@@ -133,7 +132,7 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width=".8*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <Button   Foreground="#f05f40" FontSize="18" FontWeight="Bold"  Height="45px"  Command="{Binding CompleteCommand}">EXAMINATION RESULT: No Abnormlities detected                    * KINDLY CORRELATE CLINICALLY *</Button>
+            <Button   Foreground="#f05f40" FontSize="18" FontWeight="Bold"  Height="45px" Content="{Binding PredictionResult,UpdateSourceTrigger=PropertyChanged}"/>
         </Grid>
         <ScrollViewer Grid.Row="4" Margin="0,10,0,0">
             <Grid>

@@ -6,6 +6,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -36,6 +37,16 @@ namespace Artelus.ViewModel
             {
                 isEnabled = value;
                 RaisePropertyChange("IsEnabled");
+            }
+        }
+        private bool isProgressActive = false;
+        public bool IsProgressActive
+        {
+            get { return isProgressActive; }
+            set
+            {
+                isProgressActive = value;
+                RaisePropertyChange("IsProgressActive");
             }
         }
         private bool selectAll;
@@ -210,12 +221,16 @@ namespace Artelus.ViewModel
             //{
 
             this.IsEnabled = false;
-            foreach (var item in PatientReport.OSPosteriorReportDatas)
+            this.IsProgressActive = true;
+            BackgroundWorker bw = new BackgroundWorker();
+            bw.DoWork += (sender, e) =>
             {
-                if (item.IsChecked)
+                foreach (var item in PatientReport.OSPosteriorReportDatas)
                 {
-                    try
+                    if (item.IsChecked)
                     {
+                        //try
+                        //{
                         string predictionResult = RestCalls.RestPredict(item.ImageUrl, prediction);
 
                         JavaScriptSerializer serializer = new JavaScriptSerializer();
@@ -233,20 +248,20 @@ namespace Artelus.ViewModel
                             item.Prediction = obj.result.Replace(" (1). ", "").Replace(" (0). ", "").Trim();
                             new Patient().UpdateReportData(item.Id, item.Prediction);
                         }
-                    }
-                    catch
-                    {
-                        ModernDialog.ShowMessage("Prediction Internal Server Error.", "Prediction", MessageBoxButton.OK);
-                    }
+                        //}
+                        //catch
+                        //{
+                        //    ModernDialog.ShowMessage("Prediction Internal Server Error.", "Prediction", MessageBoxButton.OK);
+                        //}
 
+                    }
                 }
-            }
-            foreach (var item in PatientReport.ODPosteriorReportDatas)
-            {
-                if (item.IsChecked)
+                foreach (var item in PatientReport.ODPosteriorReportDatas)
                 {
-                    try
+                    if (item.IsChecked)
                     {
+                        //try
+                        //{
                         string predictionResult = RestCalls.RestPredict(item.ImageUrl, prediction);
 
                         JavaScriptSerializer serializer = new JavaScriptSerializer();
@@ -264,16 +279,32 @@ namespace Artelus.ViewModel
                             item.Prediction = obj.result.Replace(" (1). ", "").Replace(" (0). ", "").Trim();
                             new Patient().UpdateReportData(item.Id, item.Prediction);
                         }
-                    }
-                    catch
-                    {
-                        ModernDialog.ShowMessage("Prediction Internal Server Error.", "Prediction", MessageBoxButton.OK);
-                    }
+                        //}
+                        //catch
+                        //{
+                        //    ModernDialog.ShowMessage("Prediction Internal Server Error.", "Prediction", MessageBoxButton.OK);
+                        //}
 
+                    }
                 }
-            }
 
-            this.IsEnabled = true;
+            };
+
+            bw.RunWorkerCompleted += (sender, e) =>
+            {
+                if (e.Error != null)
+                {
+                    ModernDialog.ShowMessage("Prediction Internal Server Error.", "Prediction", MessageBoxButton.OK);
+                }
+                this.IsEnabled = true;
+                this.IsProgressActive = false;
+            };
+
+            bw.RunWorkerAsync();
+
+
+
+            //this.IsEnabled = true;
             //dispatcherTimer.Stop();
             //ProgressValue = 0;
             //});

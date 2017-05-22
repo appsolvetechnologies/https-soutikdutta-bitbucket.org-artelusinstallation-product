@@ -219,10 +219,6 @@
                             <RadioButton GroupName="AllergyDrugs" Content="No" FontSize="15" FontWeight="Medium" Margin="8,0,0,0" IsChecked="{Binding PatientEntity.AllergyDrugs, Converter={StaticResource RadioButtonCheckedConverter}, ConverterParameter='No'}" />
                         </StackPanel>
                     </Grid>
-                    <StackPanel Margin="5" Visibility="{Binding ShowAllergyOption,UpdateSourceTrigger=PropertyChanged, Converter={converters:BoolToVisibilityConverter},ConverterParameter='Collapsed'}">
-                        <TextBlock FontSize="15" FontWeight="Medium" Text="Please mention the Drug" Margin="0 0 0 5"/>
-                        <TextBox Text="{Binding Path=PatientEntity.AllergyDrugsDtl,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
-                    </StackPanel>
                     <Grid Margin="5">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"></ColumnDefinition>

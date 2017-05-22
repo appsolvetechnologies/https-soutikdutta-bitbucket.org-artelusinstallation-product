@@ -6,8 +6,8 @@
              xmlns:local="clr-namespace:Artelus.Views"
              xmlns:mui="http://firstfloorsoftware.com/ModernUI"
              mc:Ignorable="d" 
+             xmlns:converters="clr-namespace:Helpers.Converter;assembly=Helpers"
              d:DesignHeight="300" d:DesignWidth="300">
-
     <Grid Margin="0 20 0 0">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"></ColumnDefinition>
@@ -20,8 +20,12 @@
             <RowDefinition Height="Auto"></RowDefinition>
         </Grid.RowDefinitions>
         <Border Grid.ColumnSpan="2" BorderBrush="#FF1986D1" BorderThickness="0 0 0 1" VerticalAlignment="Top">
-            <DockPanel>
-                <StackPanel DockPanel.Dock="Left" Orientation="Horizontal">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width=".5*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <StackPanel Orientation="Horizontal">
                     <StackPanel Orientation="Horizontal">
                         <TextBlock FontSize="16" FontWeight="SemiBold" Margin="0 0 10 5" Text="Patient ID:  "/>
                         <TextBlock FontSize="16" FontWeight="SemiBold" Margin="0 0 0 5" Text="{Binding PatientEntity.Id}"/>
@@ -31,14 +35,14 @@
                         <TextBlock FontSize="16" FontWeight="SemiBold" Margin="0 0 0 5" Text="{Binding PatientEntity.Nm}"/>
                     </StackPanel>
                 </StackPanel>
-                <StackPanel DockPanel.Dock="Right" HorizontalAlignment="Right" Margin="10 0 0 0" Orientation="Horizontal">
+                <StackPanel Grid.Column="1" HorizontalAlignment="Left" Margin="10 0 0 0" Orientation="Horizontal">
                     <!--<TextBlock Text="{Binding ProgressValue, UpdateSourceTrigger=PropertyChanged}" FontWeight="Bold" Foreground="#f05f40"></TextBlock>-->
-                    <!--<mui:ModernProgressRing IsActive="True" ProgressValue="{Binding ProgressValue,StringFormat=N2}" Width="50" Height="50" Margin="0 0 5 0" Style="{StaticResource DoubleBounceProgressRingStyle}" />-->
+                    <mui:ModernProgressRing IsActive="{Binding IsProgressActive,UpdateSourceTrigger=PropertyChanged}" ProgressValue="{Binding ProgressValue,StringFormat=N2}" Margin="0 0 20 0" Style="{StaticResource ThreeBounceProgressRingStyle}" />
                     <CheckBox IsChecked="{Binding SelectAll}" Margin="0 0 20 5" FontSize="16" FontWeight="Bold" Content="Select All" Command="{Binding SelectAllCommand,UpdateSourceTrigger=PropertyChanged}"></CheckBox>
                     <Button Background="#f05f40" IsEnabled="{Binding IsEnabled,UpdateSourceTrigger=PropertyChanged}" Margin=" 0 0 0 5" Foreground="White" FontWeight="Bold" Height="40px" Command="{Binding StartPredictionCommand}">Prediction</Button>
                     <Button  Margin="0 0 0 5" Background="#f05f40"  HorizontalAlignment="Right" Foreground="White" FontWeight="Bold" Command="{Binding SetHansanetCommand}" Content="{Binding Hansanet}"/>
                 </StackPanel>
-            </DockPanel>
+            </Grid>
         </Border>
         <Grid Grid.Row="1" Grid.ColumnSpan="2">
             <ScrollViewer>

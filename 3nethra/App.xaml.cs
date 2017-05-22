@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Artelus.Common;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
@@ -17,18 +18,15 @@ namespace Artelus
     {
         private void Application_Startup(object sender, StartupEventArgs e)
         {
-            //string relative = @"D:\Project\product\3nethra\3nethra.sdf";
-            //string localDB = ConfigurationManager.AppSettings["localDB"].ToString();
-            //string basedir = AppDomain.CurrentDomain.BaseDirectory;
+            string relative = @"D:\Project\product\3nethra\3nethra.sdf";
+            string absolute = Path.GetDirectoryName(relative);
+            AppDomain.CurrentDomain.SetData("DataDirectory", absolute);
 
-            var path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-
+            //var path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
             //string path = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Artelus";
-            AppDomain.CurrentDomain.SetData("DataDirectory", path);
+            //AppDomain.CurrentDomain.SetData("DataDirectory", path);
 
-            //string path = Path.Combine(basedir, localDB);
-            //string absolute = Path.GetDirectoryName(path);
-            //AppDomain.CurrentDomain.SetData("DataDirectory", absolute);
+
 
 
             MainWindow window = new MainWindow();

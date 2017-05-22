@@ -8,7 +8,9 @@ using SelectPdf;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Configuration;
+using System.Drawing.Printing;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -23,6 +25,17 @@ namespace Artelus.ViewModel
 
     public class ReportViewModel : BaseViewModel
     {
+        private string predictionResult;
+        public string PredictionResult
+        {
+            get { return predictionResult; }
+            set
+            {
+                predictionResult = value;
+                RaisePropertyChange("PredictionResult");
+            }
+        }
+
         private PatientEntity patient;
         public PatientEntity PatientEntity
         {
@@ -127,6 +140,7 @@ namespace Artelus.ViewModel
         public DelegateCommand SendMailCommand { get; set; }
         public DelegateCommand BackCommand { get; set; }
         public DelegateCommand ViewPDFCommand { get; set; }
+        public DelegateCommand PrintPDFCommand { get; set; }
 
         public Action CloseAction { get; set; }
         public ICommand LogOffCommand { get; set; }
@@ -140,7 +154,7 @@ namespace Artelus.ViewModel
         {
             BackCommand = new DelegateCommand(OnBackCommand);
             LogOffCommand = new DelegateCommand(OnLogOffCommand);
-
+            PrintPDFCommand = new DelegateCommand(OnPrintPDFCommand);
             string rootPath = AppDomain.CurrentDomain.BaseDirectory;
             string path = Path.Combine(rootPath, "Uploads");
             ReportDatas = new ObservableCollection<ReportData>();
@@ -169,13 +183,28 @@ namespace Artelus.ViewModel
             if (PatientReport != null)
             {
                 var osResult = new Patient().GetPosteriorOSReportData(PatientReport.Id, false);
+                var odResult = new Patient().GetPosteriorODReportData(PatientReport.Id, false);
+                bool docReview = osResult.Any(x => x.Prediction == "Doctor review recommended");
+                if (!docReview)
+                    docReview = odResult.Any(x => x.Prediction == "Doctor review recommended");
+
+                bool noDR = osResult.Any(x => x.Prediction == "No DR detected");
+                if (!docReview)
+                    noDR = odResult.Any(x => x.Prediction == "No DR detected");
+
+                if (docReview)
+                    PredictionResult = "EXAMINATION RESULT: Diabetic Retinopathy Suspected - Doctor Review Recommended                    * KINDLY CORRELATE CLINICALLY *";
+                else if (noDR)
+                    PredictionResult = "EXAMINATION RESULT: No Abnormlities detected                    * KINDLY CORRELATE CLINICALLY *";
+                else
+                    PredictionResult = "EXAMINATION RESULT: Bad Image                    * KINDLY CORRELATE CLINICALLY *";
+
                 foreach (var data in osResult)
                 {
                     data.ImageUrl = Path.Combine(path, data.Img);
                     data.FileName = Path.GetFileName(data.ImageUrl);
                     OSReportDatas.Add(data);
                 }
-                var odResult = new Patient().GetPosteriorODReportData(PatientReport.Id, false);
                 foreach (var data in odResult)
                 {
                     data.ImageUrl = Path.Combine(path, data.Img);
@@ -184,18 +213,18 @@ namespace Artelus.ViewModel
                 }
             }
 
-            //var report = new Patient().GetAllReport(model.Id);
-            //foreach (var item in report)
-            //{
-            //    var result = new Patient().GetAllReportData(item.Id);
-            //    item.ReportDatas = new ObservableCollection<ReportData>();
-            //    foreach (var data in result)
-            //    {
-            //        data.ImageUrl = Path.Combine(path, PatientEntity.UniqueID.ToString(), data.Img);
-            //        item.ReportDatas.Add(data);
-            //    }
-            //    PatientReports.Add(item);
-            //}
+            var report = new Patient().GetAllReport(model.Id);
+            foreach (var item in report)
+            {
+                var result = new Patient().GetAllReportData(item.Id);
+                item.ReportDatas = new ObservableCollection<ReportData>();
+                foreach (var data in result)
+                {
+                    data.ImageUrl = Path.Combine(path, data.Img);
+                    item.ReportDatas.Add(data);
+                }
+                PatientReports.Add(item);
+            }
 
             TakeReportCommand = new DelegateCommand(OnTakeReportCommand);
             PreviousReportCommand = new DelegateCommand(OnPreviousReportCommand);
@@ -205,75 +234,13 @@ namespace Artelus.ViewModel
             SaveExitCommand = new DelegateCommand(OnSaveExitCommand);
             SendMailCommand = new DelegateCommand(OnSendMailCommand);
             ViewPDFCommand = new DelegateCommand(OnViewPDFCommand);
+            CreateReport();
         }
 
         private void OnViewPDFCommand(object args)
         {
-            string rootPath = AppDomain.CurrentDomain.BaseDirectory;
-            string path = Path.Combine(rootPath, "Uploads");
-            string text = Common.Helper.ReadAllTextReportFile();
             string dir = Path.Combine(Program.BaseDir(), "Uploads", PatientEntity.UniqueID.ToString(), PatientReport.UniqueID.ToString());
             string filePDF = Path.Combine(dir, "report.pdf");
-            string fileHTML = Path.Combine(dir, "report.html");
-
-            if (!Directory.Exists(dir))
-                Directory.CreateDirectory(dir);
-            else if (File.Exists(filePDF))
-                File.Delete(filePDF);
-
-            string posteriorHTML = "<tr>";
-            string anteriorHTML = "<tr>";
-            string predictionResult = string.Empty;
-            int posteriorCount = 0, anteriorCount = 0;
-            List<ReportData> posteriorDatas = new Patient().GetPosteriorReportData(PatientReport.Id);
-            List<ReportData> anteriorDatas = new Patient().GetAnteriorReportData(PatientReport.Id);
-
-            if (posteriorDatas != null)
-            {
-                bool docReview = posteriorDatas.Any(x => x.Prediction == "Doctor review recommended");
-                bool noDR = posteriorDatas.Any(x => x.Prediction == "No DR detected");
-
-                if (docReview)
-                    predictionResult = "EXAMINATION RESULT: Diabetic Retinopathy Suspected - Doctor Review Recommended                    * KINDLY CORRELATE CLINICALLY *";
-                else if(noDR)
-                    predictionResult = "EXAMINATION RESULT: No Abnormlities detected                    * KINDLY CORRELATE CLINICALLY *";
-                else
-                    predictionResult = "EXAMINATION RESULT: Bad Image                    * KINDLY CORRELATE CLINICALLY *";
-
-                foreach (var item in posteriorDatas)
-                {
-                    item.ImageUrl = Path.Combine(path, item.Img);
-                    item.FileName = Path.GetFileName(item.ImageUrl);
-                    string result = item.Prediction + " | " + (item.Eye == "OS" ? "Right Eye" : "Left Eye");
-                    if (posteriorCount != 0 && (posteriorCount % 2 == 0))
-                        posteriorHTML += "<tr><td style='width:33.33%; vertical-align:top;padding-bottom:15px;'><table style='width:100%;height:200px;margin-bottom:10px;'><tr><td><img style='max-width:200px;max-height:200px;' src='" + item.FileName + "' /></td></tr></table><h3 style='font-size: 14px;color:#333;font-weight:400;margin:0;'>" + result + "</h3></td>";
-                    else
-                        posteriorHTML += "<td style='width:33.33%; vertical-align:top;padding-bottom:15px;'><table style='width:100%;height:200px;margin-bottom:10px;'><tr><td><img style='max-width:200px;max-height:200px;' src='" + item.FileName + "' /></td></tr></table><h3 style='font-size: 14px;color:#333;font-weight:400;margin:0;'>" + result + "</h3></td>" + (posteriorCount != 0 ? "</tr>" : "");
-                    posteriorCount++;
-                }
-            }
-
-            foreach (var item in anteriorDatas)
-            {
-                item.ImageUrl = Path.Combine(path, item.Img);
-                item.FileName = Path.GetFileName(item.ImageUrl);
-                string result = item.Prediction + " | " + item.Eye == "OS" ? "Right Eye" : "Left Eye";
-                if (posteriorCount != 0 && (posteriorCount % 2 == 0))
-                    anteriorHTML += "<tr><td style='width:33.33%; vertical-align:top;padding-bottom:15px;'><table style='width:100%;height:200px;margin-bottom:10px;'><tr><td><img style='max-width:200px;max-height:200px;' src=" + item.FileName + " /></td></tr></table><h3 style='font-size: 14px;color:#333;font-weight:400;margin:0;'>" + result + "</h3></td>";
-                else
-                    anteriorHTML += "<td style='width:33.33%; vertical-align:top;padding-bottom:15px;'><table style='width:100%;height:200px;margin-bottom:10px;'><tr><td><img style='max-width:200px;max-height:200px;' src=" + item.FileName + " /></td></tr></table><h3 style='font-size: 14px;color:#333;font-weight:400;margin:0;'>" + result + "</h3></td>" + (posteriorCount != 0 ? "</tr>" : "");
-                anteriorCount++;
-            }
-            text = string.Format(text, DateTime.Now.ToShortDateString(), PatientEntity.Nm, PatientEntity.DocNm, PatientEntity.HospitalNm, PatientEntity.Id.ToString(), PatientEntity.HospitalID, PatientEntity.HospitalScreening, PatientEntity.Mob, PatientEntity.Age, PatientEntity.Sex, PatientEntity.Hypertension, PatientEntity.Cataract, PatientEntity.LaserTreatment, PatientEntity.AllergyDrugs, PatientEntity.CurrentMedications, PatientEntity.Info, posteriorHTML, PatientEntity.OtherOption, PatientEntity.OthersID, anteriorHTML, predictionResult);
-            System.IO.File.WriteAllText(fileHTML, text);
-
-
-            HtmlToPdf converter = new HtmlToPdf();
-            PdfDocument doc = converter.ConvertUrl(fileHTML);
-            //doc.Margins = new PdfMargins(5);
-
-            doc.Save(filePDF);
-            doc.Close();
             var pdfVM = new PDFViewModel(filePDF);
             var window = new ModernWindow
             {
@@ -283,6 +250,100 @@ namespace Artelus.ViewModel
             };
             window.Content = new PDFView(pdfVM, window);
             var closeResult = window.ShowDialog();
+        }
+
+        void CreateReport()
+        {
+            BackgroundWorker bw = new BackgroundWorker();
+            bw.DoWork += (sender, e) =>
+            {
+                string rootPath = AppDomain.CurrentDomain.BaseDirectory;
+                string path = Path.Combine(rootPath, "Uploads");
+                string text = Common.Helper.ReadAllTextReportFile();
+                string dir = Path.Combine(Program.BaseDir(), "Uploads", PatientEntity.UniqueID.ToString(), PatientReport.UniqueID.ToString());
+                string filePDF = Path.Combine(dir, "report.pdf");
+                string fileHTML = Path.Combine(dir, "report.html");
+
+                if (!Directory.Exists(dir))
+                    Directory.CreateDirectory(dir);
+                else if (File.Exists(filePDF))
+                    File.Delete(filePDF);
+
+                string posteriorHTML = "<tr>";
+                string anteriorHTML = "<tr>";
+                string prediction = string.Empty;
+                int posteriorCount = 0, anteriorCount = 0;
+                List<ReportData> posteriorDatas = new Patient().GetPosteriorReportData(PatientReport.Id);
+                List<ReportData> anteriorDatas = new Patient().GetAnteriorReportData(PatientReport.Id);
+
+                if (posteriorDatas != null)
+                {
+                    bool docReview = posteriorDatas.Any(x => x.Prediction == "Doctor review recommended");
+                    bool noDR = posteriorDatas.Any(x => x.Prediction == "No DR detected");
+
+                    if (docReview)
+                        prediction = "EXAMINATION RESULT: Diabetic Retinopathy Suspected - Doctor Review Recommended                    * KINDLY CORRELATE CLINICALLY *";
+                    else if (noDR)
+                        prediction = "EXAMINATION RESULT: No Abnormlities detected                    * KINDLY CORRELATE CLINICALLY *";
+                    else
+                        prediction = "EXAMINATION RESULT: Bad Image                    * KINDLY CORRELATE CLINICALLY *";
+
+                    foreach (var item in posteriorDatas)
+                    {
+                        item.ImageUrl = Path.Combine(path, item.Img);
+                        item.FileName = Path.GetFileName(item.ImageUrl);
+                        string result = item.Prediction + " | " + (item.Eye == "OS" ? "Right Eye" : "Left Eye");
+                        if (posteriorCount != 0 && (posteriorCount % 2 == 0))
+                            posteriorHTML += "<tr><td style='width:33.33%; vertical-align:top;padding-bottom:15px;'><table style='width:100%;height:200px;margin-bottom:10px;'><tr><td><img style='max-width:200px;max-height:200px;' src='" + item.FileName + "' /></td></tr></table><h3 style='font-size: 14px;color:#333;font-weight:400;margin:0;'>" + result + "</h3></td>";
+                        else
+                            posteriorHTML += "<td style='width:33.33%; vertical-align:top;padding-bottom:15px;'><table style='width:100%;height:200px;margin-bottom:10px;'><tr><td><img style='max-width:200px;max-height:200px;' src='" + item.FileName + "' /></td></tr></table><h3 style='font-size: 14px;color:#333;font-weight:400;margin:0;'>" + result + "</h3></td>" + (posteriorCount != 0 ? "</tr>" : "");
+                        posteriorCount++;
+                    }
+                }
+
+                foreach (var item in anteriorDatas)
+                {
+                    item.ImageUrl = Path.Combine(path, item.Img);
+                    item.FileName = Path.GetFileName(item.ImageUrl);
+                    string result = item.Prediction + " | " + item.Eye == "OS" ? "Right Eye" : "Left Eye";
+                    if (posteriorCount != 0 && (posteriorCount % 2 == 0))
+                        anteriorHTML += "<tr><td style='width:33.33%; vertical-align:top;padding-bottom:15px;'><table style='width:100%;height:200px;margin-bottom:10px;'><tr><td><img style='max-width:200px;max-height:200px;' src=" + item.FileName + " /></td></tr></table><h3 style='font-size: 14px;color:#333;font-weight:400;margin:0;'>" + result + "</h3></td>";
+                    else
+                        anteriorHTML += "<td style='width:33.33%; vertical-align:top;padding-bottom:15px;'><table style='width:100%;height:200px;margin-bottom:10px;'><tr><td><img style='max-width:200px;max-height:200px;' src=" + item.FileName + " /></td></tr></table><h3 style='font-size: 14px;color:#333;font-weight:400;margin:0;'>" + result + "</h3></td>" + (posteriorCount != 0 ? "</tr>" : "");
+                    anteriorCount++;
+                }
+                text = string.Format(text, DateTime.Now.ToShortDateString(), PatientEntity.Nm, PatientEntity.DocNm, PatientEntity.HospitalNm, PatientEntity.Id.ToString(), PatientEntity.HospitalID, PatientEntity.HospitalScreening, PatientEntity.Mob, PatientEntity.Age, PatientEntity.Sex, PatientEntity.Hypertension, PatientEntity.Cataract, PatientEntity.LaserTreatment, PatientEntity.AllergyDrugs, PatientEntity.CurrentMedications, PatientEntity.Info, posteriorHTML, PatientEntity.OtherOption, PatientEntity.OthersID, anteriorHTML, predictionResult);
+                System.IO.File.WriteAllText(fileHTML, text);
+
+
+                HtmlToPdf converter = new HtmlToPdf();
+                PdfDocument doc = converter.ConvertUrl(fileHTML);
+                //doc.Margins = new PdfMargins(5);
+
+                doc.Save(filePDF);
+                doc.Close();
+            };
+
+            bw.RunWorkerCompleted += (sender, e) =>
+            {
+                if (e.Error != null)
+                {
+                    ModernDialog.ShowMessage("Internal Server Error.", "Error Alert", MessageBoxButton.OK);
+                }
+            };
+            bw.RunWorkerAsync();
+        }
+
+        private void OnPrintPDFCommand(object args)
+        {
+            //PrintDialog print = new PrintDialog();
+
+            //PrintDocument doc = new PrintDocument();
+            //doc.DocumentName = @"D:\Project\product\3nethra\bin\x86\Debug\Uploads\c36dd8cc-e531-4ffc-b201-effa06279e8a\19162fc1-fbc3-4452-b29c-216ef2ec8f65\report.pdf";
+            //if (print.ShowDialog() == true)
+            //{
+            //    doc.Print();
+            //}
         }
 
         private void OnBackCommand(object args)
@@ -298,6 +359,7 @@ namespace Artelus.ViewModel
                 }
             }
         }
+
         private void OnPreviousReportCommand(object args)
         {
 
@@ -310,21 +372,6 @@ namespace Artelus.ViewModel
                     reportView.DataContext = new ReportHistoryViewModel(PatientEntity);
                 }
             }
-
-            //var reporthVM = new ReportHistoryViewModel(PatientEntity);
-            //var window = new ModernWindow
-            //{
-            //    Style = (Style)App.Current.Resources["BlankWindow"],
-            //    Title = "Patient Report History",
-            //    IsTitleVisible = true,
-            //    WindowState = WindowState.Maximized
-            //};
-            //window.Content = new ReportHistoryView(reporthVM, window);
-            //var closeResult = window.ShowDialog();
-            //PatientReports = new ObservableCollection<PatientReport>();
-            //var report = new Patient().GetAllReport(PatientEntity.Id);
-            //foreach (var item in report)
-            //    PatientReports.Add(item);
         }
 
         private void OnFtpTransferCommand(object args)
@@ -332,7 +379,7 @@ namespace Artelus.ViewModel
             try
             {
                 string rootPath = AppDomain.CurrentDomain.BaseDirectory;
-                string localPath = Path.Combine(rootPath, "Uploads", PatientEntity.Id.ToString());
+                string localPath = Path.Combine(rootPath, "Uploads", PatientEntity.UniqueID.ToString());
                 string json = new Patient().Get(PatientEntity.Id);
                 if (!Directory.Exists(localPath))
                     Directory.CreateDirectory(localPath);
@@ -358,13 +405,13 @@ namespace Artelus.ViewModel
                 {
                     client.Connect();
                     client.ChangeDirectory("/home/ftpuser2/FTPCollection");
-                    string rootDir = client.WorkingDirectory + "/" + PatientEntity.Id.ToString();
+                    string rootDir = client.WorkingDirectory + "/" + PatientEntity.UniqueID.ToString();
 
                     if (!client.Exists(rootDir))
                         client.CreateDirectory(rootDir);
                     foreach (var item in PatientReports)
                     {
-                        string rootDataDir = rootDir + "/" + item.Id.ToString();
+                        string rootDataDir = rootDir + "/" + item.UniqueID.ToString();
                         if (!client.Exists(rootDataDir))
                         {
                             client.CreateDirectory(rootDataDir);
@@ -374,11 +421,11 @@ namespace Artelus.ViewModel
                     }
                     client.Disconnect();
                 }
-                //ModernDialog.ShowMessage("File transfer completed successfully", "Messagebox", MessageBoxButton.OK);
-
+                ModernDialog.ShowMessage("File transfer completed successfully", "Alert", MessageBoxButton.OK);
             }
             catch (Exception ex)
             {
+                ModernDialog.ShowMessage("An error has occurred on the server", "Alert", MessageBoxButton.OK);
                 throw ex;
             }
         }
@@ -479,6 +526,7 @@ namespace Artelus.ViewModel
             }
 
             Mail.Send(PatientEntity.Email, "Artelus Report", body, true, attachment, Helper.ContactEmails());
+            ModernDialog.ShowMessage("E-Mail sent successfully!", "Report", MessageBoxButton.OK);
         }
         private void OnSaveNextCommand(object args)
         {

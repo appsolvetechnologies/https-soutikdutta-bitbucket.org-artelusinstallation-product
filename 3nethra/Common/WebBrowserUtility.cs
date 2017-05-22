@@ -29,6 +29,7 @@ namespace Artelus.Common
             if (browser != null)
             {
                 string uri = e.NewValue as string;
+                var source=new Uri(uri);
                 browser.Source = !String.IsNullOrEmpty(uri) ? new Uri(uri) : null;
             }
         }
