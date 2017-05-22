@@ -24,7 +24,7 @@
             <TextBlock DockPanel.Dock="Left" FontSize="18" FontWeight="DemiBold" Text="Report Summary" Style="{StaticResource Heading1}" Margin="3,0,0,8" />
             <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" HorizontalAlignment="Right">
                 <Button Background="#f05f40" Foreground="White" Height="30px" Margin="0,0,5,0"  FontWeight="DemiBold" Command="{Binding FtpTransferCommand}">Upload</Button>
-                <Button Background="#f05f40" Foreground="White" Height="30px" Margin="0,0,5,0"  FontWeight="DemiBold" >Print</Button>
+                <!--<Button Background="#f05f40" Foreground="White" Height="30px" Margin="0,0,5,0"  FontWeight="DemiBold" >Print</Button>-->
                 <Button Background="#f05f40" Foreground="White" Height="30px"  Margin="0,0,5,0"  FontWeight="DemiBold" Command="{Binding ViewPDFCommand}">View PDF</Button>
                 <Button Background="#f05f40" Foreground="White" Height="30px" Margin="0,0,5,0"  FontWeight="DemiBold" Command="{Binding SendMailCommand}">Send Mail</Button>
                 <Button Background="#f05f40" Foreground="White" Height="30px" HorizontalAlignment="Right" Margin="0,0,5,0" FontWeight="DemiBold" Command="{Binding TakeReportCommand}">Retake Image</Button>
