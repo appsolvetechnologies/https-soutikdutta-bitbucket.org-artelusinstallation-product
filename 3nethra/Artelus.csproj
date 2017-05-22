@@ -71,10 +71,12 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\FirstFloor.ModernUI.dll</HintPath>
     </Reference>
-    <Reference Include="ForusImaging">
+    <Reference Include="ForusImaging, Version=1.0.0.0, Culture=neutral, PublicKeyToken=53c8500c9d54edb1, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\ForusImaging.dll</HintPath>
     </Reference>
-    <Reference Include="ImageEnhancementHelper">
+    <Reference Include="ImageEnhancementHelper, Version=1.0.0.0, Culture=neutral, PublicKeyToken=53c8500c9d54edb1, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\ImageEnhancementHelper.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
@@ -105,7 +107,8 @@
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
-    <Reference Include="TrIPS">
+    <Reference Include="TrIPS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=53c8500c9d54edb1, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\TrIPS.dll</HintPath>
     </Reference>
     <Reference Include="WindowsBase" />
@@ -251,7 +254,9 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="packages.config" />
+    <Content Include="packages.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -265,88 +270,88 @@
     <Content Include="3nethra.sdf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-	<Content Include="Resources\ForusSDK\cvextern.dll">
+    <Content Include="TrIPS.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-	<Content Include="Resources\ForusSDK\Emgu.CV.dll">
+    <Content Include="TrIPS.pdb">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\ForusSDK\Emgu.CV.ML.dll">
-	  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-	</Content>
-	 <Content Include="Resources\ForusSDK\Emgu.CV.UI.dll">
-	  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-	</Content>
-	<Content Include="Resources\ForusSDK\Emgu.Util.dll">
-	  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-	</Content>
-	<Content Include="Resources\ForusSDK\ExifLibrary.dll">
-	  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-	</Content>
-	<Content Include="Resources\ForusSDK\ForusImaging.dll">
-	  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-	</Content>
-	<Content Include="Resources\ForusSDK\ForusImaging.pdb">
-	  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-	</Content>
-	<Content Include="Resources\ForusSDK\ImageEnhancement.dll">
-	  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-	</Content>
-	<Content Include="Resources\ForusSDK\ImageEnhancementHelper.dll">
-	  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-	</Content>
-		<Content Include="Resources\ForusSDK\ImageEnhancementHelper.pdb">
-	  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-	</Content>
-
-		<Content Include="Resources\ForusSDK\opencv_calib3d220.dll">
-	  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-	</Content>
-    <Content Include="Resources\ForusSDK\opencv_contrib220.dll">
-	  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-	</Content>
-	 <Content Include="Resources\ForusSDK\opencv_core220.dll">
-	  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-	</Content>
-     <Content Include="Resources\ForusSDK\opencv_features2d220.dll">
-	  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-	</Content>
-	<Content Include="Resources\ForusSDK\opencv_ffmpeg220.dll">
-	  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-	</Content>
-	<Content Include="Resources\ForusSDK\opencv_flann220.dll">
-	  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-	</Content>
-	<Content Include="Resources\ForusSDK\opencv_gpu220.dll">
-	  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-	</Content>
-	<Content Include="Resources\ForusSDK\opencv_highgui220.dll">
-	  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-	</Content>
-	<Content Include="Resources\ForusSDK\opencv_imgproc220.dll">
-	  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-	</Content>
-	<Content Include="Resources\ForusSDK\opencv_legacy220.dll">
-	  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-	</Content>
-	<Content Include="Resources\ForusSDK\opencv_ml220.dll">
-	  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-	</Content>
-    <Content Include="Resources\ForusSDK\opencv_objdetect220.dll">
-	  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-	</Content>
-     <Content Include="Resources\ForusSDK\opencv_video220.dll">
-	  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-	</Content>
-	<Content Include="Resources\ForusSDK\TrIPS.dll">
-	  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-	</Content>
-	<Content Include="Resources\ForusSDK\TrIPS.pdb">
-	  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-	</Content>
-   <Content Include="Resources\ForusSDK\ueye_api.dll">
-	  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-	</Content>
+    <Content Include="ueye_api.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Resource Include="logo.ico" />
+    <Content Include="cvextern.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Emgu.CV.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Emgu.CV.ML.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Emgu.CV.UI.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Emgu.Util.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ExifLibrary.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ForusImaging.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ForusImaging.pdb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ImageEnhancement.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ImageEnhancementHelper.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ImageEnhancementHelper.pdb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="opencv_calib3d220.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="opencv_contrib220.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="opencv_core220.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="opencv_features2d220.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="opencv_ffmpeg220.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="opencv_flann220.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="opencv_gpu220.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="opencv_highgui220.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="opencv_imgproc220.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="opencv_legacy220.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="opencv_ml220.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="opencv_objdetect220.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="opencv_video220.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\Mask_1MP.bmp">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

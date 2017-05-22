@@ -1,4 +1,5 @@
-﻿using Artelus.Model;
+﻿using Artelus.Common;
+using Artelus.Model;
 using FirstFloor.ModernUI.Windows.Controls;
 using Helpers;
 using Newtonsoft.Json;
@@ -11,6 +12,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web.Script.Serialization;
 using System.Windows;
+using System.Windows.Input;
 
 namespace Artelus.ViewModel
 {
@@ -81,9 +83,15 @@ namespace Artelus.ViewModel
         public DelegateCommand SetHansanetCommand { get; set; }
         public DelegateCommand StartPredictionCommand { get; set; }
         public DelegateCommand BackCommand { get; set; }
+        public ICommand LogOffCommand { get; set; }
 
+        private void OnLogOffCommand(object args)
+        {
+            Helper.LogOff();
+        }
         public PredictionViewModel(PatientEntity model)
         {
+            LogOffCommand = new DelegateCommand(OnLogOffCommand);
             SetHansanetCommand = new DelegateCommand(OnSetHansanetCommand);
             SelectAllCommand = new DelegateCommand(OnSelectAllComand);
             SaveCommand = new DelegateCommand(OnSaveCommand);

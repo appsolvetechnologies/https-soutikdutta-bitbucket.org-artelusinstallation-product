@@ -1,4 +1,5 @@
-﻿using Artelus.Model;
+﻿using Artelus.Common;
+using Artelus.Model;
 using Helpers;
 using System;
 using System.Collections.Generic;
@@ -8,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Input;
 
 namespace Artelus.ViewModel
 {
@@ -98,9 +100,15 @@ namespace Artelus.ViewModel
         }
 
         public DelegateCommand PreviousReportCommand { get; set; }
+        public ICommand LogOffCommand { get; set; }
 
+        private void OnLogOffCommand(object args)
+        {
+            Helper.LogOff();
+        }
         public ProfileViewModel(PatientEntity model)
         {
+            LogOffCommand = new DelegateCommand(OnLogOffCommand);
             PreviousReportCommand = new DelegateCommand(OnPreviousReportCommand);
             EditProfileDataCommand = new DelegateCommand(OnEditProfileDataCommand);
             ViewReportDataCommand = new DelegateCommand(OnViewReportDataCommand);

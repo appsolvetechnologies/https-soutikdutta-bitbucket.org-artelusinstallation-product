@@ -16,6 +16,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
+using System.Windows.Input;
 
 namespace Artelus.ViewModel
 {
@@ -128,10 +129,17 @@ namespace Artelus.ViewModel
         public DelegateCommand ViewPDFCommand { get; set; }
 
         public Action CloseAction { get; set; }
+        public ICommand LogOffCommand { get; set; }
+
+        private void OnLogOffCommand(object args)
+        {
+            Helper.LogOff();
+        }
 
         public ReportViewModel(PatientEntity model, PatientReport obj)
         {
             BackCommand = new DelegateCommand(OnBackCommand);
+            LogOffCommand = new DelegateCommand(OnLogOffCommand);
 
             string rootPath = AppDomain.CurrentDomain.BaseDirectory;
             string path = Path.Combine(rootPath, "Uploads");
@@ -222,11 +230,15 @@ namespace Artelus.ViewModel
 
             if (posteriorDatas != null)
             {
-                bool res = posteriorDatas.Select(x => x.Prediction == "Doctor review recommended" && x.Prediction != "Bad Image").Any();
-                if (res)
+                bool docReview = posteriorDatas.Any(x => x.Prediction == "Doctor review recommended");
+                bool noDR = posteriorDatas.Any(x => x.Prediction == "No DR detected");
+
+                if (docReview)
                     predictionResult = "EXAMINATION RESULT: Diabetic Retinopathy Suspected - Doctor Review Recommended                    * KINDLY CORRELATE CLINICALLY *";
-                else
+                else if(noDR)
                     predictionResult = "EXAMINATION RESULT: No Abnormlities detected                    * KINDLY CORRELATE CLINICALLY *";
+                else
+                    predictionResult = "EXAMINATION RESULT: Bad Image                    * KINDLY CORRELATE CLINICALLY *";
 
                 foreach (var item in posteriorDatas)
                 {
@@ -258,6 +270,8 @@ namespace Artelus.ViewModel
 
             HtmlToPdf converter = new HtmlToPdf();
             PdfDocument doc = converter.ConvertUrl(fileHTML);
+            //doc.Margins = new PdfMargins(5);
+
             doc.Save(filePDF);
             doc.Close();
             var pdfVM = new PDFViewModel(filePDF);

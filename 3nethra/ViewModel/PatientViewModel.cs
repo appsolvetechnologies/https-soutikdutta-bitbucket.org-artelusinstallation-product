@@ -10,6 +10,7 @@ using Microsoft.Win32;
 using System.Drawing;
 using Artelus.Common;
 using System.IO;
+using System.Windows.Input;
 
 namespace Artelus.ViewModel
 {
@@ -128,6 +129,12 @@ namespace Artelus.ViewModel
             }
         }
         public IdNameCollection OtherIDCollection { get; set; } = new IdNameCollection();
+        public ICommand LogOffCommand { get; set; }
+
+        private void OnLogOffCommand(object args)
+        {
+            Helper.LogOff();
+        }
         public PatientViewModel()
         {
             if (PatientEntity != null)
@@ -158,6 +165,7 @@ namespace Artelus.ViewModel
 
         private void Initialize()
         {
+            LogOffCommand = new DelegateCommand(OnLogOffCommand);
             CameraIcon = AppDomain.CurrentDomain.BaseDirectory + "Resources\\camera.png";
             PatientEntity = new PatientEntity();
             PatientEntity.Profile = AppDomain.CurrentDomain.BaseDirectory + "Resources\\profile.gif";

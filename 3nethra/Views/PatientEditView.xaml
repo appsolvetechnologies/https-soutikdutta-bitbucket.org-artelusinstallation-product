@@ -32,15 +32,15 @@
                         <StackPanel>
                             <StackPanel Margin="0 0 0 5">
                                 <TextBlock Text="First Name:*" FontSize="15" FontWeight="Medium" Margin="0 0 0 5"/>
-                                <TextBox Text="{Binding Path=PatientEntity.Nm,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
+                                <TextBox Validation.Error="Validation_Error" HorizontalAlignment="Left" Width="250px" Text="{Binding Path=PatientEntity.Nm,UpdateSourceTrigger=PropertyChanged,NotifyOnValidationError=True, ValidatesOnDataErrors=True}" />
                             </StackPanel>
                             <StackPanel  Margin="0 0 0 5" Grid.Column="1">
                                 <TextBlock Text="Middle Name:" FontSize="15" FontWeight="Medium" Margin="0 0 0 5"/>
-                                <TextBox Text="{Binding Path=PatientEntity.MNm,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
+                                <TextBox HorizontalAlignment="Left" Width="250px" Text="{Binding Path=PatientEntity.MNm,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
                             </StackPanel>
                             <StackPanel Grid.Column="2">
                                 <TextBlock Text="Last Name:*" FontSize="15" FontWeight="Medium" Margin="0 0 0 5"/>
-                                <TextBox Text="{Binding Path=PatientEntity.LNm,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
+                                <TextBox Validation.Error="Validation_Error" HorizontalAlignment="Left" Width="250px" Text="{Binding Path=PatientEntity.LNm,UpdateSourceTrigger=PropertyChanged,NotifyOnValidationError=True, ValidatesOnDataErrors=True}" />
                             </StackPanel>
                         </StackPanel>
                         <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
@@ -52,26 +52,26 @@
                     </Grid>
                     <StackPanel Margin="5" Orientation="Horizontal">
                         <TextBlock FontSize="15" FontWeight="Medium" Text="Resident of Malaysia:"/>
-                        <RadioButton Background="#f05f40" GroupName="IfResidentOfM" FontSize="15" FontWeight="Medium" Content="No" Margin="8,0,0,0" Command="{Binding ResidentChangeCommand,UpdateSourceTrigger=PropertyChanged}" IsChecked="{Binding PatientEntity.IfResidentOfM, Converter={StaticResource RadioButtonCheckedConverter}, ConverterParameter='no'}" />
-                        <RadioButton  Background="#f05f40" GroupName="IfResidentOfM" FontSize="15" FontWeight="Medium" Content="Yes" Margin="8,0,0,0" Command="{Binding ResidentChangeCommand,UpdateSourceTrigger=PropertyChanged}" IsChecked="{Binding PatientEntity.IfResidentOfM, Converter={StaticResource RadioButtonCheckedConverter}, ConverterParameter='yes'}" />
+                        <RadioButton Background="#f05f40" GroupName="IfResidentOfM" FontSize="15" FontWeight="Medium" Content="No" Margin="8,0,0,0" Command="{Binding ResidentChangeCommand,UpdateSourceTrigger=PropertyChanged}" IsChecked="{Binding PatientEntity.IfResidentOfM, Converter={StaticResource RadioButtonCheckedConverter}, ConverterParameter='No'}" />
+                        <RadioButton  Background="#f05f40" GroupName="IfResidentOfM" FontSize="15" FontWeight="Medium" Content="Yes" Margin="8,0,0,0" Command="{Binding ResidentChangeCommand,UpdateSourceTrigger=PropertyChanged}" IsChecked="{Binding PatientEntity.IfResidentOfM, Converter={StaticResource RadioButtonCheckedConverter}, ConverterParameter='Yes'}" />
                     </StackPanel>
                     <StackPanel Margin="5" Visibility="{Binding HideOthers,UpdateSourceTrigger=PropertyChanged, Converter={converters:BoolToOppVisibilityConverter},ConverterParameter='Collapsed'}">
-                        <TextBlock FontSize="15" FontWeight="Medium" Text="IC Number:*" Margin="0 0 0 5"/>
-                        <TextBox Text="{Binding Path=PatientEntity.IcNumber,UpdateSourceTrigger=PropertyChanged,NotifyOnTargetUpdated=True, ValidatesOnDataErrors=True}" />
+                        <TextBlock FontSize="15"  FontWeight="Medium" Text="IC Number:*" Margin="0 0 0 5"/>
+                        <TextBox HorizontalAlignment="Left" Width="250px" Text="{Binding Path=PatientEntity.IcNumber,UpdateSourceTrigger=PropertyChanged,NotifyOnTargetUpdated=True, ValidatesOnDataErrors=True}" />
                     </StackPanel>
                     <StackPanel Visibility="{Binding HideOthers,UpdateSourceTrigger=PropertyChanged, Converter={converters:BoolToVisibilityConverter},ConverterParameter='Collapsed'}">
                         <StackPanel Margin="5">
                             <TextBlock FontSize="15" FontWeight="Medium" Text="Please Choose:*" Margin="0 0 0 5"/>
-                            <ComboBox Name="cbOtherOptions" DisplayMemberPath="Name" SelectedIndex="0"
+                            <ComboBox HorizontalAlignment="Left" Width="250px" Name="cbOtherOptions" DisplayMemberPath="Name" SelectedIndex="0"
                       SelectedValue="{Binding SelectedOption}" ItemsSource="{Binding OtherIDCollection}"/>
                         </StackPanel>
                         <StackPanel Margin="5" Visibility="{Binding ShowOtherOption,UpdateSourceTrigger=PropertyChanged, Converter={converters:BoolToVisibilityConverter},ConverterParameter='Collapsed'}">
                             <TextBlock FontSize="15" FontWeight="Medium" Text="Others" Margin="0 0 0 5"/>
-                            <TextBox Text="{Binding Path=PatientEntity.OtherOption,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
+                            <TextBox HorizontalAlignment="Left" Width="250px" Text="{Binding Path=PatientEntity.OtherOption,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
                         </StackPanel>
                         <StackPanel Margin="5">
                             <TextBlock FontSize="15" FontWeight="Medium" Text="{Binding Path=PatientEntity.OtherOption}" Margin="0 0 0 5"/>
-                            <TextBox Text="{Binding Path=PatientEntity.OthersID,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
+                            <TextBox HorizontalAlignment="Left" Width="250px" Text="{Binding Path=PatientEntity.OthersID,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
                         </StackPanel>
                     </StackPanel>
                     <Grid Margin="5">
@@ -81,35 +81,35 @@
                         </Grid.ColumnDefinitions>
                         <StackPanel Orientation="Horizontal">
                             <TextBlock FontSize="15" FontWeight="Medium" Text="Marital Status:*"/>
-                            <RadioButton GroupName="MaritalStatus" FontSize="15" FontWeight="Medium" Content="Married" Margin="8,0,0,0" IsChecked="{Binding PatientEntity.MaritalStatus, Converter={StaticResource RadioButtonCheckedConverter}, ConverterParameter='Married'}" />
-                            <RadioButton GroupName="MaritalStatus" FontSize="15" FontWeight="Medium" Content="Single" Margin="8,0,0,0" IsChecked="{Binding PatientEntity.MaritalStatus, Converter={StaticResource RadioButtonCheckedConverter}, ConverterParameter='Single'}" />
+                            <RadioButton Validation.Error="Validation_Error" GroupName="MaritalStatus" FontSize="15" FontWeight="Medium" Content="Married" Margin="8,0,0,0" IsChecked="{Binding PatientEntity.MaritalStatus,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True,NotifyOnValidationError=True, Converter={StaticResource RadioButtonCheckedConverter}, ConverterParameter='Married'}" />
+                            <RadioButton Validation.Error="Validation_Error" GroupName="MaritalStatus" FontSize="15" FontWeight="Medium" Content="Single" Margin="8,0,0,0" IsChecked="{Binding PatientEntity.MaritalStatus,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True,NotifyOnValidationError=True, Converter={StaticResource RadioButtonCheckedConverter}, ConverterParameter='Single'}" />
                         </StackPanel>
                         <StackPanel Grid.Column="1" Orientation="Horizontal">
                             <TextBlock FontSize="15" FontWeight="Medium" Margin="0 0 0 5" Text="Gender:*"/>
-                            <RadioButton GroupName="Sex" Content="Male" FontSize="15" FontWeight="Medium" Margin="8,0,0,0" IsChecked="{Binding PatientEntity.Sex, Converter={StaticResource RadioButtonCheckedConverter}, ConverterParameter='Male'}" />
-                            <RadioButton GroupName="Sex" Content="Female" FontSize="15" FontWeight="Medium" Margin="8,0,0,0" IsChecked="{Binding PatientEntity.Sex, Converter={StaticResource RadioButtonCheckedConverter}, ConverterParameter='Female'}" />
+                            <RadioButton Validation.Error="Validation_Error" GroupName="Sex" Content="Male" FontSize="15" FontWeight="Medium" Margin="8,0,0,0" IsChecked="{Binding PatientEntity.Sex,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True,NotifyOnValidationError=True, Converter={StaticResource RadioButtonCheckedConverter}, ConverterParameter='Male'}" />
+                            <RadioButton Validation.Error="Validation_Error" GroupName="Sex" Content="Female" FontSize="15" FontWeight="Medium" Margin="8,0,0,0" IsChecked="{Binding PatientEntity.Sex,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True,NotifyOnValidationError=True, Converter={StaticResource RadioButtonCheckedConverter}, ConverterParameter='Female'}" />
                         </StackPanel>
                     </Grid>
 
                     <Grid Margin="5">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"></ColumnDefinition>
+                            <ColumnDefinition Width=".4*"></ColumnDefinition>
                             <ColumnDefinition Width="*"></ColumnDefinition>
                         </Grid.ColumnDefinitions>
                         <StackPanel Margin="0 0 5 0">
                             <TextBlock FontSize="15" FontWeight="Medium" Text="Age:*" Margin="0 0 0 5"/>
-                            <TextBox Text="{Binding Path=PatientEntity.Age,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
+                            <TextBox Validation.Error="Validation_Error" HorizontalAlignment="Left" Width="50px" Text="{Binding Path=PatientEntity.Age,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}" />
                         </StackPanel>
 
                         <StackPanel Margin="0 0 5 0" Grid.Column="2">
                             <TextBlock FontSize="15" FontWeight="Medium" Text="City:*" Margin="0 0 0 5"/>
-                            <TextBox Text="{Binding Path=PatientEntity.Area,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
+                            <TextBox HorizontalAlignment="Left" Width="200px" Text="{Binding Path=PatientEntity.Area,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}" />
                         </StackPanel>
                     </Grid>
 
                     <StackPanel Margin="5">
                         <TextBlock FontSize="15" FontWeight="Medium" Text="Permanent Address:" Margin="0 0 0 5"/>
-                        <TextBox AcceptsReturn="True" TextWrapping="Wrap" MinLines="3" Text="{Binding Path=PatientEntity.PerAdr,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
+                        <TextBox AcceptsReturn="True" TextWrapping="Wrap" MinLines="2" Text="{Binding Path=PatientEntity.PerAdr,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
                     </StackPanel>
 
                     <Grid Margin="5">
@@ -124,12 +124,11 @@
                         </StackPanel>
                         <StackPanel  Margin="0 0 5 0" Grid.Column="1">
                             <TextBlock FontSize="15" FontWeight="Medium" Text="Mobile:*" Margin="0 0 0 5"/>
-                            <TextBox Text="{Binding Path=PatientEntity.Mob,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
-
+                            <TextBox Validation.Error="Validation_Error" Text="{Binding Path=PatientEntity.Mob,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}" />
                         </StackPanel>
                         <StackPanel Grid.Column="2">
                             <TextBlock FontSize="15" FontWeight="Medium" Text="Email:*" Margin="0 0 0 5"/>
-                            <TextBox Text="{Binding Path=PatientEntity.Email,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
+                            <TextBox Validation.Error="Validation_Error" Text="{Binding Path=PatientEntity.Email,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}" />
                         </StackPanel>
                     </Grid>
                     <StackPanel Margin="5">
@@ -162,7 +161,7 @@
                         </StackPanel>
                         <StackPanel Grid.Column="2">
                             <TextBlock FontSize="15" FontWeight="Medium" Text="Hospital Screening Location:*" Margin="0 0 0 5"/>
-                            <TextBox Text="{Binding Path=PatientEntity.HospitalScreening,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
+                            <TextBox Validation.Error="Validation_Error" Text="{Binding Path=PatientEntity.HospitalScreening,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}" />
                         </StackPanel>
                     </Grid>
                     <Grid Margin="5">
@@ -172,8 +171,8 @@
                         </Grid.ColumnDefinitions>
                         <TextBlock FontSize="15" FontWeight="Medium" Text="Laser Treatment:"/>
                         <StackPanel Grid.Column="1" HorizontalAlignment="Left" Orientation="Horizontal">
-                            <RadioButton GroupName="LaserTreatment" Content="Yes" FontSize="15" FontWeight="Medium" Margin="8,0,0,0" IsChecked="{Binding PatientEntity.LaserTreatment, Converter={StaticResource RadioButtonCheckedConverter}, ConverterParameter='yes'}" />
-                            <RadioButton GroupName="LaserTreatment" Content="No" FontSize="15" FontWeight="Medium" Margin="8,0,0,0" IsChecked="{Binding PatientEntity.LaserTreatment, Converter={StaticResource RadioButtonCheckedConverter}, ConverterParameter='no'}" />
+                            <RadioButton GroupName="LaserTreatment" Content="Yes" FontSize="15" FontWeight="Medium" Margin="8,0,0,0" IsChecked="{Binding PatientEntity.LaserTreatment, Converter={StaticResource RadioButtonCheckedConverter}, ConverterParameter='Yes'}" />
+                            <RadioButton GroupName="LaserTreatment" Content="No" FontSize="15" FontWeight="Medium" Margin="8,0,0,0" IsChecked="{Binding PatientEntity.LaserTreatment, Converter={StaticResource RadioButtonCheckedConverter}, ConverterParameter='No'}" />
                         </StackPanel>
                     </Grid>
                     <Grid Margin="5">
@@ -183,8 +182,8 @@
                         </Grid.ColumnDefinitions>
                         <TextBlock FontSize="15" FontWeight="Medium" Text="Cataract:"/>
                         <StackPanel Grid.Column="1" HorizontalAlignment="Left" Orientation="Horizontal">
-                            <RadioButton GroupName="Cataract" Content="Yes" FontSize="15" FontWeight="Medium" Margin="8,0,0,0" IsChecked="{Binding PatientEntity.Cataract, Converter={StaticResource RadioButtonCheckedConverter}, ConverterParameter='yes'}" />
-                            <RadioButton GroupName="Cataract" Content="No" FontSize="15" FontWeight="Medium" Margin="8,0,0,0" IsChecked="{Binding PatientEntity.Cataract, Converter={StaticResource RadioButtonCheckedConverter}, ConverterParameter='no'}" />
+                            <RadioButton GroupName="Cataract" Content="Yes" FontSize="15" FontWeight="Medium" Margin="8,0,0,0" IsChecked="{Binding PatientEntity.Cataract, Converter={StaticResource RadioButtonCheckedConverter}, ConverterParameter='Yes'}" />
+                            <RadioButton GroupName="Cataract" Content="No" FontSize="15" FontWeight="Medium" Margin="8,0,0,0" IsChecked="{Binding PatientEntity.Cataract, Converter={StaticResource RadioButtonCheckedConverter}, ConverterParameter='No'}" />
                         </StackPanel>
                     </Grid>
                     <Grid Margin="5">
@@ -194,8 +193,8 @@
                         </Grid.ColumnDefinitions>
                         <TextBlock FontSize="15" FontWeight="Medium" Text="Diabetic:"/>
                         <StackPanel Grid.Column="1" HorizontalAlignment="Left" Orientation="Horizontal">
-                            <RadioButton GroupName="Diabetic" Content="Yes" FontSize="15" FontWeight="Medium" Margin="8,0,0,0" IsChecked="{Binding PatientEntity.Diabetic, Converter={StaticResource RadioButtonCheckedConverter}, ConverterParameter='yes'}" />
-                            <RadioButton GroupName="Diabetic" Content="No" FontSize="15" FontWeight="Medium" Margin="8,0,0,0" IsChecked="{Binding PatientEntity.Diabetic, Converter={StaticResource RadioButtonCheckedConverter}, ConverterParameter='no'}" />
+                            <RadioButton GroupName="Diabetic" Content="Yes" FontSize="15" FontWeight="Medium" Margin="8,0,0,0" IsChecked="{Binding PatientEntity.Diabetic, Converter={StaticResource RadioButtonCheckedConverter}, ConverterParameter='Yes'}" />
+                            <RadioButton GroupName="Diabetic" Content="No" FontSize="15" FontWeight="Medium" Margin="8,0,0,0" IsChecked="{Binding PatientEntity.Diabetic, Converter={StaticResource RadioButtonCheckedConverter}, ConverterParameter='No'}" />
                         </StackPanel>
                     </Grid>
                     <Grid Margin="5">
@@ -206,7 +205,7 @@
                         <TextBlock FontSize="15" FontWeight="Medium" Text="Hypertension:"/>
                         <StackPanel Grid.Column="1" HorizontalAlignment="Left" Orientation="Horizontal">
                             <RadioButton GroupName="Hypertension" Content="Yes" FontSize="15" FontWeight="Medium" Margin="8,0,0,0" IsChecked="{Binding PatientEntity.Hypertension, Converter={StaticResource RadioButtonCheckedConverter}, ConverterParameter='yes'}" />
-                            <RadioButton GroupName="Hypertension" Content="No" FontSize="15" FontWeight="Medium" Margin="8,0,0,0" IsChecked="{Binding PatientEntity.Hypertension, Converter={StaticResource RadioButtonCheckedConverter}, ConverterParameter='no'}" />
+                            <RadioButton GroupName="Hypertension" Content="No" FontSize="15" FontWeight="Medium" Margin="8,0,0,0" IsChecked="{Binding PatientEntity.Hypertension, Converter={StaticResource RadioButtonCheckedConverter}, ConverterParameter='No'}" />
                         </StackPanel>
                     </Grid>
                     <Grid Margin="5">
@@ -216,8 +215,8 @@
                         </Grid.ColumnDefinitions>
                         <TextBlock FontSize="15" FontWeight="Medium" Text="Allergy to Drugs:"/>
                         <StackPanel Grid.Column="1" HorizontalAlignment="Left" Orientation="Horizontal">
-                            <RadioButton GroupName="AllergyDrugs" Command="{Binding AlergyChangeCommand,UpdateSourceTrigger=PropertyChanged}" Content="Yes" FontSize="15" FontWeight="Medium" Margin="8,0,0,0" IsChecked="{Binding PatientEntity.AllergyDrugs, Converter={StaticResource RadioButtonCheckedConverter}, ConverterParameter='yes'}" />
-                            <RadioButton GroupName="AllergyDrugs" Command="{Binding AlergyChangeCommand,UpdateSourceTrigger=PropertyChanged}" Content="No" FontSize="15" FontWeight="Medium" Margin="8,0,0,0" IsChecked="{Binding PatientEntity.AllergyDrugs, Converter={StaticResource RadioButtonCheckedConverter}, ConverterParameter='no'}" />
+                            <RadioButton GroupName="AllergyDrugs" Content="Yes" FontSize="15" FontWeight="Medium" Margin="8,0,0,0" IsChecked="{Binding PatientEntity.AllergyDrugs, Converter={StaticResource RadioButtonCheckedConverter}, ConverterParameter='Yes'}" />
+                            <RadioButton GroupName="AllergyDrugs" Content="No" FontSize="15" FontWeight="Medium" Margin="8,0,0,0" IsChecked="{Binding PatientEntity.AllergyDrugs, Converter={StaticResource RadioButtonCheckedConverter}, ConverterParameter='No'}" />
                         </StackPanel>
                     </Grid>
                     <StackPanel Margin="5" Visibility="{Binding ShowAllergyOption,UpdateSourceTrigger=PropertyChanged, Converter={converters:BoolToVisibilityConverter},ConverterParameter='Collapsed'}">
@@ -231,8 +230,8 @@
                         </Grid.ColumnDefinitions>
                         <TextBlock FontSize="15" FontWeight="Medium" Text="Current Medications if Any:"/>
                         <StackPanel Grid.Column="1" HorizontalAlignment="Left" Orientation="Horizontal">
-                            <RadioButton GroupName="CurrentMedications" Content="Yes" FontSize="15" FontWeight="Medium" Margin="8,0,0,0" IsChecked="{Binding PatientEntity.CurrentMedications, Converter={StaticResource RadioButtonCheckedConverter}, ConverterParameter='yes'}" />
-                            <RadioButton GroupName="CurrentMedications" Content="No" FontSize="15" FontWeight="Medium" Margin="8,0,0,0" IsChecked="{Binding PatientEntity.CurrentMedications, Converter={StaticResource RadioButtonCheckedConverter}, ConverterParameter='no'}" />
+                            <RadioButton GroupName="CurrentMedications" Content="Yes" FontSize="15" FontWeight="Medium" Margin="8,0,0,0" IsChecked="{Binding PatientEntity.CurrentMedications, Converter={StaticResource RadioButtonCheckedConverter}, ConverterParameter='Yes'}" />
+                            <RadioButton GroupName="CurrentMedications" Content="No" FontSize="15" FontWeight="Medium" Margin="8,0,0,0" IsChecked="{Binding PatientEntity.CurrentMedications, Converter={StaticResource RadioButtonCheckedConverter}, ConverterParameter='No'}" />
                         </StackPanel>
                     </Grid>
                     <StackPanel Margin="5">
@@ -254,10 +253,10 @@
                         </StackPanel>
                     </Grid>
                     <StackPanel Margin="5">
-                        <TextBlock FontSize="15" FontWeight="Medium" Text="Name of the person giving the Consent:" Margin="0 0 0 5"/>
+                        <TextBlock FontSize="15" FontWeight="Medium" Text="Name of the person giving consent (if different from patient):" Margin="0 0 0 5"/>
                         <TextBox Text="{Binding Path=PatientEntity.StatedConsentPerson,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
                     </StackPanel>
-                    <StackPanel Margin="5">
+                    <StackPanel Margin="5" Visibility="{Binding Path=PatientEntity.ShowRelation,UpdateSourceTrigger=PropertyChanged, Converter={converters:BoolToVisibilityConverter},ConverterParameter='Collapsed'}">
                         <TextBlock FontSize="15" FontWeight="Medium" Text="Relation with the Patient (if applicable):" Margin="0 0 0 5"/>
                         <TextBox Text="{Binding Path=PatientEntity.Relation,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
                     </StackPanel>
@@ -272,7 +271,7 @@
             <Label FontSize="16" FontWeight="Bold">General Consent</Label>
             <TextBlock TextWrapping="Wrap" FontSize="16" FontWeight="SemiBold" Text="I am competent to give and hereby give my informed consent for treatment of patient named herein above in the hospital, I also give consent for the Hospital to perform any procedures &amp; Tests, as may be deemed fit by the Hospital." FontStyle="Italic"/>
             <DockPanel>
-                <RadioButton DockPanel.Dock="Left" IsEnabled="False"  FontSize="16" FontWeight="Bold" Content="* I agree." IsChecked="{Binding PatientEntity.TermsCondition, Converter={StaticResource RadioButtonCheckedConverter}, ConverterParameter='1'}" />
+                <RadioButton DockPanel.Dock="Left" Validation.Error="Validation_Error"  FontSize="16" FontWeight="Bold" Content="* I agree." IsChecked="{Binding PatientEntity.TermsCondition,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True,NotifyOnValidationError=True, Converter={StaticResource RadioButtonCheckedConverter}, ConverterParameter='1'}" />
                 <Button  Background="#f05f40" Height="40px" Foreground="White"  FontWeight="DemiBold" DockPanel.Dock="Right" HorizontalAlignment="Right" Command="{Binding SaveCommand}" CommandParameter="{Binding PatientEntity}">Next</Button>
             </DockPanel>
         </StackPanel>

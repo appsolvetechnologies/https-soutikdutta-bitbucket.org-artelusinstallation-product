@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Artelus.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +21,22 @@ namespace Artelus.Views
     /// </summary>
     public partial class PatientEditView : UserControl
     {
+        private int _errors = 0;
         public PatientEditView()
         {
             InitializeComponent();
+        }
+
+        private void Validation_Error(object sender, ValidationErrorEventArgs e)
+        {
+            if (e.Action == ValidationErrorEventAction.Added)
+                _errors++;
+
+            else
+                _errors--;
+
+            var dataContext = this.DataContext as PatientViewModel;
+            dataContext.ErrorCount = _errors;
         }
     }
 }

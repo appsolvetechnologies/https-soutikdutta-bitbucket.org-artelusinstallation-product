@@ -1,4 +1,5 @@
-﻿using Artelus.Model;
+﻿using Artelus.Common;
+using Artelus.Model;
 using Artelus.Views;
 using FirstFloor.ModernUI.Windows.Controls;
 using Helpers;
@@ -6,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows;
+using System.Windows.Input;
 
 namespace Artelus.ViewModel
 {
@@ -51,8 +53,15 @@ namespace Artelus.ViewModel
         public DelegateCommand ViewReportCommand { get; set; }
         public IdNameCollection FilterCollection { get; set; } = new IdNameCollection();
         public DelegateCommand SearchCommand { get; set; }
+        public ICommand LogOffCommand { get; set; }
+
+        private void OnLogOffCommand(object args)
+        {
+            Helper.LogOff();
+        }
         public SearchViewModel()
         {
+            LogOffCommand = new DelegateCommand(OnLogOffCommand);
             Patients = new ObservableCollection<PatientEntity>();
             ViewProfileCommand = new DelegateCommand(OnViewProfileCommand);
             ViewReportCommand = new DelegateCommand(OnViewReportCommand);

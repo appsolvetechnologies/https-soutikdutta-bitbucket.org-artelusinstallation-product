@@ -11,6 +11,7 @@ using System.Drawing;
 using System.IO;
 using System.Web.Script.Serialization;
 using System.Windows;
+using System.Windows.Input;
 using System.Windows.Media.Imaging;
 
 namespace Artelus.ViewModel
@@ -183,9 +184,15 @@ namespace Artelus.ViewModel
             if (report != null)
                 PatientReport = report;
         }
+        public ICommand LogOffCommand { get; set; }
 
+        private void OnLogOffCommand(object args)
+        {
+            Helper.LogOff();
+        }
         private void Initialize()
         {
+            LogOffCommand = new DelegateCommand(OnLogOffCommand);
             CameraEntity = new CameraEntity();
             CameraEntity.Eye = "OD";
             SaveCommand = new DelegateCommand(OnSaveCommand);

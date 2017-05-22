@@ -6,6 +6,7 @@ using Helpers;
 using SelectPdf;
 using System;
 using System.Windows;
+using System.Windows.Input;
 
 namespace Artelus.ViewModel
 {
@@ -28,9 +29,15 @@ namespace Artelus.ViewModel
             }
         }
         public DelegateCommand LoginCommand { get; set; }
+        public ICommand LogOffCommand { get; set; }
 
+        private void OnLogOffCommand(object args)
+        {
+            Helper.LogOff();
+        }
         public LoginViewModel()
-        {            
+        {
+            LogOffCommand = new DelegateCommand(OnLogOffCommand);
             Logo = AppDomain.CurrentDomain.BaseDirectory + "Resources\\logo.png";
             User = new UserEntity();
             LoginCommand = new DelegateCommand(OnLoginCommand);
