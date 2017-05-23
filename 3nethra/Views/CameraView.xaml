@@ -6,7 +6,8 @@
              xmlns:local="clr-namespace:Artelus.Views"
              xmlns:mui="http://firstfloorsoftware.com/ModernUI"
              xmlns:converters="clr-namespace:Helpers.Converter;assembly=Helpers"
-             mc:Ignorable="d" 
+             mc:Ignorable="d"
+             mui:ModernFrame.KeepAlive="false"
              d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.Resources>
         <converters:RadioButtonCheckedConverter x:Key="RadioButtonCheckedConverter"/>
@@ -63,7 +64,7 @@
                                 <TextBlock FontSize="16" FontWeight="SemiBold" Margin="0 0 0 8" Text="{Binding PatientEntity.Nm}"/>
                             </StackPanel>
                         </StackPanel>
-                        
+
                         <StackPanel Margin="0 10 0 0" Visibility="{Binding ShowPosterior,UpdateSourceTrigger=PropertyChanged, Converter={converters:BoolToOppVisibilityConverter},ConverterParameter='Collapsed'}">
                             <TextBlock Text="Posterior" Style="{StaticResource Heading2}" Margin="0,0,0,8" />
                             <Grid>
@@ -109,8 +110,8 @@
                                         </ItemsControl.ItemTemplate>
                                     </ItemsControl>
                                 </StackPanel>
-                               
-                            </Grid>                            
+
+                            </Grid>
                         </StackPanel>
                         <StackPanel Margin="0 10 0 0" Visibility="{Binding ShowPosterior,UpdateSourceTrigger=PropertyChanged, Converter={converters:BoolToVisibilityConverter},ConverterParameter='Collapsed'}">
                             <TextBlock Text="Anterior" Style="{StaticResource Heading2}" Margin="0,0,0,8" />
@@ -157,12 +158,12 @@
                                         </ItemsControl.ItemTemplate>
                                     </ItemsControl>
                                 </StackPanel>
-                                
+
                             </Grid>
                         </StackPanel>
                     </StackPanel>
                 </Grid>
-            </StackPanel>           
+            </StackPanel>
         </Grid>
 
         <DockPanel Grid.Row="1" Grid.ColumnSpan="2">

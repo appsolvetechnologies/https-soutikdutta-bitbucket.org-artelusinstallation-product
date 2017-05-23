@@ -20,21 +20,10 @@ namespace Artelus.Common
             {
                 if (win.GetType().Name == "MainWindow")
                 {
+                    var dataContext = win.DataContext as MainWindowViewModel;
+                    dataContext.IsAuthorize = false;
                     var artelus = (win) as Artelus.MainWindow;
                     artelus.ContentSource = new Uri("Views/LoginView.xaml", UriKind.Relative);
-                    var dataContext = win.DataContext as MainWindowViewModel;
-                    if (dataContext == null)
-                    {
-                        var context = new MainWindowViewModel();
-                        context.IsAuthorize = false;
-                        context.CurrentViewModel = new LoginViewModel();
-                        artelus.DataContext = context;
-                    }
-                    else
-                    {
-                        dataContext.IsAuthorize = false;
-                        dataContext.CurrentViewModel = new LoginViewModel();
-                    }
                 }
             }
         }

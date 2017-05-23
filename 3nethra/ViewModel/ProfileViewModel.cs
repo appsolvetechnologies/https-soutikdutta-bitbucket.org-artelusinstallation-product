@@ -119,19 +119,21 @@ namespace Artelus.ViewModel
             else
                 PatientEntity.Sex = "Female";
 
-            if (PatientEntity.MaritalStatus == "no")
+            if (PatientEntity.MaritalStatus == "No")
                 PatientEntity.MaritalStatus = "Single";
             else
                 PatientEntity.MaritalStatus = "Married";
 
-            if (PatientEntity.AllergyDrugs == "yes")
+            if (PatientEntity.AllergyDrugs == "Yes")
                 ShowAllergyOption = true;
 
-            if (PatientEntity.IfResidentOfM == "yes")
+            if (PatientEntity.IfResidentOfM == "Yes")
             {
                 PatientEntity.OtherOption = "IC Number:";
                 PatientEntity.OthersID = PatientEntity.IcNumber;
             }
+            else
+                PatientEntity.OtherOption = PatientEntity.OtherOption + ":";
 
             string rootPath = AppDomain.CurrentDomain.BaseDirectory;
             string path = Path.Combine(rootPath, "Uploads");
@@ -139,7 +141,7 @@ namespace Artelus.ViewModel
             PatientReport = new Patient().GetLastestReport(model.Id);
             if (PatientReport != null)
             {
-                var osResult = new Patient().GetPosteriorOSReportData(PatientReport.Id,false);
+                var osResult = new Patient().GetPosteriorOSReportData(PatientReport.Id, false);
                 foreach (var data in osResult)
                 {
                     PatientReport.OSPosteriorReportDatas = new ObservableCollection<ReportData>();
@@ -147,7 +149,7 @@ namespace Artelus.ViewModel
                     data.FileName = Path.GetFileName(data.ImageUrl);
                     PatientReport.OSPosteriorReportDatas.Add(data);
                 }
-                var odResult = new Patient().GetPosteriorODReportData(PatientReport.Id,false);
+                var odResult = new Patient().GetPosteriorODReportData(PatientReport.Id, false);
                 foreach (var data in odResult)
                 {
                     PatientReport.ODPosteriorReportDatas = new ObservableCollection<ReportData>();
@@ -170,7 +172,7 @@ namespace Artelus.ViewModel
                     reportView.ContentSource = new Uri("Views/ReportHistoryView.xaml", UriKind.Relative);
                     reportView.DataContext = new ReportHistoryViewModel(PatientEntity);
                 }
-            }            
+            }
         }
 
 
@@ -195,7 +197,7 @@ namespace Artelus.ViewModel
                 {
                     var reportView = (win) as Artelus.MainWindow;
                     reportView.ContentSource = new Uri("Views/ReportView.xaml", UriKind.Relative);
-                    reportView.DataContext = new ReportViewModel(PatientEntity,null);
+                    reportView.DataContext = new ReportViewModel(PatientEntity, null);
                 }
             }
         }

@@ -697,29 +697,43 @@ namespace Artelus.Model
                     if (String.IsNullOrEmpty(termsCondition))
                         validationMessgae = "Cannot be empty.";
                     break;
-
+                case "IcNumber":
+                    if (ifResidentOfM == "Yes" && string.IsNullOrEmpty(icNumber))
+                        validationMessgae = "Cannot be empty.";
+                    else if (ifResidentOfM == "Yes" && !string.IsNullOrEmpty(icNumber) && icNumber.Length != 12)
+                        validationMessgae = "IC Number should be 12 digit.";
+                    else if (ifResidentOfM == "Yes" && !string.IsNullOrEmpty(icNumber) && icNumber.Length == 12 && !IsValidNum(icNumber))
+                        validationMessgae = "Invalid IC Number";
+                    break;
+                case "OtherOption":
+                    if (ifResidentOfM == "No" && string.IsNullOrEmpty(otherOption))
+                        validationMessgae = "Cannot be empty.";
+                    break;
+                case "OthersID":
+                    if (ifResidentOfM == "No" && string.IsNullOrEmpty(othersID))
+                        validationMessgae = "Cannot be empty.";
+                    break;
             }
             return validationMessgae;
         }
+
         bool IsValidEmail(string email)
         {
-            //try
-            //{
-            //    var addr = new System.Net.Mail.MailAddress(email);
-            //    return addr.Address == email;
-            //}
-            //catch
-            //{
-            //    return false;
-            //}
-
             Regex regex = new Regex(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$");
             Match match = regex.Match(email);
             if (match.Success)
                 return true;
             else
                 return false;
-        
-    }
+
+        }
+
+        bool IsValidNum(string num)
+        {
+            Regex regex = new Regex(@"[\d]");
+            if (regex.IsMatch(num))
+                return true;
+            return false;
+        }
     }
 }

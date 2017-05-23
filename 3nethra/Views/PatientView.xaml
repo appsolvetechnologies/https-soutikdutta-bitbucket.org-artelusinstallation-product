@@ -6,7 +6,8 @@
              xmlns:converters="clr-namespace:Helpers.Converter;assembly=Helpers"
              xmlns:mui="http://firstfloorsoftware.com/ModernUI"
              xmlns:local="clr-namespace:Artelus.Views"
-             mc:Ignorable="d" 
+             mc:Ignorable="d"
+             mui:ModernFrame.KeepAlive="false"
              d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.Resources>
         <converters:RadioButtonCheckedConverter x:Key="RadioButtonCheckedConverter"/>
@@ -67,11 +68,11 @@
                         </StackPanel>
                         <StackPanel Margin="5" Visibility="{Binding ShowOtherOption,UpdateSourceTrigger=PropertyChanged, Converter={converters:BoolToVisibilityConverter},ConverterParameter='Collapsed'}">
                             <TextBlock FontSize="15" FontWeight="Medium" Text="Others" Margin="0 0 0 5"/>
-                            <TextBox HorizontalAlignment="Left" Width="250px" Text="{Binding Path=PatientEntity.OtherOption,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
+                            <TextBox HorizontalAlignment="Left" Width="250px" Text="{Binding Path=PatientEntity.OtherOption,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True,NotifyOnTargetUpdated=True}" />
                         </StackPanel>
                         <StackPanel Margin="5">
                             <TextBlock FontSize="15" FontWeight="Medium" Text="{Binding Path=PatientEntity.OtherOption}" Margin="0 0 0 5"/>
-                            <TextBox HorizontalAlignment="Left" Width="250px" Text="{Binding Path=PatientEntity.OthersID,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
+                            <TextBox HorizontalAlignment="Left" Width="250px" Text="{Binding Path=PatientEntity.OthersID,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True,NotifyOnTargetUpdated=True}" />
                         </StackPanel>
                     </StackPanel>
                     <Grid Margin="5">

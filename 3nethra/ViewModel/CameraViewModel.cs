@@ -204,13 +204,26 @@ namespace Artelus.ViewModel
             ReportViewCommand = new DelegateCommand(OnReportViewCommand);
             BackCommand = new DelegateCommand(OnBackCommand);
             PatientReport = new PatientReport();
-            camera = CameraAPI.GetInstance();
-            camera.Connect();
-            camera.NewFrameEvent += new NewFrameHandler(camera_NewFrameEvent);
-            camera.CapturedFrameEvent += new CapturedFrameHandler(camera_capturedFrameEvent);
-            camera.setMode(CameraAPI.OperatingMode.POSTERIOR_MODE);
-            CamMode = CameraAPI.OperatingMode.POSTERIOR_MODE.ToString();
+            ConnectCamera();
         }
+
+        void ConnectCamera()
+        {
+            try
+            {
+                camera = CameraAPI.GetInstance();
+                camera.Connect();
+                camera.NewFrameEvent += new NewFrameHandler(camera_NewFrameEvent);
+                camera.CapturedFrameEvent += new CapturedFrameHandler(camera_capturedFrameEvent);
+                camera.setMode(CameraAPI.OperatingMode.POSTERIOR_MODE);
+                CamMode = CameraAPI.OperatingMode.POSTERIOR_MODE.ToString();
+            }
+            catch (Exception ex)
+            {
+                ModernDialog.ShowMessage("Camera Not Responding. Please restart your process again.", "Alert", MessageBoxButton.OK);
+            }
+        }
+
 
         private void OnReportViewCommand(object args)
         {

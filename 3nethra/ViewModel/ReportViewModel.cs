@@ -164,16 +164,18 @@ namespace Artelus.ViewModel
             else
                 PatientEntity.Sex = "Female";
 
-            if (PatientEntity.MaritalStatus == "no")
+            if (PatientEntity.MaritalStatus == "No")
                 PatientEntity.MaritalStatus = "Single";
             else
                 PatientEntity.MaritalStatus = "Married";
 
-            if (PatientEntity.IfResidentOfM == "yes")
+            if (PatientEntity.IfResidentOfM == "Yes")
             {
                 PatientEntity.OtherOption = "IC Number:";
                 PatientEntity.OthersID = PatientEntity.IcNumber;
             }
+            else
+                PatientEntity.OtherOption = PatientEntity.OtherOption + ":";
 
             if (obj != null)
                 PatientReport = obj;
@@ -539,9 +541,11 @@ namespace Artelus.ViewModel
                     //patientView.DataContext = new PatientViewModel();
 
                     var artelus = (win) as Artelus.MainWindow;
+                    artelus.DataContext = null;
                     artelus.ContentSource = new Uri("Views/PatientView.xaml", UriKind.Relative);
+
                     //var dataContext = win.DataContext as MainWindowViewModel;
-                    artelus.DataContext = new PatientViewModel();
+                    //artelus.DataContext = new PatientViewModel();
                     //dataContext.CurrentViewModel = new PatientViewModel();
                 }
             }

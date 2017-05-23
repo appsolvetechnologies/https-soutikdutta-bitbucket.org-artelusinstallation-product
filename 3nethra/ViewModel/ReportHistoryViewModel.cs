@@ -72,7 +72,7 @@ namespace Artelus.ViewModel
             LogOffCommand = new DelegateCommand(OnLogOffCommand);
             PatientEntity = model;
 
-            if (PatientEntity.MaritalStatus == "no")
+            if (PatientEntity.MaritalStatus == "No")
                 PatientEntity.MaritalStatus = "Single";
             else
                 PatientEntity.MaritalStatus = "Married";
@@ -82,14 +82,17 @@ namespace Artelus.ViewModel
             else
                 PatientEntity.Sex = "Female";
 
-            if (PatientEntity.AllergyDrugs == "yes")
+            if (PatientEntity.AllergyDrugs == "Yes")
                 ShowAllergyOption = true;
 
-            if (PatientEntity.IfResidentOfM == "yes")
+            if (PatientEntity.IfResidentOfM == "Yes")
             {
                 PatientEntity.OtherOption = "IC Number:";
                 PatientEntity.OthersID = PatientEntity.IcNumber;
             }
+            else
+                PatientEntity.OtherOption = PatientEntity.OtherOption + ":";
+
             string rootPath = AppDomain.CurrentDomain.BaseDirectory;
             string path = Path.Combine(rootPath, "Uploads");
             var report = new Patient().GetAllReport(model.Id);

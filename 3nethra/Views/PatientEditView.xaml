@@ -6,6 +6,7 @@
              xmlns:local="clr-namespace:Artelus.Views"
               xmlns:converters="clr-namespace:Helpers.Converter;assembly=Helpers"
              xmlns:mui="http://firstfloorsoftware.com/ModernUI"
+             mui:ModernFrame.KeepAlive="false"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.Resources>
