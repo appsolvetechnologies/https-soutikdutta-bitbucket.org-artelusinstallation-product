@@ -22,8 +22,8 @@ namespace Artelus
             //string absolute = Path.GetDirectoryName(relative);
             //AppDomain.CurrentDomain.SetData("DataDirectory", absolute);
 
-            var path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-            //string path = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Artelus";
+           // var path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            string path = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Artelus";
             AppDomain.CurrentDomain.SetData("DataDirectory", path);
 
             MainWindow window = new MainWindow();

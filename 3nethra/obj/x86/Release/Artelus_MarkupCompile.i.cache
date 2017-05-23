@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-D:\Project\product\3nethra\obj\x86\Release\
+C:\Users\sushruta\Desktop\Product\product\3nethra\obj\x86\Release\
 Artelus
 none
 false
 TRACE
-D:\Project\product\3nethra\App.xaml
+C:\Users\sushruta\Desktop\Product\product\3nethra\App.xaml
 12-862295856
-7388683688
-461179905747
-29-868426256
+36-675429685
+462034870940
+29-1648982187
 MainWindow.xaml;Views\CameraView.xaml;Views\ImagePredictionView.xaml;Views\LoginView.xaml;Views\PatientEditView.xaml;Views\PatientProfileView.xaml;Views\PatientView.xaml;Views\PDFView.xaml;Views\ReportHistoryView.xaml;Views\ReportView.xaml;Views\SearchView.xaml;Views\SettingsView.xaml;
 
-False
+True
 
