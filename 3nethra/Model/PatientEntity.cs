@@ -9,6 +9,7 @@ namespace Artelus.Model
     public class PatientEntity : BaseViewModel, IDataErrorInfo
     {
         private int id;
+        private int patientId;
         private string nm;
         private string lNm;
         private string mNm;
@@ -17,10 +18,6 @@ namespace Artelus.Model
         private string icNumber;
         private string otherOption;
         private string othersID;
-        private string docNm;
-        private string hospitalNm;
-        private string hospitalID;
-        private string hospitalScreening;
         private string email;
         private string maritalStatus;
         private int age;
@@ -31,20 +28,6 @@ namespace Artelus.Model
         private string mob;
         private string occupation;
         private string workingAt;
-        private string currentMedications;
-        private string laserTreatment;
-        private string cataract;
-        private string hypertension;
-        private string allergyDrugs;
-        private string allergyDrugsDtl;
-        private string diabetic;
-        private string info;
-        private string emergContactNm;
-        private string emergPh;
-        private string statedConsentPerson;
-        private string relation;
-        private string termsCondition;
-        private int collectionID;
         private Guid installID;
         private DateTime cDt;
         private DateTime mDt;
@@ -52,9 +35,7 @@ namespace Artelus.Model
         private int errorCount;
         private string errMsg;
         private string profile;
-        private string medicalInsurance;
         private string previousState;
-        private bool showRelation;
         public string PreviousState
         {
             get { return previousState; }
@@ -73,6 +54,18 @@ namespace Artelus.Model
                 {
                     id = value;
                     RaisePropertyChange("Id");
+                }
+            }
+        }
+        public int PatientId
+        {
+            get { return patientId; }
+            set
+            {
+                if (patientId != value)
+                {
+                    patientId = value;
+                    RaisePropertyChange("PatientId");
                 }
             }
         }
@@ -160,18 +153,6 @@ namespace Artelus.Model
                 }
             }
         }
-        public bool ShowRelation
-        {
-            get { return showRelation; }
-            set
-            {
-                if (showRelation != value)
-                {
-                    showRelation = value;
-                    RaisePropertyChange("ShowRelation");
-                }
-            }
-        }
         public string OthersID
         {
             get { return othersID; }
@@ -181,54 +162,6 @@ namespace Artelus.Model
                 {
                     othersID = value;
                     RaisePropertyChange("OthersID");
-                }
-            }
-        }
-        public string DocNm
-        {
-            get { return docNm; }
-            set
-            {
-                if (docNm != value)
-                {
-                    docNm = value;
-                    RaisePropertyChange("DocNm");
-                }
-            }
-        }
-        public string HospitalNm
-        {
-            get { return hospitalNm; }
-            set
-            {
-                if (hospitalNm != value)
-                {
-                    hospitalNm = value;
-                    RaisePropertyChange("HospitalNm");
-                }
-            }
-        }
-        public string HospitalID
-        {
-            get { return hospitalID; }
-            set
-            {
-                if (hospitalID != value)
-                {
-                    hospitalID = value;
-                    RaisePropertyChange("HospitalID");
-                }
-            }
-        }
-        public string HospitalScreening
-        {
-            get { return hospitalScreening; }
-            set
-            {
-                if (hospitalScreening != value)
-                {
-                    hospitalScreening = value;
-                    RaisePropertyChange("HospitalScreening");
                 }
             }
         }
@@ -352,180 +285,6 @@ namespace Artelus.Model
                 }
             }
         }
-        public string CurrentMedications
-        {
-            get { return currentMedications; }
-            set
-            {
-                if (currentMedications != value)
-                {
-                    currentMedications = value;
-                    RaisePropertyChange("CurrentMedications");
-                }
-            }
-        }
-        public string LaserTreatment
-        {
-            get { return laserTreatment; }
-            set
-            {
-                if (laserTreatment != value)
-                {
-                    laserTreatment = value;
-                    RaisePropertyChange("LaserTreatment");
-                }
-            }
-        }
-        public string Cataract
-        {
-            get { return cataract; }
-            set
-            {
-                if (cataract != value)
-                {
-                    cataract = value;
-                    RaisePropertyChange("Cataract");
-                }
-            }
-        }
-        public string Hypertension
-        {
-            get { return hypertension; }
-            set
-            {
-                if (hypertension != value)
-                {
-                    hypertension = value;
-                    RaisePropertyChange("Hypertension");
-                }
-            }
-        }
-        public string AllergyDrugs
-        {
-            get { return allergyDrugs; }
-            set
-            {
-                if (allergyDrugs != value)
-                {
-                    allergyDrugs = value;
-                    RaisePropertyChange("AllergyDrugs");
-                }
-            }
-        }
-        public string AllergyDrugsDtl
-        {
-            get { return allergyDrugsDtl; }
-            set
-            {
-                if (allergyDrugsDtl != value)
-                {
-                    allergyDrugsDtl = value;
-                    RaisePropertyChange("AllergyDrugsDtl");
-                }
-            }
-        }
-        public string Diabetic
-        {
-            get { return diabetic; }
-            set
-            {
-                if (diabetic != value)
-                {
-                    diabetic = value;
-                    RaisePropertyChange("Diabetic");
-                }
-            }
-        }
-        public string Info
-        {
-            get { return info; }
-            set
-            {
-                if (info != value)
-                {
-                    info = value;
-                    RaisePropertyChange("Info");
-                }
-            }
-        }
-        public string EmergContactNm
-        {
-            get { return emergContactNm; }
-            set
-            {
-                if (emergContactNm != value)
-                {
-                    emergContactNm = value;
-                    RaisePropertyChange("EmergContactNm");
-                }
-            }
-        }
-        public string EmergPh
-        {
-            get { return emergPh; }
-            set
-            {
-                if (emergPh != value)
-                {
-                    emergPh = value;
-                    RaisePropertyChange("EmergPh");
-                }
-            }
-        }
-        public string StatedConsentPerson
-        {
-            get { return statedConsentPerson; }
-            set
-            {
-                if (statedConsentPerson != value)
-                {
-                    if (this.Nm != null && !this.Nm.Contains(value))
-                        this.ShowRelation = true;
-                    else
-                        this.ShowRelation = false;
-
-                    statedConsentPerson = value;
-                    RaisePropertyChange("StatedConsentPerson");
-                }
-            }
-        }
-        public string Relation
-        {
-            get { return relation; }
-            set
-            {
-                if (relation != value)
-                {
-
-                    relation = value;
-                    RaisePropertyChange("Relation");
-                }
-            }
-        }
-        public string TermsCondition
-        {
-            get { return termsCondition; }
-            set
-            {
-                if (termsCondition != value)
-                {
-                    termsCondition = value;
-                    RaisePropertyChange("TermsCondition");
-                }
-            }
-        }
-        public int CollectionID
-        {
-            get { return collectionID; }
-            set
-            {
-                if (collectionID != value)
-                {
-                    collectionID = value;
-                    RaisePropertyChange("CollectionID");
-                }
-            }
-        }
         public Guid InstallID
         {
             get { return installID; }
@@ -571,18 +330,6 @@ namespace Artelus.Model
                 {
                     uniqueID = value;
                     RaisePropertyChange("UniqueID");
-                }
-            }
-        }
-        public string MedicalInsurance
-        {
-            get { return medicalInsurance; }
-            set
-            {
-                if (medicalInsurance != value)
-                {
-                    medicalInsurance = value;
-                    RaisePropertyChange("MedicalInsurance");
                 }
             }
         }
@@ -662,19 +409,9 @@ namespace Artelus.Model
                         validationMessgae = "Cannot be empty.";
                     break;
                 case "Age":
-
                     if (age <= 0 || age > 120)
-                    {
                         validationMessgae = "Please enter a valid age.";
-                    }
-
                     break;
-
-                case "HospitalScreening":
-                    if (String.IsNullOrEmpty(hospitalScreening))
-                        validationMessgae = "Cannot be empty.";
-                    break;
-
                 case "Area":
                     if (String.IsNullOrEmpty(area))
                         validationMessgae = "Cannot be empty.";
@@ -693,10 +430,7 @@ namespace Artelus.Model
                     if (String.IsNullOrEmpty(sex))
                         validationMessgae = "Cannot be empty.";
                     break;
-                case "TermsCondition":
-                    if (String.IsNullOrEmpty(termsCondition))
-                        validationMessgae = "Cannot be empty.";
-                    break;
+
                 case "IcNumber":
                     if (ifResidentOfM == "Yes" && string.IsNullOrEmpty(icNumber))
                         validationMessgae = "Cannot be empty.";

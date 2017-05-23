@@ -16,7 +16,21 @@ namespace Artelus.ViewModel
 {
     public class PatientViewModel : BaseViewModel
     {
-        //Properties 
+        //Properties
+        private bool showRelation;
+        public bool ShowRelation
+        {
+            get { return showRelation; }
+            set
+            {
+                if (showRelation != value)
+                {
+                    showRelation = value;
+                    RaisePropertyChange("ShowRelation");
+                }
+            }
+        }
+
         private int errorCount;
         public int ErrorCount
         {
