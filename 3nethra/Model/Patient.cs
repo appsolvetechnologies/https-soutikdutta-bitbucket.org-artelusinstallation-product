@@ -40,10 +40,10 @@ namespace Artelus.Model
                     IcNumber = rdr.IsDBNull(6) == true ? "" : rdr.GetString(6),
                     OtherOption = rdr.IsDBNull(7) == true ? "" : rdr.GetString(7),
                     OthersID = rdr.IsDBNull(8) == true ? "" : rdr.GetString(8),
-                    DocNm = rdr.IsDBNull(9) == true ? "" : rdr.GetString(9),
-                    HospitalNm = rdr.IsDBNull(10) == true ? "" : rdr.GetString(10),
-                    HospitalID = rdr.IsDBNull(11) == true ? "" : rdr.GetString(11),
-                    HospitalScreening = rdr.IsDBNull(12) == true ? "" : rdr.GetString(12),
+                    //DocNm = rdr.IsDBNull(9) == true ? "" : rdr.GetString(9),
+                    //HospitalNm = rdr.IsDBNull(10) == true ? "" : rdr.GetString(10),
+                    //HospitalID = rdr.IsDBNull(11) == true ? "" : rdr.GetString(11),
+                    //HospitalScreening = rdr.IsDBNull(12) == true ? "" : rdr.GetString(12),
                     Email = rdr.GetString(13),
                     MaritalStatus = rdr.GetString(14) == "Yes" ? "Y" : "N",
                     Age = rdr.GetInt32(15),
@@ -54,25 +54,25 @@ namespace Artelus.Model
                     Mob = rdr.GetString(20),
                     Occupation = rdr.IsDBNull(21) == true ? "" : rdr.GetString(21),
                     WorkingAt = rdr.IsDBNull(22) == true ? "" : rdr.GetString(22),
-                    CurrentMedications = rdr.IsDBNull(23) == true ? "" : rdr.GetString(23),
-                    LaserTreatment = rdr.IsDBNull(24) == true ? "" : rdr.GetString(24),
-                    Cataract = rdr.IsDBNull(25) == true ? "" : rdr.GetString(25),
-                    Hypertension = rdr.IsDBNull(26) == true ? "" : rdr.GetString(26),
-                    AllergyDrugs = rdr.IsDBNull(27) == true ? "" : rdr.GetString(27),
-                    Diabetic = rdr.IsDBNull(28) == true ? "" : rdr.GetString(28),
-                    Info = rdr.IsDBNull(29) == true ? "" : rdr.GetString(29),
-                    EmergContactNm = rdr.IsDBNull(30) == true ? "" : rdr.GetString(30),
-                    EmergPh = rdr.IsDBNull(31) == true ? "" : rdr.GetString(31),
-                    StatedConsentPerson = rdr.IsDBNull(32) == true ? "" : rdr.GetString(32),
-                    Relation = rdr.IsDBNull(33) == true ? "" : rdr.GetString(33),
-                    TermsCondition = rdr.GetString(34),
-                    CollectionID = rdr.GetInt32(35),
+                    //CurrentMedications = rdr.IsDBNull(23) == true ? "" : rdr.GetString(23),
+                    //LaserTreatment = rdr.IsDBNull(24) == true ? "" : rdr.GetString(24),
+                    //Cataract = rdr.IsDBNull(25) == true ? "" : rdr.GetString(25),
+                    //Hypertension = rdr.IsDBNull(26) == true ? "" : rdr.GetString(26),
+                    //AllergyDrugs = rdr.IsDBNull(27) == true ? "" : rdr.GetString(27),
+                    //Diabetic = rdr.IsDBNull(28) == true ? "" : rdr.GetString(28),
+                    //Info = rdr.IsDBNull(29) == true ? "" : rdr.GetString(29),
+                    //EmergContactNm = rdr.IsDBNull(30) == true ? "" : rdr.GetString(30),
+                    //EmergPh = rdr.IsDBNull(31) == true ? "" : rdr.GetString(31),
+                    //StatedConsentPerson = rdr.IsDBNull(32) == true ? "" : rdr.GetString(32),
+                    //Relation = rdr.IsDBNull(33) == true ? "" : rdr.GetString(33),
+                    //TermsCondition = rdr.GetString(34),
+                    //CollectionID = rdr.GetInt32(35),
                     InstallID = rdr.GetGuid(36),
                     MDt = rdr.GetDateTime(37),
                     CDt = rdr.GetDateTime(38),
                     UniqueID = rdr.GetGuid(39),
-                    AllergyDrugsDtl = rdr.IsDBNull(40) == true ? "" : rdr.GetString(40),
-                    MedicalInsurance = rdr.IsDBNull(41) == true ? "" : rdr.GetString(41)
+                    //AllergyDrugsDtl = rdr.IsDBNull(40) == true ? "" : rdr.GetString(40),
+                    //MedicalInsurance = rdr.IsDBNull(41) == true ? "" : rdr.GetString(41)
                 };
                 list.Add(obj);
             }
@@ -146,26 +146,26 @@ namespace Artelus.Model
 
         public int Add(PatientEntity model)
         {
-            using (var db = new ArtelusDbContext())
-            {
-                string sql = "INSERT INTO [Patient] ([name],[pMName],[pLName],[notResident],[ifResidentOfM],[IcNumber],[otherOption],[othersID],[doctosName],[hospitalName],[hospitalID],[hospitaScreening],[p_email],[marital_status],[age],[sex],[permanent_address],[area],[phone_res],[mobile],[occupation],[working_at],[currentMedications],[laser_reatment],[have_cataract],[have_hypertension],[allergy_to_drugs],[have_diabetes],[additional_info],[emg_contact_name],[emg_phone],[name_of_the_stated_onsent],[relation_with_patient],[term_conditation],[collection_id],[install_id],[update_at],[create_at],[UniqueID],[allergy_drugs_details],[MedicalInsurance])" +
-                            " VALUES({0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11},{12},{13},{14},{15},{16},{17},{18},{19},{20},{21},{22},{23},{24},{25},{26},{27},{28},{29},{30},{31},{32},{33},{34},{35},{36},{37},{38},{39},{40}); ";
-                db.Database.ExecuteSqlCommand(sql, model.Nm, model.MNm, model.LNm, model.NotResident, model.IfResidentOfM, model.IcNumber, model.OtherOption, model.OthersID, model.DocNm, model.HospitalNm, model.HospitalID, model.HospitalScreening, model.Email, model.MaritalStatus == "Married" ? "Yes" : "No", model.Age, model.Sex == "Male" ? "m" : "f", model.PerAdr, model.Area, model.ResidentPh, model.Mob, model.Occupation, model.WorkingAt, model.CurrentMedications, model.LaserTreatment, model.Cataract, model.Hypertension, model.AllergyDrugs, model.Diabetic, model.Info, model.EmergContactNm, model.EmergPh, model.StatedConsentPerson, model.Relation, model.TermsCondition, model.CollectionID, model.InstallID, model.MDt, model.CDt, model.UniqueID, model.AllergyDrugsDtl, model.MedicalInsurance);
-                model.Id = db.Database.SqlQuery<int>("SELECT MAX(p_id) FROM Patient").SingleOrDefault();
-            }
+            //using (var db = new ArtelusDbContext())
+            //{
+            //    string sql = "INSERT INTO [Patient] ([name],[pMName],[pLName],[notResident],[ifResidentOfM],[IcNumber],[otherOption],[othersID],[doctosName],[hospitalName],[hospitalID],[hospitaScreening],[p_email],[marital_status],[age],[sex],[permanent_address],[area],[phone_res],[mobile],[occupation],[working_at],[currentMedications],[laser_reatment],[have_cataract],[have_hypertension],[allergy_to_drugs],[have_diabetes],[additional_info],[emg_contact_name],[emg_phone],[name_of_the_stated_onsent],[relation_with_patient],[term_conditation],[collection_id],[install_id],[update_at],[create_at],[UniqueID],[allergy_drugs_details],[MedicalInsurance])" +
+            //                " VALUES({0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11},{12},{13},{14},{15},{16},{17},{18},{19},{20},{21},{22},{23},{24},{25},{26},{27},{28},{29},{30},{31},{32},{33},{34},{35},{36},{37},{38},{39},{40}); ";
+            //    db.Database.ExecuteSqlCommand(sql, model.Nm, model.MNm, model.LNm, model.NotResident, model.IfResidentOfM, model.IcNumber, model.OtherOption, model.OthersID, model.DocNm, model.HospitalNm, model.HospitalID, model.HospitalScreening, model.Email, model.MaritalStatus == "Married" ? "Yes" : "No", model.Age, model.Sex == "Male" ? "m" : "f", model.PerAdr, model.Area, model.ResidentPh, model.Mob, model.Occupation, model.WorkingAt, model.CurrentMedications, model.LaserTreatment, model.Cataract, model.Hypertension, model.AllergyDrugs, model.Diabetic, model.Info, model.EmergContactNm, model.EmergPh, model.StatedConsentPerson, model.Relation, model.TermsCondition, model.CollectionID, model.InstallID, model.MDt, model.CDt, model.UniqueID, model.AllergyDrugsDtl, model.MedicalInsurance);
+            //    model.Id = db.Database.SqlQuery<int>("SELECT MAX(p_id) FROM Patient").SingleOrDefault();
+            //}
             return model.Id;
         }
 
         public void Update(PatientEntity model)
         {
-            using (var db = new ArtelusDbContext())
-            {
-                string sql = "UPDATE [Patient] SET name={1},pMName={2},pLName={3},ifResidentOfM={4},IcNumber={5},otherOption={6},othersID={7},doctosName={8},hospitalName={9},hospitalID={10},hospitaScreening={11},p_email={12},marital_status={13},age={14},[sex]={15},[permanent_address]={16},[area]={17},[phone_res]={18},[mobile]={19},[occupation]={20},[working_at]={21},[currentMedications]={22},[laser_reatment]={23},have_cataract={24},have_hypertension={25},allergy_to_drugs={26},have_diabetes={27},additional_info={28},emg_contact_name={29},emg_phone={30},name_of_the_stated_onsent={31},relation_with_patient={32},update_at={33},allergy_drugs_details={34},MedicalInsurance={35} Where p_id={0}";
-                db.Database.ExecuteSqlCommand(sql, model.Id, model.Nm, model.MNm, model.LNm, model.IfResidentOfM, model.IcNumber, model.OtherOption, model.OthersID, model.DocNm, model.HospitalNm, model.HospitalID, model.HospitalScreening, model.Email, model.MaritalStatus == "Married" ? "Yes" : "No", model.Age, model.Sex == "Male" ? "m" : "f", model.PerAdr, model.Area, model.ResidentPh, model.Mob, model.Occupation, model.WorkingAt, model.CurrentMedications, model.LaserTreatment, model.Cataract, model.Hypertension, model.AllergyDrugs, model.Diabetic, model.Info, model.EmergContactNm, model.EmergPh, model.StatedConsentPerson, model.Relation, model.MDt, model.AllergyDrugsDtl, model.MedicalInsurance);
-                //string sql = "UPDATE [Patient] SET [name]={0},[pMName]={1},[pLName]={2},[ifResidentOfM]={3},[IcNumber]={4},[otherOption]={5},[othersID]= {6},[doctosName]={7},[hospitalName]={8},[hospitalID]={9},[hospitaScreening]={10},[p_email]={11},[marital_status]={12},[age]={13},[sex]={14},[permanent_address]={15},[area]={16},[phone_res]={17},[mobile]={18},[occupation]={19},[working_at]={20},[currentMedications]={21},[laser_reatment]={22},[have_cataract]={23},[have_hypertension]={24},[allergy_to_drugs]={25},[have_diabetes]={26},[additional_info]={27},[emg_contact_name]={28},[emg_phone]={29},[name_of_the_stated_onsent]= {30},[relation_with_patient]={31},update_at]={32},[allergy_drugs_details]={33} WHERE p_id={34};";
-                //db.Database.ExecuteSqlCommand(sql, model.Nm, model.MNm, model.LNm, model.IfResidentOfM, model.IcNumber, model.OtherOption, model.OthersID, model.DocNm, model.HospitalNm, model.HospitalID, model.HospitalScreening, model.Email, model.MaritalStatus =="Married"?"yes":"no", model.Age, model.Sex=="Male"?"m":"f", model.PerAdr, model.Area, model.ResidentPh, model.Mob, model.Occupation, model.WorkingAt, model.CurrentMedications, model.LaserTreatment, model.Cataract, model.Hypertension, model.AllergyDrugs, model.Diabetic, model.Info, model.EmergContactNm, model.EmergPh, model.StatedConsentPerson, model.Relation, model.MDt, model.AllergyDrugsDtl, model.Id);
-                db.SaveChanges();
-            }
+            //using (var db = new ArtelusDbContext())
+            //{
+            //    string sql = "UPDATE [Patient] SET name={1},pMName={2},pLName={3},ifResidentOfM={4},IcNumber={5},otherOption={6},othersID={7},doctosName={8},hospitalName={9},hospitalID={10},hospitaScreening={11},p_email={12},marital_status={13},age={14},[sex]={15},[permanent_address]={16},[area]={17},[phone_res]={18},[mobile]={19},[occupation]={20},[working_at]={21},[currentMedications]={22},[laser_reatment]={23},have_cataract={24},have_hypertension={25},allergy_to_drugs={26},have_diabetes={27},additional_info={28},emg_contact_name={29},emg_phone={30},name_of_the_stated_onsent={31},relation_with_patient={32},update_at={33},allergy_drugs_details={34},MedicalInsurance={35} Where p_id={0}";
+            //    db.Database.ExecuteSqlCommand(sql, model.Id, model.Nm, model.MNm, model.LNm, model.IfResidentOfM, model.IcNumber, model.OtherOption, model.OthersID, model.DocNm, model.HospitalNm, model.HospitalID, model.HospitalScreening, model.Email, model.MaritalStatus == "Married" ? "Yes" : "No", model.Age, model.Sex == "Male" ? "m" : "f", model.PerAdr, model.Area, model.ResidentPh, model.Mob, model.Occupation, model.WorkingAt, model.CurrentMedications, model.LaserTreatment, model.Cataract, model.Hypertension, model.AllergyDrugs, model.Diabetic, model.Info, model.EmergContactNm, model.EmergPh, model.StatedConsentPerson, model.Relation, model.MDt, model.AllergyDrugsDtl, model.MedicalInsurance);
+            //    //string sql = "UPDATE [Patient] SET [name]={0},[pMName]={1},[pLName]={2},[ifResidentOfM]={3},[IcNumber]={4},[otherOption]={5},[othersID]= {6},[doctosName]={7},[hospitalName]={8},[hospitalID]={9},[hospitaScreening]={10},[p_email]={11},[marital_status]={12},[age]={13},[sex]={14},[permanent_address]={15},[area]={16},[phone_res]={17},[mobile]={18},[occupation]={19},[working_at]={20},[currentMedications]={21},[laser_reatment]={22},[have_cataract]={23},[have_hypertension]={24},[allergy_to_drugs]={25},[have_diabetes]={26},[additional_info]={27},[emg_contact_name]={28},[emg_phone]={29},[name_of_the_stated_onsent]= {30},[relation_with_patient]={31},update_at]={32},[allergy_drugs_details]={33} WHERE p_id={34};";
+            //    //db.Database.ExecuteSqlCommand(sql, model.Nm, model.MNm, model.LNm, model.IfResidentOfM, model.IcNumber, model.OtherOption, model.OthersID, model.DocNm, model.HospitalNm, model.HospitalID, model.HospitalScreening, model.Email, model.MaritalStatus =="Married"?"yes":"no", model.Age, model.Sex=="Male"?"m":"f", model.PerAdr, model.Area, model.ResidentPh, model.Mob, model.Occupation, model.WorkingAt, model.CurrentMedications, model.LaserTreatment, model.Cataract, model.Hypertension, model.AllergyDrugs, model.Diabetic, model.Info, model.EmergContactNm, model.EmergPh, model.StatedConsentPerson, model.Relation, model.MDt, model.AllergyDrugsDtl, model.Id);
+            //    db.SaveChanges();
+            //}
         }
 
         public int AddReport(PatientReport model)

@@ -36,6 +36,7 @@ namespace Artelus.Model
         private string errMsg;
         private string profile;
         private string previousState;
+        private PatientReport patientReport;
         public string PreviousState
         {
             get { return previousState; }
@@ -369,6 +370,19 @@ namespace Artelus.Model
                 }
             }
         }
+        public PatientReport PatientReport
+        {
+            get { return patientReport; }
+            set
+            {
+                if (patientReport != value)
+                {
+                    patientReport = value;
+                    RaisePropertyChange("PatientReport");
+                }
+            }
+        }
+
         public string this[string columnName]
         {
             get

@@ -160,14 +160,14 @@ namespace Artelus.ViewModel
         {
             Initialize();
             PatientEntity = model;
+            if (PatientEntity.PatientReport == null)
+                PatientEntity.PatientReport = new PatientReport();
             if (PatientEntity.IfResidentOfM == "No")
             {
                 this.HideOthers = true;
                 if (PatientEntity.OtherOption != "Passport" && PatientEntity.OtherOption != "Driving License")
                     ShowOtherOption = true;
             }
-            if (PatientEntity.AllergyDrugs == "Yes")
-                ShowAllergyOption = true;
             string path = Path.Combine(Program.BaseDir(), "Uploads", model.UniqueID.ToString());
             string file = Path.Combine(path, model.UniqueID.ToString() + ".png");
 
@@ -182,14 +182,15 @@ namespace Artelus.ViewModel
             LogOffCommand = new DelegateCommand(OnLogOffCommand);
             CameraIcon = AppDomain.CurrentDomain.BaseDirectory + "Resources\\camera.png";
             PatientEntity = new PatientEntity();
+            PatientEntity.PatientReport = new PatientReport();
             PatientEntity.Profile = AppDomain.CurrentDomain.BaseDirectory + "Resources\\profile.gif";
             PatientEntity.IfResidentOfM = "Yes";
-            PatientEntity.LaserTreatment = "No";
-            PatientEntity.Cataract = "No";
-            PatientEntity.Diabetic = "No";
-            PatientEntity.Hypertension = "No";
-            PatientEntity.AllergyDrugs = "No";
-            PatientEntity.CurrentMedications = "No";
+            PatientEntity.PatientReport.LaserTreatment = "No";
+            PatientEntity.PatientReport.Cataract = "No";
+            PatientEntity.PatientReport.Diabetic = "No";
+            PatientEntity.PatientReport.Hypertension = "No";
+            PatientEntity.PatientReport.AllergyDrugs = "No";
+            PatientEntity.PatientReport.CurrentMedications = "No";
             OtherIDCollection.Add(new IdName() { Id = 1, Name = "Passport" });
             OtherIDCollection.Add(new IdName() { Id = 2, Name = "Driving License" });
             OtherIDCollection.Add(new IdName() { Id = 3, Name = "Others" });
@@ -197,7 +198,7 @@ namespace Artelus.ViewModel
             SaveCommand = new DelegateCommand(OnSaveCommand);
             UpdateCommand = new DelegateCommand(OnUpdateCommand);
             ResidentChangeCommand = new DelegateCommand(OnResidentChangeCommand);
-            AlergyChangeCommand = new DelegateCommand(OnAlergyChangeCommand);
+            //AlergyChangeCommand = new DelegateCommand(OnAlergyChangeCommand);
             AddPhotoCommand = new DelegateCommand(OnAddPhotoCommand);
         }
 
@@ -210,16 +211,16 @@ namespace Artelus.ViewModel
                 PatientEntity.Profile = openFileDialog.FileName;
         }
 
-        private void OnAlergyChangeCommand(object args)
-        {
-            if (PatientEntity.AllergyDrugs == "Yes")
-            {
-                PatientEntity.AllergyDrugsDtl = string.Empty;
-                this.ShowAllergyOption = true;
-            }
-            else this.ShowAllergyOption = false;
+        //private void OnAlergyChangeCommand(object args)
+        //{
+        //    if (PatientEntity.AllergyDrugs == "Yes")
+        //    {
+        //        PatientEntity.AllergyDrugsDtl = string.Empty;
+        //        this.ShowAllergyOption = true;
+        //    }
+        //    else this.ShowAllergyOption = false;
 
-        }
+        //}
 
         private void OnResidentChangeCommand(object args)
         {
@@ -246,7 +247,7 @@ namespace Artelus.ViewModel
                 var model = args as PatientEntity;
                 model.CDt = DateTime.UtcNow;
                 model.MDt = DateTime.UtcNow;
-                model.CollectionID = 000000;
+                model.PatientReport.CollectionID = 000000;
                 model.InstallID = new User().GetInstallID(Program.UserId());
                 if (model.IfResidentOfM == "Yes")
                 {
@@ -346,22 +347,22 @@ namespace Artelus.ViewModel
             PatientEntity.ResidentPh = string.Empty;
             PatientEntity.Occupation = string.Empty;
             PatientEntity.WorkingAt = string.Empty;
-            PatientEntity.DocNm = string.Empty;
-            PatientEntity.HospitalNm = string.Empty;
-            PatientEntity.HospitalID = string.Empty;
-            PatientEntity.LaserTreatment = "No";
-            PatientEntity.Cataract = "No";
-            PatientEntity.Diabetic = "No";
-            PatientEntity.Hypertension = "No";
-            PatientEntity.AllergyDrugs = "No";
-            PatientEntity.CurrentMedications = "No";
-            PatientEntity.Info = string.Empty;
-            PatientEntity.EmergContactNm = string.Empty;
-            PatientEntity.AllergyDrugsDtl = string.Empty;
-            PatientEntity.StatedConsentPerson = string.Empty;
-            PatientEntity.Relation = string.Empty;
-            PatientEntity.TermsCondition = string.Empty;
-            PatientEntity.MedicalInsurance = string.Empty;
+            PatientEntity.PatientReport.DocNm = string.Empty;
+            PatientEntity.PatientReport.HospitalNm = string.Empty;
+            PatientEntity.PatientReport.HospitalID = string.Empty;
+            PatientEntity.PatientReport.LaserTreatment = "No";
+            PatientEntity.PatientReport.Cataract = "No";
+            PatientEntity.PatientReport.Diabetic = "No";
+            PatientEntity.PatientReport.Hypertension = "No";
+            PatientEntity.PatientReport.AllergyDrugs = "No";
+            PatientEntity.PatientReport.CurrentMedications = "No";
+            PatientEntity.PatientReport.Info = string.Empty;
+            PatientEntity.PatientReport.EmergContactNm = string.Empty;
+            PatientEntity.PatientReport.AllergyDrugsDtl = string.Empty;
+            PatientEntity.PatientReport.StatedConsentPerson = string.Empty;
+            PatientEntity.PatientReport.Relation = string.Empty;
+            PatientEntity.PatientReport.TermsCondition = string.Empty;
+            PatientEntity.PatientReport.MedicalInsurance = string.Empty;
         }
     }
 }
