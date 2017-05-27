@@ -42,7 +42,12 @@
                 </StackPanel>
                 <StackPanel Margin="5">
                     <Button Background="#f05f40" Foreground="White" Content="Login" HorizontalAlignment="Left" IsDefault="True" Command="{Binding LoginCommand}" CommandParameter="{Binding User}"/>
-                </StackPanel>               
+                </StackPanel>
+                <!--<StackPanel Margin="5" Orientation="Horizontal">
+                    <Button Padding="0" Margin="0" Command="{Binding Path=ShowImageCommand}" CommandParameter="C:\6.jpg" >
+                        <Image Source="C:\6.jpg" Width="180"/>
+                    </Button>
+                </StackPanel>-->
                 <!--<StackPanel Margin="5">
                     <mui:ModernProgressRing IsActive="True" Width="80" Height="80" Style="{StaticResource DoubleBounceProgressRingStyle}" />
 

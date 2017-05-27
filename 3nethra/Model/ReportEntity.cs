@@ -12,27 +12,8 @@ namespace Artelus.Model
 {
     public class PatientReport : BaseViewModel, IDataErrorInfo
     {
+
         private int id;
-        private string docNm;
-        private string hospitalNm;
-        private string hospitalID;
-        private string hospitalScreening;
-        private string currentMedications;
-        private string laserTreatment;
-        private string cataract;
-        private string hypertension;
-        private string allergyDrugs;
-        private string allergyDrugsDtl;
-        private string diabetic;
-        private string info;
-        private string emergContactNm;
-        private string emergPh;
-        private string statedConsentPerson;
-        private string relation;
-        private string termsCondition;
-        private string medicalInsurance;
-        private int collectionID;
-        private Guid installID;
         public int Id
         {
             get { return id; }
@@ -45,6 +26,7 @@ namespace Artelus.Model
                 }
             }
         }
+
         private int patientId;
         public int PatientId
         {
@@ -55,235 +37,6 @@ namespace Artelus.Model
                 {
                     patientId = value;
                     RaisePropertyChange("PatientId");
-                }
-            }
-        }
-        public string DocNm
-        {
-            get { return docNm; }
-            set
-            {
-                if (docNm != value)
-                {
-                    docNm = value;
-                    RaisePropertyChange("DocNm");
-                }
-            }
-        }
-        public string HospitalNm
-        {
-            get { return hospitalNm; }
-            set
-            {
-                if (hospitalNm != value)
-                {
-                    hospitalNm = value;
-                    RaisePropertyChange("HospitalNm");
-                }
-            }
-        }
-        public string HospitalID
-        {
-            get { return hospitalID; }
-            set
-            {
-                if (hospitalID != value)
-                {
-                    hospitalID = value;
-                    RaisePropertyChange("HospitalID");
-                }
-            }
-        }
-        public string HospitalScreening
-        {
-            get { return hospitalScreening; }
-            set
-            {
-                if (hospitalScreening != value)
-                {
-                    hospitalScreening = value;
-                    RaisePropertyChange("HospitalScreening");
-                }
-            }
-        }
-        public string CurrentMedications
-        {
-            get { return currentMedications; }
-            set
-            {
-                if (currentMedications != value)
-                {
-                    currentMedications = value;
-                    RaisePropertyChange("CurrentMedications");
-                }
-            }
-        }
-        public string LaserTreatment
-        {
-            get { return laserTreatment; }
-            set
-            {
-                if (laserTreatment != value)
-                {
-                    laserTreatment = value;
-                    RaisePropertyChange("LaserTreatment");
-                }
-            }
-        }
-        public string Cataract
-        {
-            get { return cataract; }
-            set
-            {
-                if (cataract != value)
-                {
-                    cataract = value;
-                    RaisePropertyChange("Cataract");
-                }
-            }
-        }
-        public string Hypertension
-        {
-            get { return hypertension; }
-            set
-            {
-                if (hypertension != value)
-                {
-                    hypertension = value;
-                    RaisePropertyChange("Hypertension");
-                }
-            }
-        }
-        public string AllergyDrugs
-        {
-            get { return allergyDrugs; }
-            set
-            {
-                if (allergyDrugs != value)
-                {
-                    allergyDrugs = value;
-                    RaisePropertyChange("AllergyDrugs");
-                }
-            }
-        }
-        public string AllergyDrugsDtl
-        {
-            get { return allergyDrugsDtl; }
-            set
-            {
-                if (allergyDrugsDtl != value)
-                {
-                    allergyDrugsDtl = value;
-                    RaisePropertyChange("AllergyDrugsDtl");
-                }
-            }
-        }
-        public string Diabetic
-        {
-            get { return diabetic; }
-            set
-            {
-                if (diabetic != value)
-                {
-                    diabetic = value;
-                    RaisePropertyChange("Diabetic");
-                }
-            }
-        }
-        public string Info
-        {
-            get { return info; }
-            set
-            {
-                if (info != value)
-                {
-                    info = value;
-                    RaisePropertyChange("Info");
-                }
-            }
-        }
-        public string EmergContactNm
-        {
-            get { return emergContactNm; }
-            set
-            {
-                if (emergContactNm != value)
-                {
-                    emergContactNm = value;
-                    RaisePropertyChange("EmergContactNm");
-                }
-            }
-        }
-        public string EmergPh
-        {
-            get { return emergPh; }
-            set
-            {
-                if (emergPh != value)
-                {
-                    emergPh = value;
-                    RaisePropertyChange("EmergPh");
-                }
-            }
-        }
-        public string StatedConsentPerson
-        {
-            get { return statedConsentPerson; }
-            set
-            {
-                if (statedConsentPerson != value)
-                {
-                    statedConsentPerson = value;
-                    RaisePropertyChange("StatedConsentPerson");
-                }
-            }
-        }
-        public string Relation
-        {
-            get { return relation; }
-            set
-            {
-                if (relation != value)
-                {
-
-                    relation = value;
-                    RaisePropertyChange("Relation");
-                }
-            }
-        }
-        public string TermsCondition
-        {
-            get { return termsCondition; }
-            set
-            {
-                if (termsCondition != value)
-                {
-                    termsCondition = value;
-                    RaisePropertyChange("TermsCondition");
-                }
-            }
-        }
-        public int CollectionID
-        {
-            get { return collectionID; }
-            set
-            {
-                if (collectionID != value)
-                {
-                    collectionID = value;
-                    RaisePropertyChange("CollectionID");
-                }
-            }
-        }
-        public string MedicalInsurance
-        {
-            get { return medicalInsurance; }
-            set
-            {
-                if (medicalInsurance != value)
-                {
-                    medicalInsurance = value;
-                    RaisePropertyChange("MedicalInsurance");
                 }
             }
         }
@@ -301,6 +54,7 @@ namespace Artelus.Model
                 }
             }
         }
+
         private string location;
         public string Location
         {
@@ -314,6 +68,8 @@ namespace Artelus.Model
                 }
             }
         }
+
+        private Guid installID;
         public Guid InstallID
         {
             get { return installID; }
@@ -342,7 +98,12 @@ namespace Artelus.Model
 
         public string this[string columnName] => Validate(columnName);
 
-
+        //   public string Error => throw new NotImplementedException();
+        private string Validate(string properyName)
+        {
+            string validationMessgae = string.Empty;
+            return validationMessgae;
+        }
         public ObservableCollection<ReportData> ReportDatas { get; set; }
         public ObservableCollection<ReportData> PosteriorReportDatas { get; set; }
         public ObservableCollection<ReportData> AnteriorReportDatas { get; set; }
@@ -400,28 +161,13 @@ namespace Artelus.Model
                 }
             }
         }
+
         public string Error
         {
             get
             {
                 throw new NotImplementedException();
             }
-        }
-        private string Validate(string properyName)
-        {
-            string validationMessgae = string.Empty;
-            switch (properyName)
-            {
-                case "HospitalScreening":
-                    if (String.IsNullOrEmpty(hospitalScreening))
-                        validationMessgae = "Cannot be empty.";
-                    break;
-                case "TermsCondition":
-                    if (String.IsNullOrEmpty(termsCondition))
-                        validationMessgae = "Cannot be empty.";
-                    break;
-            }
-            return validationMessgae;
         }
     }
 
@@ -557,7 +303,9 @@ namespace Artelus.Model
                 }
             }
         }
+
         private BitmapImage bitMapImg;
+
         public BitmapImage BitMapImg
         {
             get { return bitMapImg; }
@@ -570,6 +318,8 @@ namespace Artelus.Model
                 }
             }
         }
+
+
         private bool status { get; set; }
         public bool Status
         {
@@ -583,6 +333,7 @@ namespace Artelus.Model
                 }
             }
         }
+
         public string Error
         {
             get
@@ -590,7 +341,9 @@ namespace Artelus.Model
                 throw new NotImplementedException();
             }
         }
+
         public string this[string columnName] => Validate(columnName);
+
         //  public string Error => throw new NotImplementedException();
         private string Validate(string properyName)
         {
