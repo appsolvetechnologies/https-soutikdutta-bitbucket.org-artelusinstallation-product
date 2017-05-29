@@ -4,6 +4,7 @@ using Helpers;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -60,6 +61,7 @@ namespace Artelus.ViewModel
             }
         }
         public ICommand LogOffCommand { get; set; }
+        public DelegateCommand ShowImageCommand { get; set; }
 
         private void OnLogOffCommand(object args)
         {
@@ -69,6 +71,7 @@ namespace Artelus.ViewModel
 
         public ReportHistoryViewModel(PatientEntity model)
         {
+            ShowImageCommand = new DelegateCommand(OnShowImageCommand);
             LogOffCommand = new DelegateCommand(OnLogOffCommand);
             PatientEntity = model;
 
@@ -109,7 +112,11 @@ namespace Artelus.ViewModel
             }
             ViewReportDataCommand = new DelegateCommand(OnViewReportDataCommand);
         }
-
+        private void OnShowImageCommand(object args)
+        {
+            string imagePath = args as string;
+            Process.Start(imagePath);
+        }
         private void OnViewReportDataCommand(object args)
         {
 

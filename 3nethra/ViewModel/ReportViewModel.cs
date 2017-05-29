@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Configuration;
+using System.Diagnostics;
 using System.Drawing.Printing;
 using System.IO;
 using System.Linq;
@@ -141,6 +142,7 @@ namespace Artelus.ViewModel
         public DelegateCommand BackCommand { get; set; }
         public DelegateCommand ViewPDFCommand { get; set; }
         public DelegateCommand PrintPDFCommand { get; set; }
+        public DelegateCommand ShowImageCommand { get; set; }
 
         public Action CloseAction { get; set; }
         public ICommand LogOffCommand { get; set; }
@@ -152,6 +154,7 @@ namespace Artelus.ViewModel
 
         public ReportViewModel(PatientEntity model, PatientReport obj)
         {
+            ShowImageCommand = new DelegateCommand(OnShowImageCommand);
             BackCommand = new DelegateCommand(OnBackCommand);
             LogOffCommand = new DelegateCommand(OnLogOffCommand);
             PrintPDFCommand = new DelegateCommand(OnPrintPDFCommand);
@@ -237,6 +240,12 @@ namespace Artelus.ViewModel
             SendMailCommand = new DelegateCommand(OnSendMailCommand);
             ViewPDFCommand = new DelegateCommand(OnViewPDFCommand);
             CreateReport();
+        }
+
+        private void OnShowImageCommand(object args)
+        {
+            string imagePath = args as string;
+            Process.Start(imagePath);
         }
 
         private void OnViewPDFCommand(object args)

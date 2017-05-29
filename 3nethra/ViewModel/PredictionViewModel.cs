@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -95,6 +96,7 @@ namespace Artelus.ViewModel
         public DelegateCommand StartPredictionCommand { get; set; }
         public DelegateCommand BackCommand { get; set; }
         public ICommand LogOffCommand { get; set; }
+        public DelegateCommand ShowImageCommand { get; set; }
 
         private void OnLogOffCommand(object args)
         {
@@ -102,6 +104,7 @@ namespace Artelus.ViewModel
         }
         public PredictionViewModel(PatientEntity model)
         {
+            ShowImageCommand = new DelegateCommand(OnShowImageCommand);
             LogOffCommand = new DelegateCommand(OnLogOffCommand);
             SetHansanetCommand = new DelegateCommand(OnSetHansanetCommand);
             SelectAllCommand = new DelegateCommand(OnSelectAllComand);
@@ -155,6 +158,12 @@ namespace Artelus.ViewModel
                     PatientReport.ODAnteriorReportDatas.Add(odData);
                 }
             }
+        }
+
+        private void OnShowImageCommand(object args)
+        {
+            string imagePath = args as string;
+            Process.Start(imagePath);
         }
 
         private void OnBackCommand(object args)
