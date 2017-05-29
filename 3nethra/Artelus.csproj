@@ -109,10 +109,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\FirstFloor.ModernUI.dll</HintPath>
     </Reference>
-    <Reference Include="ImageEnhancementHelper, Version=1.0.0.0, Culture=neutral, PublicKeyToken=53c8500c9d54edb1, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\ImageEnhancementHelper.dll</HintPath>
-    </Reference>
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.10.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -141,15 +137,11 @@
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
-    <Reference Include="TrIPS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=53c8500c9d54edb1, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Library\x86\TrIPS.dll</HintPath>
-    </Reference>
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
   </ItemGroup>
-  <ItemGroup Condition=" '$(Platform)' == 'x86' ">
+   <ItemGroup Condition=" '$(Platform)' == 'x86' ">
     <Reference Include="ForusImaging">
       <HintPath>..\Library\x86\ForusImaging.dll</HintPath>
     </Reference>
@@ -158,6 +150,30 @@
   <ItemGroup Condition=" '$(Platform)' == 'x64' ">
     <Reference Include="ForusImaging">
       <HintPath>..\Library\x64\ForusImaging.dll</HintPath>
+    </Reference>
+    <!-- any additional x64 specific references -->
+  </ItemGroup>
+  <ItemGroup Condition=" '$(Platform)' == 'x86' ">
+    <Reference Include="TrIPS">
+      <HintPath>..\Library\x86\TrIPS.dll</HintPath>
+    </Reference>
+    <!-- any additional x86 specific references -->
+  </ItemGroup>
+  <ItemGroup Condition=" '$(Platform)' == 'x64' ">
+    <Reference Include="TrIPS">
+      <HintPath>..\Library\x64\TrIPS.dll</HintPath>
+    </Reference>
+    <!-- any additional x64 specific references -->
+  </ItemGroup>
+  <ItemGroup Condition=" '$(Platform)' == 'x86' ">
+    <Reference Include="ImageEnhancementHelper">
+      <HintPath>..\Library\x86\ImageEnhancementHelper.dll</HintPath>
+    </Reference>
+    <!-- any additional x86 specific references -->
+  </ItemGroup>
+  <ItemGroup Condition=" '$(Platform)' == 'x64' ">
+    <Reference Include="ImageEnhancementHelper">
+      <HintPath>..\Library\x64\ImageEnhancementHelper.dll</HintPath>
     </Reference>
     <!-- any additional x64 specific references -->
   </ItemGroup>
@@ -365,7 +381,7 @@
     xcopy /s /y "$(SolutionDir)packages\Microsoft.SqlServer.Compact.4.0.8876.1\NativeBinaries\x86\*.*" "$(TargetDir)x86"
     if not exist "$(TargetDir)amd64" md "$(TargetDir)amd64"
     xcopy /s /y "$(SolutionDir)packages\Microsoft.SqlServer.Compact.4.0.8876.1\NativeBinaries\amd64\*.*" "$(TargetDir)amd64"
-xcopy /y $(SolutionDir)\Library\$(PlatformName)  $(ProjectDir)$(OutDir)</PostBuildEvent>
+xcopy /y $(SolutionDir)\Libraries\$(PlatformName)  $(ProjectDir)$(OutDir)</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
