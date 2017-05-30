@@ -207,12 +207,12 @@ namespace Artelus.Model
             }
         }
 
-        public void UpdatePatientId(int id,int patientId)
+        public void UpdatePatientId(int id, int patientId)
         {
             using (var db = new ArtelusDbContext())
             {
                 string sql = "UPDATE [Patient] SET [PatientId]={1} Where p_id={0}";
-                db.Database.ExecuteSqlCommand(sql, id,patientId);
+                db.Database.ExecuteSqlCommand(sql, id, patientId);
                 db.SaveChanges();
             }
         }
@@ -366,8 +366,8 @@ namespace Artelus.Model
                     Img = rdr.GetString(3),
                     Eye = rdr.IsDBNull(4) == true ? "" : rdr.GetString(4),
                     Prediction = rdr.IsDBNull(5) == true ? "" : rdr.GetString(5),
-                    Size=rdr.IsDBNull(6)==true?"":rdr.GetString(6),
-                    PatientId=rdr.GetInt32(7)
+                    Size = rdr.IsDBNull(6) == true ? "" : rdr.GetString(6),
+                    PatientId = rdr.GetInt32(7)
                 };
                 list.Add(obj);
             }

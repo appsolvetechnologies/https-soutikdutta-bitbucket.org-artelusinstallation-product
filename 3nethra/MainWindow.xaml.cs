@@ -13,8 +13,6 @@ namespace Artelus
     /// </summary>
     public partial class MainWindow : ModernWindow
     {
-        private TextBlock textBlock;
-
         public MainWindow()
         {
             InitializeComponent();

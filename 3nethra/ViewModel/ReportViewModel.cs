@@ -328,7 +328,7 @@ namespace Artelus.ViewModel
                         anteriorHTML += "<td style='width:33.33%; vertical-align:top;padding-bottom:15px;'><table style='width:100%;height:200px;margin-bottom:10px;'><tr><td><img style='max-width:200px;max-height:200px;' src=" + item.FileName + " /></td></tr></table><h3 style='font-size: 14px;color:#333;font-weight:400;margin:0;'>" + result + "</h3></td>" + (posteriorCount != 0 ? "</tr>" : "");
                     anteriorCount++;
                 }
-                text = string.Format(text, DateTime.Now.ToShortDateString(), PatientEntity.Nm, PatientEntity.DocNm, PatientEntity.HospitalNm, PatientEntity.Id.ToString(), PatientEntity.HospitalID, PatientEntity.HospitalScreening, PatientEntity.Mob, PatientEntity.Age, PatientEntity.Sex, PatientEntity.Hypertension, PatientEntity.Cataract, PatientEntity.LaserTreatment, PatientEntity.AllergyDrugs, PatientEntity.CurrentMedications, PatientEntity.Info, posteriorHTML, PatientEntity.OtherOption, PatientEntity.OthersID, anteriorHTML, predictionResult);
+                text = string.Format(text, DateTime.Now.ToShortDateString(), PatientEntity.Nm, PatientEntity.DocNm, PatientEntity.HospitalNm, PatientEntity.Id.ToString(), PatientEntity.HospitalID, PatientEntity.HospitalScreening, PatientEntity.Mob, PatientEntity.Age, PatientEntity.Sex, PatientEntity.Hypertension, PatientEntity.Cataract, PatientEntity.LaserTreatment, PatientEntity.AllergyDrugs, PatientEntity.CurrentMedications, PatientEntity.Info, posteriorHTML, PatientEntity.OtherOption, PatientEntity.OthersID, anteriorHTML, predictionResult,PatientEntity.PatientId);
                 System.IO.File.WriteAllText(fileHTML, text);
 
 
@@ -399,11 +399,7 @@ namespace Artelus.ViewModel
                 if (PatientEntity.PatientId == 0)
                     result = SyncPatientDetails(PatientEntity, false);
                 else
-                {
-                    bool newReport = PatientReports.Any(x => x.Sync == false);
-                    if (newReport)
-                        result = SyncPatientReport(PatientReports, PatientEntity.PatientId);
-                }
+                    result = SyncPatientDetails(PatientEntity, true);
 
                 if (result.status == "ok")
                 {
@@ -596,7 +592,7 @@ namespace Artelus.ViewModel
             string token = new User().GetToken(Program.UserId());
             string url = string.Empty;
             if (isUpdate)
-                url = ConfigurationManager.AppSettings["updatePatientAPI"].ToString() + "?token=" + token;
+                url = ConfigurationManager.AppSettings["updatePatientAPI"].ToString() + "/" + patient.PatientId + "?token=" + token;
             else
                 url = ConfigurationManager.AppSettings["addPatientAPI"].ToString() + "?token=" + token;
 
@@ -648,12 +644,21 @@ namespace Artelus.ViewModel
             var json = new JavaScriptSerializer().Serialize(objct);
             try
             {
-                result = RestCalls.SyncReport(url, json);
+                result = RestCalls.SyncReport(url, json,isUpdate);
                 if (result.status == "ok")
                 {
-                    PatientEntity.PatientId = result.user;
-                    new Patient().UpdatePatientId(patient.Id, result.user);
-                    SyncPatientReport(PatientReports, result.user);
+                    if (isUpdate)
+                    {
+                        bool newReport = PatientReports.Any(x => x.Sync == false);
+                        if (newReport)
+                            result = SyncPatientReport(PatientReports, PatientEntity.PatientId);
+                    }
+                    else
+                    {
+                        PatientEntity.PatientId = result.user;
+                        new Patient().UpdatePatientId(patient.Id, result.user);
+                        SyncPatientReport(PatientReports, result.user);
+                    }
                 }
             }
             catch (Exception ex)
@@ -686,7 +691,7 @@ namespace Artelus.ViewModel
             var json = new JavaScriptSerializer().Serialize(reportList);
             try
             {
-                result = RestCalls.SyncReport(url, json);
+                result = RestCalls.SyncReport(url, json,false);
             }
             catch (Exception ex)
             {

@@ -25,10 +25,11 @@ namespace Artelus.Common
                     var dataContext = artelus.DataContext as MainWindowViewModel;
                     if (dataContext != null)
                         dataContext.IsAuthorize = false;
-                    else {
-                        artelus.DataContext = new MainWindowViewModel();
-                        dataContext.IsAuthorize = false;
-
+                    else
+                    {
+                        var vm = new MainWindowViewModel();
+                        vm.IsAuthorize = false;
+                        artelus.DataContext = vm;
                     }
                 }
             }

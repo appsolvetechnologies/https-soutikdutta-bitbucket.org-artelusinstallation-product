@@ -81,7 +81,7 @@ namespace Artelus.ViewModel
             var json = new JavaScriptSerializer().Serialize(objct);
             try
             {
-                result = RestCalls.SyncReport(url, json);
+                result = RestCalls.SyncReport(url, json,false);
             }
             catch (Exception ex)
             {

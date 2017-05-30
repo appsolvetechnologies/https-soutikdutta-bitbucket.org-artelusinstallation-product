@@ -146,12 +146,12 @@ namespace Artelus.Model
             return responseJson;
         }
 
-        public static APIResult SyncReport(string url, string data)
+        public static APIResult SyncReport(string url, string data, bool isUpdate)
         {
             string result = string.Empty;
             HttpWebRequest httpWebRequest = (HttpWebRequest)WebRequest.Create(url);
             httpWebRequest.ContentType = "application/json";
-            httpWebRequest.Method = "POST";
+            httpWebRequest.Method = isUpdate == false ? "POST" : "PATCH";
             using (var streamWriter = new StreamWriter(httpWebRequest.GetRequestStream()))
             {
                 streamWriter.Write(data);
