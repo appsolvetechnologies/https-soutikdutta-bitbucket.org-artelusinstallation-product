@@ -8,7 +8,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "dll", "dll", "{8FFDF059-B6F
 		..\Monday.dll = ..\Monday.dll
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Artelus", "3nethra\Artelus.csproj", "{54C41D0D-3D77-4858-998B-A51493EFD04F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Artelus", "Artelus\Artelus.csproj", "{54C41D0D-3D77-4858-998B-A51493EFD04F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Helpers", "Helpers\Helpers.csproj", "{1CBF4F03-0907-44AB-88B9-8D0695D66FDD}"
 EndProject
