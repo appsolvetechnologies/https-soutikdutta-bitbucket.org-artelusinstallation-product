@@ -397,7 +397,7 @@ namespace Artelus.ViewModel
                 System.IO.File.WriteAllText(localPath + "/Patient.json", json);
                 string reportJson = new Patient().GetReportJson(PatientEntity.Id);
                 System.IO.File.WriteAllText(localPath + "/PatientReport.json", reportJson);
-                string reportDataJson = new Patient().GetReportDataJson();
+                string reportDataJson = new Patient().GetReportDataJson(0);
                 System.IO.File.WriteAllText(localPath + "/ReportData.json", reportDataJson);
 
                 // var keyFile = new PrivateKeyFile(@"D:\Project\3nethra\3nethra\machine.pem");

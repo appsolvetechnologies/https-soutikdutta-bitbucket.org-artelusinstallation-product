@@ -30,7 +30,7 @@ namespace Artelus.Model
             post_dict = serializer.Deserialize<Dictionary<string, string>>(result);
             for (var i = 0; i < MaxAttempts; i++)
             {
-                Thread.Sleep(2500);
+                Thread.Sleep(3000);
                 result = GetPredictions(post_dict["taskstatus"]);
                 Console.WriteLine(result);
                 get_dict = serializer.Deserialize<Dictionary<string, string>>(result);

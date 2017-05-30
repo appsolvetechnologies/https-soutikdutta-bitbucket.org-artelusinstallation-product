@@ -14,6 +14,7 @@
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -26,7 +27,6 @@
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationRevision>0</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
@@ -108,7 +108,7 @@
     <Reference Include="FirstFloor.ModernUI, Version=1.0.9.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\FirstFloor.ModernUI.dll</HintPath>
-    </Reference>
+    </Reference>   
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.10.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -136,46 +136,42 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
-    </Reference>
+    </Reference>   
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
   </ItemGroup>
-   <ItemGroup Condition=" '$(Platform)' == 'x86' ">
-    <Reference Include="ForusImaging">
-      <HintPath>..\Library\x86\ForusImaging.dll</HintPath>
+  <ItemGroup>
+    <Reference Include="Emgu.CV, Version=2.2.0.1010, Culture=neutral, PublicKeyToken=7281126722ab4438, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+	        <HintPath>$(SolutionDir)Libraries\$(Platform)\Emgu.CV.dll</HintPath>
     </Reference>
-    <!-- any additional x86 specific references -->
-  </ItemGroup>
-  <ItemGroup Condition=" '$(Platform)' == 'x64' ">
-    <Reference Include="ForusImaging">
-      <HintPath>..\Library\x64\ForusImaging.dll</HintPath>
+    <Reference Include="Emgu.CV.ML, Version=2.2.0.1010, Culture=neutral, PublicKeyToken=7281126722ab4438, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+	        <HintPath>$(SolutionDir)Libraries\$(Platform)\Emgu.CV.ML.dll</HintPath>
     </Reference>
-    <!-- any additional x64 specific references -->
-  </ItemGroup>
-  <ItemGroup Condition=" '$(Platform)' == 'x86' ">
-    <Reference Include="TrIPS">
-      <HintPath>..\Library\x86\TrIPS.dll</HintPath>
+    <Reference Include="Emgu.CV.UI, Version=2.2.0.1010, Culture=neutral, PublicKeyToken=7281126722ab4438, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+	  	        <HintPath>$(SolutionDir)Libraries\$(Platform)\Emgu.CV.UI.dll</HintPath>
+
+      <!-- <HintPath>$..\Libraries\x64\Emgu.CV.UI.dll</HintPath> -->
     </Reference>
-    <!-- any additional x86 specific references -->
-  </ItemGroup>
-  <ItemGroup Condition=" '$(Platform)' == 'x64' ">
-    <Reference Include="TrIPS">
-      <HintPath>..\Library\x64\TrIPS.dll</HintPath>
+    <Reference Include="Emgu.Util, Version=2.2.0.1010, Culture=neutral, PublicKeyToken=7281126722ab4438, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+	  	  	        <HintPath>$(SolutionDir)Libraries\$(Platform)\Emgu.Util.dll</HintPath>
     </Reference>
-    <!-- any additional x64 specific references -->
-  </ItemGroup>
-  <ItemGroup Condition=" '$(Platform)' == 'x86' ">
-    <Reference Include="ImageEnhancementHelper">
-      <HintPath>..\Library\x86\ImageEnhancementHelper.dll</HintPath>
+	 <Reference Include="ForusImaging, Version=1.0.0.0, Culture=neutral, PublicKeyToken=53c8500c9d54edb1, processorArchitecture=AMD64">
+      <SpecificVersion>False</SpecificVersion>
+	        <HintPath>$(SolutionDir)Libraries\$(Platform)\ForusImaging.dll</HintPath>
     </Reference>
-    <!-- any additional x86 specific references -->
-  </ItemGroup>
-  <ItemGroup Condition=" '$(Platform)' == 'x64' ">
-    <Reference Include="ImageEnhancementHelper">
-      <HintPath>..\Library\x64\ImageEnhancementHelper.dll</HintPath>
+    <Reference Include="ImageEnhancementHelper, Version=1.0.0.0, Culture=neutral, processorArchitecture=AMD64">
+      <SpecificVersion>False</SpecificVersion>
+ 	        <HintPath>$(SolutionDir)Libraries\$(Platform)\ImageEnhancementHelper.dll</HintPath>
     </Reference>
-    <!-- any additional x64 specific references -->
+	 <Reference Include="TrIPS, Version=0.0.0.0, Culture=neutral, processorArchitecture=AMD64">
+      <SpecificVersion>False</SpecificVersion>
+	   	        <HintPath>$(SolutionDir)Libraries\x64\TrIPS.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -330,7 +326,9 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Content Include="3nethra.sdf">

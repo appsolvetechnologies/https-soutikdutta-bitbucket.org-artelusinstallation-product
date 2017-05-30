@@ -238,15 +238,10 @@ namespace Artelus.ViewModel
                 {
                     if (item.IsChecked)
                     {
-                        //try
-                        //{
                         string predictionResult = RestCalls.RestPredict(item.ImageUrl, prediction);
 
                         JavaScriptSerializer serializer = new JavaScriptSerializer();
                         PredictionEntity obj = JsonConvert.DeserializeObject<PredictionEntity>(predictionResult);
-
-                        //PredictionEntity obj = new PredictionEntity();
-                        //  obj.result = "Bad Image";
                         if (obj.result.StartsWith("Bad"))
                         {
                             item.Prediction = obj.result.Replace("(0)", "").Trim();
@@ -257,11 +252,7 @@ namespace Artelus.ViewModel
                             item.Prediction = obj.result.Replace(" (1). ", "").Replace(" (0). ", "").Trim();
                             new Patient().UpdateReportData(item.Id, item.Prediction);
                         }
-                        //}
-                        //catch
-                        //{
-                        //    ModernDialog.ShowMessage("Prediction Internal Server Error.", "Prediction", MessageBoxButton.OK);
-                        //}
+
 
                     }
                 }

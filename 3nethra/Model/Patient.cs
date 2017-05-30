@@ -98,7 +98,7 @@ namespace Artelus.Model
             _Conn.Close();
             return JsonConvert.SerializeObject(dict);
         }
-        public string GetReportJson(int id)
+        public string GetReportJson(int id=0)
         {
             var list = new List<Dictionary<string, object>>();
             SqlCeConnection _Conn = new SqlCeConnection(conn);
@@ -117,12 +117,12 @@ namespace Artelus.Model
             _Conn.Close();
             return JsonConvert.SerializeObject(list);
         }
-        public string GetReportDataJson()
+        public string GetReportDataJson(int reportId)
         {
             var list = new List<Dictionary<string, object>>();
             SqlCeConnection _Conn = new SqlCeConnection(conn);
             _Conn.Open();
-            SqlCeCommand cmd = new SqlCeCommand("Select * from ReportData", _Conn);
+            SqlCeCommand cmd = new SqlCeCommand("Select * from ReportData Where PatientReportId=" + reportId, _Conn);
             SqlCeDataReader rdr = cmd.ExecuteReader();
             while (rdr.Read())
             {
