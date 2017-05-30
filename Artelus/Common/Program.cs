@@ -35,9 +35,9 @@ namespace Artelus.Common
 
         //public static string BaseDir() => AppDomain.CurrentDomain.BaseDirectory;
 
-        public static string BaseDir() => Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+        //public static string BaseDir() => Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
 
-        //public static string BaseDir() => Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Artelus";
+        public static string BaseDir() => Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Artelus";
 
         public static string FileSize(string filename)
         {
