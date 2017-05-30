@@ -80,9 +80,12 @@ namespace Artelus.ViewModel
                         window.Width = SystemParameters.MaximizedPrimaryScreenWidth - (SystemParameters.MaximizedPrimaryScreenWidth - 460);
                         window.Height = SystemParameters.MaximizedPrimaryScreenHeight - (SystemParameters.MaximizedPrimaryScreenHeight - 500);
                         var closeResult = window.ShowDialog();
+                        if (closeResult == true)
+                        {
+                            Clear();
+                            Helper.Profile(result.IsConfigured);
+                        }
                     }
-                    Clear();
-                    Helper.Profile(result.IsConfigured);
                 }
                 else ModernDialog.ShowMessage("Incorrect UserName or Password!", "Login", MessageBoxButton.OK);
             }

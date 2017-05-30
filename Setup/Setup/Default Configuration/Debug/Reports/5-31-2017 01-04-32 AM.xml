@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="C:\Program Files (x86)\InstallShield\2016\Support\0409\buildreport.xsl"?>
+<BuildReport ProductName="Artelus" ProductVersion="1.00.0000" Built="5-31-2017 01-04-32 AM" Config="Default Configuration" Media="Debug" Uncompressed="0.00 MB">
+  <Features>
+    <Feature Title="##IDS_FEATURE_DISPLAY_NAME1##">Artelus_Files</Feature>
+  </Features>
+  <Components>
+    <Component x64="32">AllOtherFiles</Component>
+    <Component x64="32">AllOtherFiles1</Component>
+    <Component x64="32" KeyPath="artelus.content_files">Artelus.Content_Files</Component>
+    <Component x64="32" KeyPath="artelus.content_files1">Artelus.Content_Files1</Component>
+    <Component x64="32" KeyPath="artelus.primary_output">Artelus.Primary_output</Component>
+    <Component x64="32" KeyPath="_0DD5765DC087E61DCC267841662FE578">_046EE9836EE1131B2E692D146F4D7CC5</Component>
+    <Component x64="32" KeyPath="_9530DA380242B9A6A390A965EEA1C0DB">_063DE92CA4BB943D1E9610C0487E96DF</Component>
+    <Component x64="32" KeyPath="_C54DC97921D9F2E96168CC9ED5D2E791">_0F7218B20A00266564A0641515AEBFEA</Component>
+    <Component x64="32" KeyPath="_5B9F3954ABA94A41567CBF98D7D1CE2E">_13D3C8E66F78637C2CCA9E390B76CD7A</Component>
+    <Component x64="32" KeyPath="_E0AC58ACFD979EB6EE73EA4F252AD90D">_14AA6CBB88ABEBB5FB44C2C2240DF9C6</Component>
+    <Component x64="32" KeyPath="_6E83A0E0AB5387D67B8D5960B71C0468">_17AB0C6B2589CDEA10142F699C0FA652</Component>
+    <Component x64="32" KeyPath="_74E46D01B3CCD2DFD417E4A4467FA814">_24694C0FF1D98611C3F3D909C8A973BC</Component>
+    <Component x64="32" KeyPath="_77FB5AD308150D8FB415D18860CCC240">_28CAD8150EE1B0F7151108525DBA1C40</Component>
+    <Component x64="32" KeyPath="_A7B5F5C34878D6850A0A529AAD6F137F">_294DC6DB784579D401DBF18D310DAD00</Component>
+    <Component x64="32" KeyPath="_0B72E56690C661A7D1CAD327696C4601">_2C1572910B23EAE037417781D98C9F9E</Component>
+    <Component x64="32" KeyPath="_EF1BDC9C34CE82D66523201C01654C0B">_2D83DCEF59CF0E5B44F7E62B1892034B</Component>
+    <Component x64="32" KeyPath="_D5359ADA13F405BECAD00A9887C5311C">_35CCA86AF5D5E903186B0CF29ED7782E</Component>
+    <Component x64="32" KeyPath="_3E7DE72676E8593DF3A009C496B13529">_4C4AA1EFD97DC4DE858887E43460CD28</Component>
+    <Component x64="32" KeyPath="_7C38D82531C874D8C5BFD731EBCD455F">_4C666E021F6FC1D1299A433A280152E5</Component>
+    <Component x64="32" KeyPath="_7ACF067FF10502487447FA0FFB93AE6B">_5C23112A57C61998BCFB7418BCE0929C</Component>
+    <Component x64="32" KeyPath="_F7ADA3E93B5EB50E143B3F283B569E6F">_6DBD3DB9B2717E6A54A96928C4D81EAB</Component>
+    <Component x64="32" KeyPath="_4113A6D011B31EAE86FBB41B3E804B90">_76F7FEE915D9F1324379437C049D481C</Component>
+    <Component x64="32" KeyPath="_7718D2FCA4071ECD81F4886E71054BC0">_8118AB7582FBC99FEC2B847E68543B3A</Component>
+    <Component x64="32" KeyPath="_434990FD8559C7A75508C8B0479293B1">_8FA2DB52F88B8176152018E3ACF906B8</Component>
+    <Component x64="32" KeyPath="_D42E88315757ECBBDA98A313ACADD972">_9CF5906C8319168F7579CB5BCF67C0E6</Component>
+    <Component x64="32" KeyPath="_37208003B7965BB44EFEA9CFAFE74A86">_A1BDF5D97075E73AA97F9239B53A2CA9</Component>
+    <Component x64="32" KeyPath="_836F1607F0E8AAD181216E68CED844B2">_A48416DE7976294FA25ECAB217F8FC74</Component>
+    <Component x64="32" KeyPath="_0D6F4B143D703250EACBD51CA21291C9">_A9907BA593D55252816C27E1B49449BD</Component>
+    <Component x64="32" KeyPath="_A7CE7956BAF4CD04E56B7A829ED58E9B">_AF50786B94ABBCD75F5CDC90A54708D9</Component>
+    <Component x64="32" KeyPath="_FF64CD665DDC5DEB9CD74140FB14B0B7">_AF5F8F4A949347E3C55C07BCD432EEF9</Component>
+    <Component x64="32" KeyPath="_437BC13228926E722A8572DF58FE30F3">_B1AB697824E6B369CEDBA9241955B105</Component>
+    <Component x64="32" KeyPath="_2C9815204CE6107D580F33B6C05C7CB1">_C6E6F7841C723AC0BD852EAF9D565827</Component>
+    <Component x64="32" KeyPath="_1665BA7E9AB03A7A705037E4D59C88FF">_CE9FC84AEBAD8E17726CF1117DD838F9</Component>
+    <Component x64="32" KeyPath="_665F56D1200DCE3E6556C80389C89DAC">_DBBC18B53DB17F20F4BF501D81EAD8FE</Component>
+    <Component x64="32" KeyPath="_A9E36AB4C7BF37FA865D90F664FC5F3C">_E8DB752AF623204006865F390F6F1F88</Component>
+    <Component x64="32" KeyPath="_FF8AF69937F88687FE8E8BC45C89A344">_EE1EFB8F5AA723F459F1CECEA38A37C8</Component>
+    <Component x64="32" KeyPath="_529FFDBC3C059CA597EB71FEF4E791F4">_F9F99C70463F7414065C66D30DF5A3F2</Component>
+    <Component x64="32" KeyPath="_5942DCDA4768D740F2B0BF1F9573D01C">_FD7659B985B92695E20F5E4B57B4EA82</Component>
+  </Components>
+  <Prerequisites />
+  <MergeModules />
+  <DynamicLinks />
+  <Files>
+    <File Destination="{INSTALLDIR} [ProgramFilesFolder]Artelus\Artelus" Component="Artelus.Content_Files" Modified="5/30/2017 8:28:24 PM" Size="98304" Version="">Artelus.sdf</File>
+    <File Destination="{INSTALLDIR} [ProgramFilesFolder]Artelus\Artelus" Component="_C6E6F7841C723AC0BD852EAF9D565827" Modified="5/29/2017 12:38:38 PM" Size="560" Version="">packages.config</File>
+    <File Destination="{INSTALLDIR} [ProgramFilesFolder]Artelus\Artelus" Component="_2D83DCEF59CF0E5B44F7E62B1892034B" Modified="5/30/2017 1:07:40 PM" Size="200704" Version="">3nethra.sdf</File>
+    <File Destination="{_4F7C8818EF01426AB0AA049CDB7481CC} [ProgramFilesFolder]Artelus\Artelus\Resources" Component="_17AB0C6B2589CDEA10142F699C0FA652" Modified="5/29/2017 12:38:38 PM" Size="787510" Version="">Mask_1MP.bmp</File>
+    <File Destination="{_4F7C8818EF01426AB0AA049CDB7481CC} [ProgramFilesFolder]Artelus\Artelus\Resources" Component="_2C1572910B23EAE037417781D98C9F9E" Modified="5/29/2017 12:38:38 PM" Size="3146806" Version="">Mask_3MP.bmp</File>
+    <File Destination="{_4F7C8818EF01426AB0AA049CDB7481CC} [ProgramFilesFolder]Artelus\Artelus\Resources" Component="_8118AB7582FBC99FEC2B847E68543B3A" Modified="5/30/2017 8:59:35 PM" Size="26977" Version="">report.html</File>
+    <File Destination="{_4F7C8818EF01426AB0AA049CDB7481CC} [ProgramFilesFolder]Artelus\Artelus\Resources" Component="_E8DB752AF623204006865F390F6F1F88" Modified="5/29/2017 12:38:38 PM" Size="1894" Version="">camera.png</File>
+    <File Destination="{_4F7C8818EF01426AB0AA049CDB7481CC} [ProgramFilesFolder]Artelus\Artelus\Resources" Component="_28CAD8150EE1B0F7151108525DBA1C40" Modified="5/29/2017 12:38:38 PM" Size="16776" Version="">profile.gif</File>
+    <File Destination="{_4F7C8818EF01426AB0AA049CDB7481CC} [ProgramFilesFolder]Artelus\Artelus\Resources" Component="_F9F99C70463F7414065C66D30DF5A3F2" Modified="5/29/2017 12:38:38 PM" Size="11161" Version="">logo.png</File>
+    <File Destination="{INSTALLDIR} [ProgramFilesFolder]Artelus\Artelus" Component="Artelus.Primary_output" Modified="5/31/2017 1:04:07 AM" Size="337408" Version="1.0.0.0">Artelus.exe</File>
+    <File Destination="{INSTALLDIR} [ProgramFilesFolder]Artelus\Artelus" Component="Artelus.Primary_output" Modified="5/30/2017 9:01:27 PM" Size="4204" Version="">Artelus.exe.config</File>
+    <File Destination="{INSTALLDIR} [ProgramFilesFolder]Artelus\Artelus" Component="_9CF5906C8319168F7579CB5BCF67C0E6" Modified="5/23/2017 4:34:31 PM" Size="253952" Version="2.2.0.1010">Emgu.CV.dll</File>
+    <File Destination="{INSTALLDIR} [ProgramFilesFolder]Artelus\Artelus" Component="_AF5F8F4A949347E3C55C07BCD432EEF9" Modified="5/23/2017 4:34:31 PM" Size="32768" Version="2.2.0.1010">Emgu.CV.ML.dll</File>
+    <File Destination="{INSTALLDIR} [ProgramFilesFolder]Artelus\Artelus" Component="_5C23112A57C61998BCFB7418BCE0929C" Modified="5/23/2017 4:34:31 PM" Size="126976" Version="2.2.0.1010">Emgu.CV.UI.dll</File>
+    <File Destination="{INSTALLDIR} [ProgramFilesFolder]Artelus\Artelus" Component="_35CCA86AF5D5E903186B0CF29ED7782E" Modified="5/23/2017 4:34:31 PM" Size="32768" Version="2.2.0.1010">Emgu.Util.dll</File>
+    <File Destination="{INSTALLDIR} [ProgramFilesFolder]Artelus\Artelus" Component="_A9907BA593D55252816C27E1B49449BD" Modified="3/2/2015 9:32:26 AM" Size="5196496" Version="6.1.40302.0">EntityFramework.dll</File>
+    <File Destination="{INSTALLDIR} [ProgramFilesFolder]Artelus\Artelus" Component="_14AA6CBB88ABEBB5FB44C2C2240DF9C6" Modified="3/2/2015 9:32:26 AM" Size="621264" Version="6.1.40302.0">EntityFramework.SqlServer.dll</File>
+    <File Destination="{INSTALLDIR} [ProgramFilesFolder]Artelus\Artelus" Component="_FD7659B985B92695E20F5E4B57B4EA82" Modified="3/2/2015 9:32:22 AM" Size="295624" Version="6.1.40302.0">EntityFramework.SqlServerCompact.dll</File>
+    <File Destination="{INSTALLDIR} [ProgramFilesFolder]Artelus\Artelus" Component="_4C666E021F6FC1D1299A433A280152E5" Modified="5/29/2017 12:38:38 PM" Size="320512" Version="1.0.9.0">FirstFloor.ModernUI.dll</File>
+    <File Destination="{INSTALLDIR} [ProgramFilesFolder]Artelus\Artelus" Component="_6DBD3DB9B2717E6A54A96928C4D81EAB" Modified="5/25/2017 12:31:17 PM" Size="90624" Version="1.0.0.0">ForusImaging.dll</File>
+    <File Destination="{INSTALLDIR} [ProgramFilesFolder]Artelus\Artelus" Component="_B1AB697824E6B369CEDBA9241955B105" Modified="5/31/2017 1:04:06 AM" Size="9728" Version="1.0.0.0">Helpers.dll</File>
+    <File Destination="{INSTALLDIR} [ProgramFilesFolder]Artelus\Artelus" Component="Artelus.Primary_output" Modified="5/8/2017 12:22:47 PM" Size="33280" Version="artelus.primary_output">ImageEnhancement.dll</File>
+    <File Destination="{INSTALLDIR} [ProgramFilesFolder]Artelus\Artelus" Component="_CE9FC84AEBAD8E17726CF1117DD838F9" Modified="5/25/2017 11:32:55 AM" Size="17408" Version="1.0.0.0">ImageEnhancementHelper.dll</File>
+    <File Destination="{INSTALLDIR} [ProgramFilesFolder]Artelus\Artelus" Component="_A1BDF5D97075E73AA97F9239B53A2CA9" Modified="5/29/2017 12:38:39 PM" Size="7168" Version="1.0.0.0">Monday.dll</File>
+    <File Destination="{INSTALLDIR} [ProgramFilesFolder]Artelus\Artelus" Component="_76F7FEE915D9F1324379437C049D481C" Modified="4/2/2017 5:46:32 PM" Size="652288" Version="10.0.2.20802">Newtonsoft.Json.dll</File>
+    <File Destination="{INSTALLDIR} [ProgramFilesFolder]Artelus\Artelus" Component="_A48416DE7976294FA25ECAB217F8FC74" Modified="8/2/2016 9:11:38 PM" Size="408064" Version="2016.0.0.0">Renci.SshNet.dll</File>
+    <File Destination="{INSTALLDIR} [ProgramFilesFolder]Artelus\Artelus" Component="Artelus.Primary_output" Modified="3/23/2017 3:14:46 PM" Size="54449152" Version="artelus.primary_output">Select.Html.dep</File>
+    <File Destination="{INSTALLDIR} [ProgramFilesFolder]Artelus\Artelus" Component="_0F7218B20A00266564A0641515AEBFEA" Modified="3/23/2017 3:14:46 PM" Size="2401280" Version="17.1.0.0">Select.HtmlToPdf.dll</File>
+    <File Destination="{INSTALLDIR} [ProgramFilesFolder]Artelus\Artelus" Component="_046EE9836EE1131B2E692D146F4D7CC5" Modified="5/8/2017 12:22:53 PM" Size="35328" Version="0.0.0.0">TrIPS.dll</File>
+    <File Destination="{INSTALLDIR} [ProgramFilesFolder]Artelus\Artelus" Component="_294DC6DB784579D401DBF18D310DAD00" Modified="5/8/2017 12:22:54 PM" Size="9928744" Version="4.80.5.0">ueye_api.dll</File>
+    <File Destination="[LocalAppDataFolder]" Component="Artelus.Content_Files1" Modified="5/30/2017 8:28:24 PM" Size="98304" Version="">Artelus.sdf</File>
+    <File Destination="[LocalAppDataFolder]" Component="_24694C0FF1D98611C3F3D909C8A973BC" Modified="5/29/2017 12:38:38 PM" Size="560" Version="">packages.config</File>
+    <File Destination="[LocalAppDataFolder]" Component="_DBBC18B53DB17F20F4BF501D81EAD8FE" Modified="5/30/2017 1:07:40 PM" Size="200704" Version="">3nethra.sdf</File>
+    <File Destination="[LocalAppDataFolder]" Component="_EE1EFB8F5AA723F459F1CECEA38A37C8" Modified="5/29/2017 12:38:38 PM" Size="787510" Version="">Mask_1MP.bmp</File>
+    <File Destination="[LocalAppDataFolder]" Component="_AF50786B94ABBCD75F5CDC90A54708D9" Modified="5/29/2017 12:38:38 PM" Size="3146806" Version="">Mask_3MP.bmp</File>
+    <File Destination="[LocalAppDataFolder]" Component="_063DE92CA4BB943D1E9610C0487E96DF" Modified="5/30/2017 8:59:35 PM" Size="26977" Version="">report.html</File>
+    <File Destination="[LocalAppDataFolder]" Component="_8FA2DB52F88B8176152018E3ACF906B8" Modified="5/29/2017 12:38:38 PM" Size="1894" Version="">camera.png</File>
+    <File Destination="[LocalAppDataFolder]" Component="_4C4AA1EFD97DC4DE858887E43460CD28" Modified="5/29/2017 12:38:38 PM" Size="16776" Version="">profile.gif</File>
+    <File Destination="[LocalAppDataFolder]" Component="_13D3C8E66F78637C2CCA9E390B76CD7A" Modified="5/29/2017 12:38:38 PM" Size="11161" Version="">logo.png</File>
+  </Files>
+</BuildReport>
