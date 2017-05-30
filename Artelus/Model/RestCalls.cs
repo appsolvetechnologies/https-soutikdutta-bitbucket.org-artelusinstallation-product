@@ -13,13 +13,13 @@ namespace Artelus.Model
 {
     public static class RestCalls
     {
-        readonly static string baseUrl = "http://hsnet.artelus.com";
+        //readonly static string baseUrl = "http://hsnet.artelus.com";
         //readonly static string baseUrl = "http://drds.artelus.com";
-        //readonly static string baseUrl = "http://192.168.56.101";
+        readonly static string baseUrl = "http://192.168.56.101";
 
         readonly static string postUrl = "/diabetic_retinopathy/predictions";
         static JavaScriptSerializer serializer = new JavaScriptSerializer();
-        static int MaxAttempts = 30;
+        static int MaxAttempts = 60;
         static string result;
         static Dictionary<string, string> post_dict, get_dict;
 
