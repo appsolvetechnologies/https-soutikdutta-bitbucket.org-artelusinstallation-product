@@ -96,6 +96,20 @@ namespace Artelus.Model
             }
         }
 
+        private bool sync;
+        public bool Sync
+        {
+            get { return sync; }
+            set
+            {
+                if (sync != value)
+                {
+                    sync = value;
+                    RaisePropertyChange("Sync");
+                }
+            }
+        }
+
         public string this[string columnName] => Validate(columnName);
 
         //   public string Error => throw new NotImplementedException();
@@ -315,6 +329,20 @@ namespace Artelus.Model
                 {
                     bitMapImg = value;
                     RaisePropertyChange("BitMapImg");
+                }
+            }
+        }
+
+        private int patientId;
+        public int PatientId
+        {
+            get { return patientId; }
+            set
+            {
+                if (patientId != value)
+                {
+                    patientId = value;
+                    RaisePropertyChange("PatientId");
                 }
             }
         }

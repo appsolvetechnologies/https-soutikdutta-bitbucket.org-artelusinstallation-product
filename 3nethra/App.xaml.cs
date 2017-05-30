@@ -18,13 +18,14 @@ namespace Artelus
     {
         private void Application_Startup(object sender, StartupEventArgs e)
         {
-            string relative = @"C:\Users\sushruta\Desktop\Artelus\product\3nethra\ArtelusLocal.sdf";
-            string absolute = Path.GetDirectoryName(relative);
-            AppDomain.CurrentDomain.SetData("DataDirectory", absolute);
+            //string relative = @"C:\Users\sushruta\Desktop\Artelus\product\3nethra\ArtelusLocal.sdf";
+            //string relative = @"D:\Project\product\3nethra\ArtelusLocal.sdf";
+            //string absolute = Path.GetDirectoryName(relative);
+            //AppDomain.CurrentDomain.SetData("DataDirectory", absolute);
 
-            //var path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            var path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
             //string path = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Artelus";
-            //AppDomain.CurrentDomain.SetData("DataDirectory", path);
+            AppDomain.CurrentDomain.SetData("DataDirectory", path);
 
             MainWindow window = new MainWindow();
             window.ContentSource = new Uri("Views/LoginView.xaml", UriKind.Relative);

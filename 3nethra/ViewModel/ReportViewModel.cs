@@ -16,6 +16,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Script.Serialization;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
@@ -158,8 +159,7 @@ namespace Artelus.ViewModel
             BackCommand = new DelegateCommand(OnBackCommand);
             LogOffCommand = new DelegateCommand(OnLogOffCommand);
             PrintPDFCommand = new DelegateCommand(OnPrintPDFCommand);
-            string rootPath = AppDomain.CurrentDomain.BaseDirectory;
-            string path = Path.Combine(rootPath, "Uploads");
+            string path = Path.Combine(Program.BaseDir(), "Uploads");
             ReportDatas = new ObservableCollection<ReportData>();
             PatientEntity = model;
             if (PatientEntity.Sex == "m")
@@ -194,15 +194,21 @@ namespace Artelus.ViewModel
                     docReview = odResult.Any(x => x.Prediction == "Doctor review recommended");
 
                 bool noDR = osResult.Any(x => x.Prediction == "No DR detected");
-                if (!docReview)
+                if (!noDR)
                     noDR = odResult.Any(x => x.Prediction == "No DR detected");
+
+                bool badImg = osResult.Any(x => x.Prediction == "Bad Image");
+                if (!badImg)
+                    badImg = odResult.Any(x => x.Prediction == "Bad Image");
 
                 if (docReview)
                     PredictionResult = "EXAMINATION RESULT: Diabetic Retinopathy Suspected - Doctor Review Recommended                    * KINDLY CORRELATE CLINICALLY *";
                 else if (noDR)
                     PredictionResult = "EXAMINATION RESULT: No Abnormlities detected                    * KINDLY CORRELATE CLINICALLY *";
-                else
+                else if (badImg)
                     PredictionResult = "EXAMINATION RESULT: Bad Image                    * KINDLY CORRELATE CLINICALLY *";
+                else
+                    PredictionResult = "EXAMINATION RESULT:                     * KINDLY CORRELATE CLINICALLY *";
 
                 foreach (var data in osResult)
                 {
@@ -268,8 +274,7 @@ namespace Artelus.ViewModel
             BackgroundWorker bw = new BackgroundWorker();
             bw.DoWork += (sender, e) =>
             {
-                string rootPath = AppDomain.CurrentDomain.BaseDirectory;
-                string path = Path.Combine(rootPath, "Uploads");
+                string path = Path.Combine(Program.BaseDir(), "Uploads");
                 string text = Common.Helper.ReadAllTextReportFile();
                 string dir = Path.Combine(Program.BaseDir(), "Uploads", PatientEntity.UniqueID.ToString(), PatientReport.UniqueID.ToString());
                 string filePDF = Path.Combine(dir, "report.pdf");
@@ -387,18 +392,37 @@ namespace Artelus.ViewModel
 
         private void OnFtpTransferCommand(object args)
         {
+
             try
             {
-                string rootPath = AppDomain.CurrentDomain.BaseDirectory;
-                string localPath = Path.Combine(rootPath, "Uploads", PatientEntity.UniqueID.ToString());
-                string json = new Patient().Get(PatientEntity.Id);
-                if (!Directory.Exists(localPath))
-                    Directory.CreateDirectory(localPath);
-                System.IO.File.WriteAllText(localPath + "/Patient.json", json);
-                string reportJson = new Patient().GetReportJson(PatientEntity.Id);
-                System.IO.File.WriteAllText(localPath + "/PatientReport.json", reportJson);
-                string reportDataJson = new Patient().GetReportDataJson(0);
-                System.IO.File.WriteAllText(localPath + "/ReportData.json", reportDataJson);
+                APIResult result = new APIResult();
+                if (PatientEntity.PatientId == 0)
+                    result = SyncPatientDetails(PatientEntity, false);
+                else
+                {
+                    bool newReport = PatientReports.Any(x => x.Sync == false);
+                    if (newReport)
+                        result = SyncPatientReport(PatientReports, PatientEntity.PatientId);
+                }
+
+                if (result.status == "ok")
+                {
+                    foreach (var item in PatientReports)
+                    {
+                        item.Sync = true;
+                        new Patient().UpdateSyncStatus(item.Id);
+                    }
+                }
+
+                string localPath = Path.Combine(Program.BaseDir(), "Uploads", PatientEntity.UniqueID.ToString());
+                //string json = new Patient().Get(PatientEntity.Id);
+                //if (!Directory.Exists(localPath))
+                //    Directory.CreateDirectory(localPath);
+                //System.IO.File.WriteAllText(localPath + "/Patient.json", json);
+                //string reportJson = new Patient().GetReportJson(PatientEntity.Id);
+                //System.IO.File.WriteAllText(localPath + "/PatientReport.json", reportJson);
+                //string reportDataJson = new Patient().GetReportDataJson(PatientEntity.Id);
+                //System.IO.File.WriteAllText(localPath + "/ReportData.json", reportDataJson);
 
                 // var keyFile = new PrivateKeyFile(@"D:\Project\3nethra\3nethra\machine.pem");
                 //var keyFiles = new[] { keyFile };
@@ -453,9 +477,8 @@ namespace Artelus.ViewModel
                 {
                     string subPath = remotePath + "/" + info.Name;
                     if (!client.Exists(subPath))
-                    {
                         client.CreateDirectory(subPath);
-                    }
+
                     UploadDirectory(client, info.FullName, remotePath + "/" + info.Name);
                 }
                 else
@@ -464,7 +487,8 @@ namespace Artelus.ViewModel
                     {
                         Console.WriteLine(
                             "Uploading {0} ({1:N0} bytes)", info.FullName, ((FileInfo)info).Length);
-                        client.UploadFile(fileStream, remotePath + "/" + info.Name);
+                        if (info.Name != "report.html")
+                            client.UploadFile(fileStream, remotePath + "/" + info.Name);
                     }
                 }
             }
@@ -506,8 +530,7 @@ namespace Artelus.ViewModel
             if (PatientReport != null)
             {
                 ReportDatas = new ObservableCollection<ReportData>();
-                string rootPath = AppDomain.CurrentDomain.BaseDirectory;
-                string path = Path.Combine(rootPath, "Uploads");
+                string path = Path.Combine(Program.BaseDir(), "Uploads");
                 if (PatientReport.ReportDatas != null)
                 {
                     foreach (var item in PatientReport.ReportDatas)
@@ -526,8 +549,7 @@ namespace Artelus.ViewModel
             string body = "Hi " + PatientEntity.Nm + ",<br><br>" + "Please find your report attachment.";
 
             List<string> attachment = new List<string>();
-            string rootPath = AppDomain.CurrentDomain.BaseDirectory;
-            string path = Path.Combine(rootPath, "Uploads", PatientEntity.UniqueID.ToString(), PatientReport.UniqueID.ToString());
+            string path = Path.Combine(Program.BaseDir(), "Uploads", PatientEntity.UniqueID.ToString(), PatientReport.UniqueID.ToString());
             List<string> files = Directory.EnumerateFiles(path).ToList();
             foreach (var file in files)
             {
@@ -539,6 +561,7 @@ namespace Artelus.ViewModel
             Mail.Send(PatientEntity.Email, "Artelus Report", body, true, attachment, Helper.ContactEmails());
             ModernDialog.ShowMessage("E-Mail sent successfully!", "Report", MessageBoxButton.OK);
         }
+
         private void OnSaveNextCommand(object args)
         {
             foreach (Window win in Application.Current.Windows)
@@ -559,11 +582,139 @@ namespace Artelus.ViewModel
                 }
             }
         }
+
         private void OnSaveExitCommand(object args)
         {
             var result = ModernDialog.ShowMessage("Do you want to close the application?", "Are you sure?", MessageBoxButton.YesNo);
             if (result == MessageBoxResult.Yes)
                 Application.Current.Shutdown();
+        }
+
+        private APIResult SyncPatientDetails(PatientEntity patient, bool isUpdate)
+        {
+            APIResult result = new APIResult();
+            string token = new User().GetToken(Program.UserId());
+            string url = string.Empty;
+            if (isUpdate)
+                url = ConfigurationManager.AppSettings["updatePatientAPI"].ToString() + "?token=" + token;
+            else
+                url = ConfigurationManager.AppSettings["addPatientAPI"].ToString() + "?token=" + token;
+
+            object objct = new
+            {
+                p_id = patient.Id,
+                name = patient.Nm,
+                pMName = patient.MNm,
+                pLName = patient.LNm,
+                notResident = patient.NotResident,
+                ifResidentOfM = patient.IfResidentOfM,
+                IcNumber = patient.IcNumber,
+                otherOption = patient.OtherOption,
+                othersID = patient.OthersID,
+                doctosName = patient.DocNm,
+                hospitalScreening = patient.HospitalID,
+                hospitalName = patient.HospitalNm,
+                hospitalID = patient.HospitalScreening,
+                p_email = patient.Email,
+                marital_status = patient.MaritalStatus == "Married" ? "Yes" : "No",
+                age = patient.Age,
+                sex = patient.Sex == "Male" ? "m" : "f",
+                permanent_address = patient.PerAdr,
+                area = patient.Area,
+                phone_res = patient.ResidentPh,
+                mobile = patient.Mob,
+                occupation = patient.Occupation,
+                working_at = patient.WorkingAt,
+                currentMedications = patient.CurrentMedications,
+                laser_treatment = patient.LaserTreatment,
+                have_cataract = patient.Cataract,
+                have_hypertension = patient.Hypertension,
+                allergy_to_drugs = patient.AllergyDrugs,
+                have_diabetes = patient.Diabetic,
+                additional_info = patient.Info,
+                emg_contact_name = patient.EmergContactNm,
+                emg_phone = patient.EmergPh,
+                name_of_the_stated_onsent = patient.StatedConsentPerson,
+                relation_with_patient = patient.Relation,
+                term_conditation = patient.TermsCondition,
+                collection_id = patient.CollectionID,
+                install_id = patient.InstallID,
+                update_at = patient.MDt.Ticks,
+                create_at = patient.CDt.Ticks,
+                UniqueID = patient.UniqueID,
+                allergy_drugs_details = patient.AllergyDrugsDtl,
+                MedicalInsurance = patient.MedicalInsurance
+            };
+            var json = new JavaScriptSerializer().Serialize(objct);
+            try
+            {
+                result = RestCalls.SyncReport(url, json);
+                if (result.status == "ok")
+                {
+                    PatientEntity.PatientId = result.user;
+                    new Patient().UpdatePatientId(patient.Id, result.user);
+                    SyncPatientReport(PatientReports, result.user);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.InnerException.Message);
+                ModernDialog.ShowMessage("An error has occurred on the server", "Alert", MessageBoxButton.OK);
+            }
+            return result;
+        }
+        private APIResult SyncPatientReport(ObservableCollection<PatientReport> reports, int patientId)
+        {
+            APIResult result = new APIResult();
+            string token = new User().GetToken(Program.UserId());
+            string url = ConfigurationManager.AppSettings["patientReportAPI"].ToString() + "?token=" + token;
+            List<object> reportList = new List<object>();
+
+            foreach (var item in reports)
+            {
+                object objct = new
+                {
+                    PatientId = patientId,
+                    Dt = item.Dt.Ticks,
+                    Location = item.Location,
+                    InstallID = item.InstallID,
+                    UniqueID = item.UniqueID,
+                    ReportData = ReportDataObject(item.ReportDatas, patientId)
+                };
+                reportList.Add(objct);
+            }
+            var json = new JavaScriptSerializer().Serialize(reportList);
+            try
+            {
+                result = RestCalls.SyncReport(url, json);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.InnerException.Message);
+                ModernDialog.ShowMessage("An error has occurred on the server", "Alert", MessageBoxButton.OK);
+            }
+            return result;
+        }
+
+        private List<object> ReportDataObject(ObservableCollection<ReportData> reportDatas, int patientId)
+        {
+            List<object> dataList = new List<object>();
+            foreach (var item in reportDatas)
+            {
+                item.PatientId = patientId;
+                object objct = new
+                {
+                    PatientId = item.PatientId,
+                    PatientReportId = item.PatientReportId,
+                    Mode = item.Mode,
+                    Img = item.Img,
+                    Eye = item.Eye,
+                    Prediction = item.Prediction,
+                    Size = item.Size
+                };
+                dataList.Add(objct);
+            }
+            return dataList;
         }
     }
 }

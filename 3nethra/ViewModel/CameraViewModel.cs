@@ -294,8 +294,7 @@ namespace Artelus.ViewModel
                     PatientReport.Id = new Patient().AddReport(PatientReport);
                 }
 
-                string rootPath = AppDomain.CurrentDomain.BaseDirectory;
-                string path = Path.Combine(rootPath, "Uploads", PatientEntity.UniqueID.ToString(), PatientReport.UniqueID.ToString());
+                string path = Path.Combine(Program.BaseDir(), "Uploads", PatientEntity.UniqueID.ToString(), PatientReport.UniqueID.ToString());
                 if (!Directory.Exists(path))
                     Directory.CreateDirectory(path);
                 if (PatientReport.OSPosteriorReportDatas != null)
@@ -306,7 +305,7 @@ namespace Artelus.ViewModel
                             string fileName = item.Eye + "_" + DateTime.UtcNow.Ticks.ToString() + ".png";
                             string filePath = Path.Combine(path, fileName);
                             Save(item.BitMapImg, filePath);
-                            new Patient().AddReportData(PatientReport.Id, "POSTERIOR_MODE", item.Eye, Path.Combine(PatientEntity.UniqueID.ToString(), PatientReport.UniqueID.ToString(), fileName), null, Program.FileSize(filePath));
+                            new Patient().AddReportData(PatientReport.Id, "POSTERIOR_MODE", item.Eye, Path.Combine(PatientEntity.UniqueID.ToString(), PatientReport.UniqueID.ToString(), fileName), null, Program.FileSize(filePath), PatientEntity.Id);
                         }
                     }
                 if (PatientReport.ODPosteriorReportDatas != null)
@@ -317,7 +316,7 @@ namespace Artelus.ViewModel
                             string fileName = item.Eye + "_" + DateTime.UtcNow.Ticks.ToString() + ".png";
                             string filePath = Path.Combine(path, fileName);
                             Save(item.BitMapImg, filePath);
-                            new Patient().AddReportData(PatientReport.Id, "POSTERIOR_MODE", item.Eye, Path.Combine(PatientEntity.UniqueID.ToString(), PatientReport.UniqueID.ToString(), fileName), null, Program.FileSize(filePath));
+                            new Patient().AddReportData(PatientReport.Id, "POSTERIOR_MODE", item.Eye, Path.Combine(PatientEntity.UniqueID.ToString(), PatientReport.UniqueID.ToString(), fileName), null, Program.FileSize(filePath), PatientEntity.Id);
                         }
 
                     }
@@ -329,7 +328,7 @@ namespace Artelus.ViewModel
                             string fileName = item.Eye + "_" + DateTime.UtcNow.Ticks.ToString() + ".png";
                             string filePath = Path.Combine(path, fileName);
                             Save(item.BitMapImg, filePath);
-                            new Patient().AddReportData(PatientReport.Id, "ANTERIOR_MODE", item.Eye, Path.Combine(PatientEntity.UniqueID.ToString(), PatientReport.UniqueID.ToString(), fileName), null, Program.FileSize(filePath));
+                            new Patient().AddReportData(PatientReport.Id, "ANTERIOR_MODE", item.Eye, Path.Combine(PatientEntity.UniqueID.ToString(), PatientReport.UniqueID.ToString(), fileName), null, Program.FileSize(filePath), PatientEntity.Id);
                         }
                     }
                 if (PatientReport.ODAnteriorReportDatas != null)
@@ -340,7 +339,7 @@ namespace Artelus.ViewModel
                             string fileName = item.Eye + "_" + DateTime.UtcNow.Ticks.ToString() + ".png";
                             string filePath = Path.Combine(path, fileName);
                             Save(item.BitMapImg, filePath);
-                            new Patient().AddReportData(PatientReport.Id, "ANTERIOR_MODE", item.Eye, Path.Combine(PatientEntity.UniqueID.ToString(), PatientReport.UniqueID.ToString(), fileName), null, Program.FileSize(filePath));
+                            new Patient().AddReportData(PatientReport.Id, "ANTERIOR_MODE", item.Eye, Path.Combine(PatientEntity.UniqueID.ToString(), PatientReport.UniqueID.ToString(), fileName), null, Program.FileSize(filePath), PatientEntity.Id);
                         }
                     }
 

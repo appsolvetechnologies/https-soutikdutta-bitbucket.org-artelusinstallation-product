@@ -1,6 +1,7 @@
 ﻿
 using System;
 using System.IO;
+using System.Reflection;
 
 namespace Artelus.Common
 {
@@ -32,7 +33,11 @@ namespace Artelus.Common
 
         public static int UserId() => int.Parse(Program.Principal?.Identity.Name ?? "0");
 
-        public static string BaseDir() => AppDomain.CurrentDomain.BaseDirectory;
+        //public static string BaseDir() => AppDomain.CurrentDomain.BaseDirectory;
+
+        public static string BaseDir() => Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+
+        //public static string BaseDir() => Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Artelus";
 
         public static string FileSize(string filename)
         {

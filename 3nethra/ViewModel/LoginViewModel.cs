@@ -77,8 +77,8 @@ namespace Artelus.ViewModel
                             IsTitleVisible = true
                         };
                         window.Content = new SettingsView(settingVM, window);
-                        window.Width = SystemParameters.MaximizedPrimaryScreenWidth - (SystemParameters.MaximizedPrimaryScreenWidth - 500);
-                        window.Height = SystemParameters.MaximizedPrimaryScreenHeight - (SystemParameters.MaximizedPrimaryScreenHeight - 420);
+                        window.Width = SystemParameters.MaximizedPrimaryScreenWidth - (SystemParameters.MaximizedPrimaryScreenWidth - 460);
+                        window.Height = SystemParameters.MaximizedPrimaryScreenHeight - (SystemParameters.MaximizedPrimaryScreenHeight - 500);
                         var closeResult = window.ShowDialog();
                     }
                     Clear();

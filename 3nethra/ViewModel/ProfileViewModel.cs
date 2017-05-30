@@ -135,8 +135,7 @@ namespace Artelus.ViewModel
             else
                 PatientEntity.OtherOption = PatientEntity.OtherOption + ":";
 
-            string rootPath = AppDomain.CurrentDomain.BaseDirectory;
-            string path = Path.Combine(rootPath, "Uploads");
+            string path = Path.Combine(Program.BaseDir(), "Uploads");
             PatientReports = new ObservableCollection<PatientReport>();
             PatientReport = new Patient().GetLastestReport(model.Id);
             if (PatientReport != null)
@@ -204,8 +203,7 @@ namespace Artelus.ViewModel
 
         private void OnViewAllImagesCommand(object args)
         {
-            string rootPath = AppDomain.CurrentDomain.BaseDirectory;
-            string path = Path.Combine(rootPath, "Uploads");
+            string path = Path.Combine(Program.BaseDir(), "Uploads");
             PatientReports = new ObservableCollection<PatientReport>();
             var patientReports = new Patient().GetAllReport(PatientEntity.Id);
             foreach (var item in patientReports)

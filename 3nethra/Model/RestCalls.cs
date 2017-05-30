@@ -145,5 +145,27 @@ namespace Artelus.Model
 
             return responseJson;
         }
+
+        public static APIResult SyncReport(string url, string data)
+        {
+            string result = string.Empty;
+            HttpWebRequest httpWebRequest = (HttpWebRequest)WebRequest.Create(url);
+            httpWebRequest.ContentType = "application/json";
+            httpWebRequest.Method = "POST";
+            using (var streamWriter = new StreamWriter(httpWebRequest.GetRequestStream()))
+            {
+                streamWriter.Write(data);
+                streamWriter.Flush();
+                streamWriter.Close();
+            }
+
+            var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
+            using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
+            {
+                result = streamReader.ReadToEnd();
+            }
+            APIResult val = new JavaScriptSerializer().Deserialize<APIResult>(result);
+            return val;
+        }
     }
 }

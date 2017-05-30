@@ -96,8 +96,7 @@ namespace Artelus.ViewModel
             else
                 PatientEntity.OtherOption = PatientEntity.OtherOption + ":";
 
-            string rootPath = AppDomain.CurrentDomain.BaseDirectory;
-            string path = Path.Combine(rootPath, "Uploads");
+            string path = Path.Combine(Program.BaseDir(), "Uploads");
             var report = new Patient().GetAllReport(model.Id);
             foreach (var item in report)
             {

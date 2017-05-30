@@ -20,10 +20,16 @@ namespace Artelus.Common
             {
                 if (win.GetType().Name == "MainWindow")
                 {
-                    var dataContext = win.DataContext as MainWindowViewModel;
-                    dataContext.IsAuthorize = false;
                     var artelus = (win) as Artelus.MainWindow;
                     artelus.ContentSource = new Uri("Views/LoginView.xaml", UriKind.Relative);
+                    var dataContext = artelus.DataContext as MainWindowViewModel;
+                    if (dataContext != null)
+                        dataContext.IsAuthorize = false;
+                    else {
+                        artelus.DataContext = new MainWindowViewModel();
+                        dataContext.IsAuthorize = false;
+
+                    }
                 }
             }
         }
@@ -45,7 +51,7 @@ namespace Artelus.Common
         }
         public static string ReadAllTextReportFile()
         {
-            return System.IO.File.ReadAllText(Program.BaseDir() + "Resources\\report.html");
+            return System.IO.File.ReadAllText(Program.BaseDir() + "\\Resources\\report.html");
         }
 
         public static void Alert(string msg, bool isAuthorize = false)

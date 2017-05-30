@@ -72,7 +72,9 @@ namespace Artelus.Model
                     CDt = rdr.GetDateTime(38),
                     UniqueID = rdr.GetGuid(39),
                     AllergyDrugsDtl = rdr.IsDBNull(40) == true ? "" : rdr.GetString(40),
-                    MedicalInsurance = rdr.IsDBNull(41) == true ? "" : rdr.GetString(41)
+                    MedicalInsurance = rdr.IsDBNull(41) == true ? "" : rdr.GetString(41),
+                    PatientId = rdr.GetInt32(42)
+
                 };
                 list.Add(obj);
             }
@@ -98,7 +100,8 @@ namespace Artelus.Model
             _Conn.Close();
             return JsonConvert.SerializeObject(dict);
         }
-        public string GetReportJson(int id=0)
+
+        public string GetReportJson(int id = 0)
         {
             var list = new List<Dictionary<string, object>>();
             SqlCeConnection _Conn = new SqlCeConnection(conn);
@@ -117,32 +120,27 @@ namespace Artelus.Model
             _Conn.Close();
             return JsonConvert.SerializeObject(list);
         }
-        public string GetReportDataJson(int reportId)
+
+        public string GetReportDataJson(int patientId)
         {
             var list = new List<Dictionary<string, object>>();
             SqlCeConnection _Conn = new SqlCeConnection(conn);
             _Conn.Open();
-            SqlCeCommand cmd = new SqlCeCommand("Select * from ReportData Where PatientReportId=" + reportId, _Conn);
+            SqlCeCommand cmd = new SqlCeCommand("Select * from ReportData Where PatientId=" + patientId, _Conn);
             SqlCeDataReader rdr = cmd.ExecuteReader();
             while (rdr.Read())
             {
                 var dict = new Dictionary<string, object>();
                 for (int i = 0; i < rdr.FieldCount; i++)
                 {
-                    dict.Add(rdr.GetName(i), rdr.IsDBNull(i) ? null : rdr.GetValue(i));
+                    if (rdr.GetName(i) != "PatientId")
+                        dict.Add(rdr.GetName(i), rdr.IsDBNull(i) ? null : rdr.GetValue(i));
                 }
                 list.Add(dict);
             }
             _Conn.Close();
             return JsonConvert.SerializeObject(list);
         }
-        //public List<PatientEntity> GetAll()
-        //{
-        //    using (var db = new ArtelusDbContext())
-        //    {
-        //        return db.Database.SqlQuery<PatientEntity>("Select * from Patient").ToList();
-        //    }
-        //}
 
         public int Add(PatientEntity model)
         {
@@ -179,24 +177,43 @@ namespace Artelus.Model
             return reportId;
         }
 
-        public int AddReportData(int reportId, string mode, string eye, string img, string prediction, string size)
+        public int AddReportData(int reportId, string mode, string eye, string img, string prediction, string size, int patientId)
         {
             int reportDataId = 0;
             using (var db = new ArtelusDbContext())
             {
-                db.Database.ExecuteSqlCommand("INSERT INTO ReportData(PatientReportId,Mode,Img,Eye,Prediction,Size) VALUES({0},{1},{2},{3},{4},{5})", reportId, mode, img, eye, prediction, size);
+                db.Database.ExecuteSqlCommand("INSERT INTO ReportData(PatientReportId,Mode,Img,Eye,Prediction,Size,PatientId) VALUES({0},{1},{2},{3},{4},{5},{6})", reportId, mode, img, eye, prediction, size, patientId);
                 db.SaveChanges();
                 reportDataId = db.Database.SqlQuery<int>("SELECT MAX(Id) FROM ReportData").SingleOrDefault();
             }
             return reportDataId;
         }
 
-
         public void UpdateReportData(int reportDataId, string prediction)
         {
             using (var db = new ArtelusDbContext())
             {
                 db.Database.ExecuteSqlCommand("Update ReportData Set Prediction={1} Where Id={0}", reportDataId, prediction);
+            }
+        }
+
+        public void UpdateSyncStatus(int reportId)
+        {
+            using (var db = new ArtelusDbContext())
+            {
+                string sql = "UPDATE [PatientReport] SET Sync=1 Where Id={0}";
+                db.Database.ExecuteSqlCommand(sql, reportId);
+                db.SaveChanges();
+            }
+        }
+
+        public void UpdatePatientId(int id,int patientId)
+        {
+            using (var db = new ArtelusDbContext())
+            {
+                string sql = "UPDATE [Patient] SET [PatientId]={1} Where p_id={0}";
+                db.Database.ExecuteSqlCommand(sql, id,patientId);
+                db.SaveChanges();
             }
         }
 
@@ -207,6 +224,7 @@ namespace Artelus.Model
                 return db.Database.SqlQuery<PatientReport>("Select * from PatientReport Where PatientId={0}", id).ToList();
             }
         }
+
         public PatientReport GetLastestReport(int id)
         {
             using (var db = new ArtelusDbContext())
@@ -347,7 +365,9 @@ namespace Artelus.Model
                     Mode = rdr.IsDBNull(2) == true ? "" : rdr.GetString(2),
                     Img = rdr.GetString(3),
                     Eye = rdr.IsDBNull(4) == true ? "" : rdr.GetString(4),
-                    Prediction = rdr.IsDBNull(5) == true ? "" : rdr.GetString(5)
+                    Prediction = rdr.IsDBNull(5) == true ? "" : rdr.GetString(5),
+                    Size=rdr.IsDBNull(6)==true?"":rdr.GetString(6),
+                    PatientId=rdr.GetInt32(7)
                 };
                 list.Add(obj);
             }

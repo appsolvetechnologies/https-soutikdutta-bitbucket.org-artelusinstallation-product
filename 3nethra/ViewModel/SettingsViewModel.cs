@@ -11,6 +11,7 @@ using System.Net;
 using System.Configuration;
 using System.Web.Script.Serialization;
 using System.IO;
+using Artelus.Common;
 
 namespace Artelus.ViewModel
 {
@@ -46,14 +47,15 @@ namespace Artelus.ViewModel
         }
         private void OnSaveCommand(object args)
         {
-            if (string.IsNullOrEmpty(User.Location) || string.IsNullOrEmpty(User.PinCode))
+            if (string.IsNullOrEmpty(User.Location) || string.IsNullOrEmpty(User.PinCode) || string.IsNullOrEmpty(User.Email) || string.IsNullOrEmpty(User.Address))
                 Msg = "Invalid Data";
             else
             {
-                user.IsConfigured = true;
-                string status = UpdateInstallation(user);
-                if (status == "success")
+                APIResult result = UpdateInstallation(user);
+                if (result.status == "ok")
                 {
+                    User.IsConfigured = true;
+                    User.Token = result.token;
                     if (new User().Update(User))
                         this.CloseAction();
                     else
@@ -63,50 +65,30 @@ namespace Artelus.ViewModel
             }
         }
 
-        private string UpdateInstallation(UserEntity user)
+        private APIResult UpdateInstallation(UserEntity user)
         {
-            string result = string.Empty;
+            APIResult result = new APIResult();
             string url = ConfigurationManager.AppSettings["installationAPI"].ToString();
-            HttpWebRequest httpWebRequest = null;
-            try
-            {
-                httpWebRequest = (HttpWebRequest)WebRequest.Create(url);
-            }
-            catch (Exception ex)
-            {
-                ModernDialog.ShowMessage("An error has occurred on the server", "Alert", MessageBoxButton.OK);
-            }
-            httpWebRequest.ContentType = "application/json";
-            httpWebRequest.Method = "POST";
             object objct = new
             {
-                username = user.UserNm,
-                password = user.Pwd,
+                password = "admin@123!@#",
+                email = "monilal@artelus.com",
+                address=user.Address,
                 location_name = user.Location,
                 location_pincode = user.PinCode,
                 install_id = user.InstallID.ToString()
             };
             var json = new JavaScriptSerializer().Serialize(objct);
-            using (var streamWriter = new StreamWriter(httpWebRequest.GetRequestStream()))
+            try
             {
-                streamWriter.Write(json);
-                streamWriter.Flush();
-                streamWriter.Close();
+                result = RestCalls.SyncReport(url, json);
             }
-
-            var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
-            using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
+            catch (Exception ex)
             {
-                result = streamReader.ReadToEnd();
+                Console.WriteLine(ex.InnerException.Message);
+                ModernDialog.ShowMessage("An error has occurred on the server", "Alert", MessageBoxButton.OK);
             }
-            APIResult val = new JavaScriptSerializer().Deserialize<APIResult>(result);
-            return val.status;
+            return result;
         }
-    }
-
-    internal class APIResult
-    {
-        public string status { get; set; }
-        public object allData { get; set; }
     }
 }

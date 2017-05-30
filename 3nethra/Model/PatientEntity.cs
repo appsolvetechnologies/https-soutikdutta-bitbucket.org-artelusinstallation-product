@@ -53,6 +53,7 @@ namespace Artelus.Model
         private string errMsg;
         private string profile;
         private string medicalInsurance;
+        private int patientId;
         private string previousState;
         private bool showRelation;
         public string PreviousState
@@ -586,6 +587,19 @@ namespace Artelus.Model
                 }
             }
         }
+        public int PatientId
+        {
+            get { return patientId; }
+            set
+            {
+                if (patientId != value)
+                {
+                    patientId = value;
+                    RaisePropertyChange("PatientId");
+                }
+            }
+        }
+
         public string ErrMsg
         {
             get { return errMsg; }

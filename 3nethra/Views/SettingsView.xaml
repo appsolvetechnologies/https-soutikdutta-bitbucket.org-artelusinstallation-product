@@ -8,32 +8,42 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid Margin="20 20 20 10">
-        <StackPanel>
-            <StackPanel Margin="0 0 0 10">
-                <TextBlock Text="Installation ID" FontSize="15" FontWeight="Medium" Margin="0 0 0 5"/>
-                <TextBox IsEnabled="False" Text="{Binding Path=User.InstallID,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
-            </StackPanel>
-            <StackPanel Margin="0 0 0 10">
-                <TextBlock Text="User Name" FontSize="15" FontWeight="Medium" Margin="0 0 0 5"/>
-                <TextBox IsEnabled="False" Text="{Binding Path=User.UserNm,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
-            </StackPanel>
-            <StackPanel Margin="0 0 0 10">
-                <TextBlock Text="Password" FontSize="15" FontWeight="Medium" Margin="0 0 0 5"/>
-                <PasswordBox IsEnabled="False"  x:Name="txtPassword" common:PasswordHelper.Attach="True"
+        <ScrollViewer>
+            <StackPanel Margin="0 0 10 0">
+                <StackPanel Margin="0 0 0 10">
+                    <TextBlock Text="Installation ID" FontSize="15" FontWeight="Medium" Margin="0 0 0 5"/>
+                    <TextBox IsEnabled="False" Text="{Binding Path=User.InstallID,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
+                </StackPanel>
+                <StackPanel Margin="0 0 0 10">
+                    <TextBlock Text="User Name" FontSize="15" FontWeight="Medium" Margin="0 0 0 5"/>
+                    <TextBox IsEnabled="False" Text="{Binding Path=User.UserNm,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
+                </StackPanel>
+                <StackPanel Margin="0 0 0 10">
+                    <TextBlock Text="Password" FontSize="15" FontWeight="Medium" Margin="0 0 0 5"/>
+                    <PasswordBox IsEnabled="False"  x:Name="txtPassword" common:PasswordHelper.Attach="True"
                          common:PasswordHelper.Password="{Binding User.Pwd, Mode=TwoWay}"/>
+                </StackPanel>
+                <StackPanel Margin="0 0 0 10">
+                    <TextBlock Text="Email*" FontSize="15" FontWeight="Medium" Margin="0 0 0 5"/>
+                    <TextBox Text="{Binding Path=User.Email,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
+                </StackPanel>
+                <StackPanel Margin="0 0 0 10">
+                    <TextBlock Text="Location*" FontSize="15" FontWeight="Medium" Margin="0 0 0 5"/>
+                    <TextBox Text="{Binding Path=User.Location,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
+                </StackPanel>
+                <StackPanel Margin="0 0 0 10">
+                    <TextBlock Text="Pin Code*" FontSize="15" FontWeight="Medium" Margin="0 0 0 5"/>
+                    <TextBox Text="{Binding Path=User.PinCode,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
+                </StackPanel>
+                <StackPanel Margin="0 0 0 10">
+                    <TextBlock Text="Address*" FontSize="15" FontWeight="Medium" Margin="0 0 0 5"/>
+                    <TextBox AcceptsReturn="True" TextWrapping="Wrap" MinLines="2" Text="{Binding Path=User.Address,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
+                </StackPanel>
+                <StackPanel Margin="0 0 0 10">
+                    <TextBlock FontSize="14" FontWeight="Bold" HorizontalAlignment="Left" Foreground="#f05f40" Text="{Binding Msg, UpdateSourceTrigger=PropertyChanged}"></TextBlock>
+                    <Button Background="#f05f40" Foreground="White" Content="Save" HorizontalAlignment="Right" IsDefault="True" Command="{Binding SaveCommand}" CommandParameter="{Binding User}"/>
+                </StackPanel>
             </StackPanel>
-            <StackPanel Margin="0 0 0 10">
-                <TextBlock Text="Location" FontSize="15" FontWeight="Medium" Margin="0 0 0 5"/>
-                <TextBox Text="{Binding Path=User.Location,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
-            </StackPanel>
-            <StackPanel Margin="0 0 0 10">
-                <TextBlock Text="Pin Code" FontSize="15" FontWeight="Medium" Margin="0 0 0 5"/>
-                <TextBox Text="{Binding Path=User.PinCode,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
-            </StackPanel>
-            <StackPanel Margin="0 0 0 10">
-                <TextBlock FontSize="14" FontWeight="Bold" HorizontalAlignment="Left" Foreground="#f05f40" Text="{Binding Msg, UpdateSourceTrigger=PropertyChanged}"></TextBlock>
-                <Button Background="#f05f40" Foreground="White" Content="Save" HorizontalAlignment="Right" IsDefault="True" Command="{Binding SaveCommand}" CommandParameter="{Binding User}"/>
-            </StackPanel>
-        </StackPanel>
+        </ScrollViewer>
     </Grid>
 </UserControl>

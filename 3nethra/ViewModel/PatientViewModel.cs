@@ -174,15 +174,15 @@ namespace Artelus.ViewModel
             if (File.Exists(file))
                 model.Profile = file;
             else
-                model.Profile = AppDomain.CurrentDomain.BaseDirectory + "Resources\\profile.gif";
+                model.Profile = Program.BaseDir() + "\\Resources\\profile.gif";
         }
 
         private void Initialize()
         {
             LogOffCommand = new DelegateCommand(OnLogOffCommand);
-            CameraIcon = AppDomain.CurrentDomain.BaseDirectory + "Resources\\camera.png";
+            CameraIcon = Program.BaseDir() + "\\Resources\\camera.png";
             PatientEntity = new PatientEntity();
-            PatientEntity.Profile = AppDomain.CurrentDomain.BaseDirectory + "Resources\\profile.gif";
+            PatientEntity.Profile = Program.BaseDir() + "\\Resources\\profile.gif";
             PatientEntity.IfResidentOfM = "Yes";
             PatientEntity.LaserTreatment = "No";
             PatientEntity.Cataract = "No";

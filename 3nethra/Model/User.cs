@@ -51,7 +51,7 @@ namespace Artelus.Model
             int count = 0;
             using (var db = new ArtelusDbContext())
             {
-                count = db.Database.ExecuteSqlCommand("Update [Users] SET IsConfigured={0},InstallID={1},Location={2},PinCode={3} Where Id={4}", user.IsConfigured, user.InstallID, user.Location, user.PinCode, user.Id);
+                count = db.Database.ExecuteSqlCommand("Update [Users] SET IsConfigured={0},InstallID={1},Location={2},PinCode={3},Token={5},Address={6}, Email={7} Where Id={4}", user.IsConfigured, user.InstallID, user.Location, user.PinCode, user.Id,user.Token,user.Address,user.Email);
                 db.SaveChanges();
             }
             return count > 0;
@@ -62,6 +62,13 @@ namespace Artelus.Model
             using (var db = new ArtelusDbContext())
             {
               return  db.Database.SqlQuery<Guid>("Select InstallID From Users Where Id={0}", id).Single(); ;
+            }
+        }
+        public string GetToken(int id)
+        {
+            using (var db = new ArtelusDbContext())
+            {
+                return db.Database.SqlQuery<string>("Select Token From Users Where Id={0}", id).Single(); ;
             }
         }
     }

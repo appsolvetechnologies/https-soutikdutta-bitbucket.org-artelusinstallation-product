@@ -13,9 +13,9 @@ namespace Helpers.Converter
             {
                 DateTime dt = (DateTime)value;
                 if (parameter.ToString() == "MonDateTime")
-                    date = dt.MonDateTime();
+                    date = dt.ToLocalTime().MonDateTime();
                 else
-                    date = dt.MonDate();
+                    date = dt.ToLocalTime().MonDate();
                 return (date);
             }
             return date;

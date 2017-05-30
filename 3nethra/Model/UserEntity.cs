@@ -13,6 +13,9 @@ namespace Artelus.Model
         private Guid installID;
         private string location;
         private string pinCode;
+        private string token;
+        private string email;
+        private string address;
         public int Id
         {
             get { return id; }
@@ -97,6 +100,44 @@ namespace Artelus.Model
                 }
             }
         }
+        public string Token
+        {
+            get { return token; }
+            set
+            {
+                if (token != value)
+                {
+                    token = value;
+                    RaisePropertyChange("Token");
+                }
+            }
+        }
+        public string Address
+        {
+            get { return address; }
+            set
+            {
+                if (address != value)
+                {
+                    address = value;
+                    RaisePropertyChange("Address");
+                }
+            }
+        }
+        public string Email
+        {
+            get { return email; }
+            set
+            {
+                if (email != value)
+                {
+                    email = value;
+                    RaisePropertyChange("Email");
+                }
+            }
+        }
+
+
         public string this[string columnName]
         {
             get
@@ -143,4 +184,13 @@ namespace Artelus.Model
             return validationMessgae;
         }
     }
+
+    public class APIResult
+    {
+        public string status { get; set; }
+        public string token { get; set; }
+        public string msg { get; set; }
+        public int user { get; set; }
+    }
+
 }

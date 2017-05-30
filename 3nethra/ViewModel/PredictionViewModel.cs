@@ -112,8 +112,7 @@ namespace Artelus.ViewModel
             StartPredictionCommand = new DelegateCommand(OnStartPredictionCommand);
             BackCommand = new DelegateCommand(OnBackCommand);
             PatientEntity = model;
-            string rootPath = AppDomain.CurrentDomain.BaseDirectory;
-            string path = Path.Combine(rootPath, "Uploads");
+            string path = Path.Combine(Program.BaseDir(), "Uploads");
             PatientReport = new PatientReport();
             PatientReport = new Patient().GetLastestReport(model.Id);
             if (PatientReport != null)
