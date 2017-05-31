@@ -19,7 +19,7 @@ namespace Artelus
         private void Application_Startup(object sender, StartupEventArgs e)
         {
             //string relative = @"C:\Users\sushruta\Desktop\Artelus\product\3nethra\ArtelusLocal.sdf";
-            //string relative = @"D:\Project\product\3nethra\ArtelusLocal.sdf";
+            //string relative = @"D:\Project\product\Artelus\ArtelusLocal.sdf";
             //string absolute = Path.GetDirectoryName(relative);
             //AppDomain.CurrentDomain.SetData("DataDirectory", absolute);
 

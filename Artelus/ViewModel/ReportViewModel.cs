@@ -37,7 +37,16 @@ namespace Artelus.ViewModel
                 RaisePropertyChange("PredictionResult");
             }
         }
-
+        private bool isProgressActive = false;
+        public bool IsProgressActive
+        {
+            get { return isProgressActive; }
+            set
+            {
+                isProgressActive = value;
+                RaisePropertyChange("IsProgressActive");
+            }
+        }
         private PatientEntity patient;
         public PatientEntity PatientEntity
         {
@@ -328,7 +337,7 @@ namespace Artelus.ViewModel
                         anteriorHTML += "<td style='width:33.33%; vertical-align:top;padding-bottom:15px;'><table style='width:100%;height:200px;margin-bottom:10px;'><tr><td><img style='max-width:200px;max-height:200px;' src=" + item.FileName + " /></td></tr></table><h3 style='font-size: 14px;color:#333;font-weight:400;margin:0;'>" + result + "</h3></td>" + (posteriorCount != 0 ? "</tr>" : "");
                     anteriorCount++;
                 }
-                text = string.Format(text, DateTime.Now.ToShortDateString(), PatientEntity.Nm, PatientEntity.DocNm, PatientEntity.HospitalNm, PatientEntity.Id.ToString(), PatientEntity.HospitalID, PatientEntity.HospitalScreening, PatientEntity.Mob, PatientEntity.Age, PatientEntity.Sex, PatientEntity.Hypertension, PatientEntity.Cataract, PatientEntity.LaserTreatment, PatientEntity.AllergyDrugs, PatientEntity.CurrentMedications, PatientEntity.Info, posteriorHTML, PatientEntity.OtherOption, PatientEntity.OthersID, anteriorHTML, predictionResult,PatientEntity.PatientId);
+                text = string.Format(text, DateTime.Now.ToShortDateString(), PatientEntity.Nm, PatientEntity.DocNm, PatientEntity.HospitalNm, PatientEntity.Id.ToString(), PatientEntity.HospitalID, PatientEntity.HospitalScreening, PatientEntity.Mob, PatientEntity.Age, PatientEntity.Sex, PatientEntity.Hypertension, PatientEntity.Cataract, PatientEntity.LaserTreatment, PatientEntity.AllergyDrugs, PatientEntity.CurrentMedications, PatientEntity.Info, posteriorHTML, PatientEntity.OtherOption, PatientEntity.OthersID, anteriorHTML, predictionResult, PatientEntity.PatientId);
                 System.IO.File.WriteAllText(fileHTML, text);
 
 
@@ -392,8 +401,9 @@ namespace Artelus.ViewModel
 
         private void OnFtpTransferCommand(object args)
         {
-
-            try
+            this.IsProgressActive = true;
+            BackgroundWorker bw = new BackgroundWorker();
+            bw.DoWork += (sender, e) =>
             {
                 APIResult result = new APIResult();
                 if (PatientEntity.PatientId == 0)
@@ -452,13 +462,17 @@ namespace Artelus.ViewModel
                     }
                     client.Disconnect();
                 }
-                ModernDialog.ShowMessage("File transfer completed successfully", "Alert", MessageBoxButton.OK);
-            }
-            catch (Exception ex)
-            {
-                ModernDialog.ShowMessage("An error has occurred on the server", "Alert", MessageBoxButton.OK);
-                throw ex;
-            }
+
+            };
+            bw.RunWorkerCompleted += (sender, e) =>
+                {
+                    if (e.Error != null)
+                        ModernDialog.ShowMessage("Internal Server Error. Please contact your administrator", "Alert", MessageBoxButton.OK);
+                    else
+                        ModernDialog.ShowMessage("File transfer completed successfully", "Alert", MessageBoxButton.OK);
+                    this.IsProgressActive = false;
+                };
+            bw.RunWorkerAsync();
         }
 
         void UploadDirectory(SftpClient client, string localPath, string remotePath)
@@ -542,20 +556,34 @@ namespace Artelus.ViewModel
         private void OnSendMailCommand(object args)
         {
 
-            string body = "Hi " + PatientEntity.Nm + ",<br><br>" + "Please find your report attachment.";
-
-            List<string> attachment = new List<string>();
-            string path = Path.Combine(Program.BaseDir(), "Uploads", PatientEntity.UniqueID.ToString(), PatientReport.UniqueID.ToString());
-            List<string> files = Directory.EnumerateFiles(path).ToList();
-            foreach (var file in files)
+            this.IsProgressActive = true;
+            BackgroundWorker bw = new BackgroundWorker();
+            bw.DoWork += (sender, e) =>
             {
-                string fileName = Path.GetFileName(file);
-                if (fileName != "report.html")
-                    attachment.Add(file);
-            }
+                string body = "Hi " + PatientEntity.Nm + ",<br><br>" + "Please find your report attachment.";
 
-            Mail.Send(PatientEntity.Email, "Artelus Report", body, true, attachment, Helper.ContactEmails());
-            ModernDialog.ShowMessage("E-Mail sent successfully!", "Report", MessageBoxButton.OK);
+                List<string> attachment = new List<string>();
+                string path = Path.Combine(Program.BaseDir(), "Uploads", PatientEntity.UniqueID.ToString(), PatientReport.UniqueID.ToString());
+                List<string> files = Directory.EnumerateFiles(path).ToList();
+                foreach (var file in files)
+                {
+                    string fileName = Path.GetFileName(file);
+                    if (fileName != "report.html")
+                        attachment.Add(file);
+                }
+
+                Mail.Send(PatientEntity.Email, "Artelus Report", body, true, attachment, Helper.ContactEmails());
+            };
+
+            bw.RunWorkerCompleted += (sender, e) =>
+            {
+                if (e.Error != null)
+                    ModernDialog.ShowMessage("Internal Server Error. Please contact your administrator", "Alert", MessageBoxButton.OK);
+                else
+                    ModernDialog.ShowMessage("E-Mail sent successfully!", "Report", MessageBoxButton.OK);
+                this.IsProgressActive = false;
+            };
+            bw.RunWorkerAsync();
         }
 
         private void OnSaveNextCommand(object args)
@@ -644,7 +672,7 @@ namespace Artelus.ViewModel
             var json = new JavaScriptSerializer().Serialize(objct);
             try
             {
-                result = RestCalls.SyncReport(url, json,isUpdate);
+                result = RestCalls.SyncReport(url, json, isUpdate);
                 if (result.status == "ok")
                 {
                     if (isUpdate)
@@ -691,7 +719,7 @@ namespace Artelus.ViewModel
             var json = new JavaScriptSerializer().Serialize(reportList);
             try
             {
-                result = RestCalls.SyncReport(url, json,false);
+                result = RestCalls.SyncReport(url, json, false);
             }
             catch (Exception ex)
             {

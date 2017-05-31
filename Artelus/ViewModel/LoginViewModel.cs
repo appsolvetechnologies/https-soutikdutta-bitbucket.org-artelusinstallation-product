@@ -86,6 +86,11 @@ namespace Artelus.ViewModel
                             Helper.Profile(result.IsConfigured);
                         }
                     }
+                    else
+                    {
+                        Clear();
+                        Helper.Profile(result.IsConfigured);
+                    }
                 }
                 else ModernDialog.ShowMessage("Incorrect UserName or Password!", "Login", MessageBoxButton.OK);
             }
