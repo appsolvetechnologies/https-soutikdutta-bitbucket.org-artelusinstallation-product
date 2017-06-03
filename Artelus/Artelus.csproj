@@ -330,9 +330,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="3nethra.sdf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    <Content Include="3nethra.sdf" />
     <Resource Include="logo.ico" />
     <Content Include="Resources\Mask_1MP.bmp">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
