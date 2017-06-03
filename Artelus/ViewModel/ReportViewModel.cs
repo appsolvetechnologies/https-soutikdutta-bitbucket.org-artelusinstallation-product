@@ -365,7 +365,7 @@ namespace Artelus.ViewModel
             //PrintDialog print = new PrintDialog();
 
             //PrintDocument doc = new PrintDocument();
-            //doc.DocumentName = @"D:\Project\product\3nethra\bin\x86\Debug\Uploads\c36dd8cc-e531-4ffc-b201-effa06279e8a\19162fc1-fbc3-4452-b29c-216ef2ec8f65\report.pdf";
+            //doc.DocumentName = @"D:\Project\product\Artelus\bin\x86\Debug\Uploads\c36dd8cc-e531-4ffc-b201-effa06279e8a\19162fc1-fbc3-4452-b29c-216ef2ec8f65\report.pdf";
             //if (print.ShowDialog() == true)
             //{
             //    doc.Print();
@@ -431,7 +431,7 @@ namespace Artelus.ViewModel
                 //string reportDataJson = new Patient().GetReportDataJson(PatientEntity.Id);
                 //System.IO.File.WriteAllText(localPath + "/ReportData.json", reportDataJson);
 
-                // var keyFile = new PrivateKeyFile(@"D:\Project\3nethra\3nethra\machine.pem");
+                // var keyFile = new PrivateKeyFile(@"D:\Project\product\Artelus\machine.pem");
                 //var keyFiles = new[] { keyFile };
                 string ftpHost = ConfigurationManager.AppSettings["ftpHost"].ToString();
                 string ftpUserName = ConfigurationManager.AppSettings["ftpUserName"].ToString();
