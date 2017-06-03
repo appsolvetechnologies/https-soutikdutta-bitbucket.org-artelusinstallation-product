@@ -119,7 +119,7 @@ namespace Artelus.ViewModel
 
         private void OnSearchCommand(object args)
         {
-            if (SelectedOption.Id.ToString() == "p_id")
+            if (SelectedOption.Id.ToString() == "p_id" && !string.IsNullOrEmpty(SearchText))
             {
                 int n;
                 if (!int.TryParse(SearchText, out n))
@@ -209,7 +209,7 @@ namespace Artelus.ViewModel
             using (var client = new SftpClient(ftpHost, ftpUserName, ftpPassword))
             {
                 client.Connect();
-                client.ChangeDirectory("/home/ftpuser2/FTPCollection");
+                client.ChangeDirectory("/home/ftpuser11/ftp/files");
                 string rootDir = client.WorkingDirectory + "/" + model.UniqueID.ToString();
 
                 if (!client.Exists(rootDir))
@@ -327,14 +327,15 @@ namespace Artelus.ViewModel
                 if (isUpdate)
                 {
                     bool newReport = reports.Any(x => x.Sync == false);
-                    if (newReport)
+                    if (newReport && reports.Count > 0)
                         result = SyncPatientReport(reports, patient.PatientId);
                 }
                 else
                 {
                     patient.PatientId = result.user;
                     new Patient().UpdatePatientId(patient.Id, result.user);
-                    SyncPatientReport(reports, result.user);
+                    if (reports.Count > 0)
+                        SyncPatientReport(reports, result.user);
                 }
             }
             //}

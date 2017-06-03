@@ -246,7 +246,7 @@ namespace Artelus.ViewModel
                 var model = args as PatientEntity;
                 model.CDt = DateTime.UtcNow;
                 model.MDt = DateTime.UtcNow;
-                model.CollectionID = 000000;
+                model.CollectionID = 0;
                 model.InstallID = new User().GetInstallID(Program.UserId());
                 if (model.IfResidentOfM == "Yes")
                 {

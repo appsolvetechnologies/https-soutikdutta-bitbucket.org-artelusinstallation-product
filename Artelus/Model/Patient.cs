@@ -45,7 +45,7 @@ namespace Artelus.Model
                     HospitalID = rdr.IsDBNull(11) == true ? "" : rdr.GetString(11),
                     HospitalScreening = rdr.IsDBNull(12) == true ? "" : rdr.GetString(12),
                     Email = rdr.GetString(13),
-                    MaritalStatus = rdr.GetString(14) == "Yes" ? "Y" : "N",
+                    MaritalStatus = rdr.GetString(14),
                     Age = rdr.GetInt32(15),
                     Sex = rdr.GetString(16),
                     PerAdr = rdr.IsDBNull(17) == true ? "" : rdr.GetString(17),

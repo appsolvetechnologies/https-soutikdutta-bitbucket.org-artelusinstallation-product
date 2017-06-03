@@ -114,15 +114,17 @@ namespace Artelus.ViewModel
             ViewReportDataCommand = new DelegateCommand(OnViewReportDataCommand);
             ViewAllImagesCommand = new DelegateCommand(OnViewAllImagesCommand);
             PatientEntity = model;
-            if (PatientEntity.Sex == "m")
-                PatientEntity.Sex = "Male";
-            else
-                PatientEntity.Sex = "Female";
+            if (PatientEntity.Sex.Length == 1)
+                if (PatientEntity.Sex == "m")
+                    PatientEntity.Sex = "Male";
+                else
+                    PatientEntity.Sex = "Female";
 
-            if (PatientEntity.MaritalStatus == "No")
-                PatientEntity.MaritalStatus = "Single";
-            else
-                PatientEntity.MaritalStatus = "Married";
+            if (PatientEntity.MaritalStatus.Length <= 3)
+                if (PatientEntity.MaritalStatus == "No")
+                    PatientEntity.MaritalStatus = "Single";
+                else
+                    PatientEntity.MaritalStatus = "Married";
 
             if (PatientEntity.AllergyDrugs == "Yes")
                 ShowAllergyOption = true;

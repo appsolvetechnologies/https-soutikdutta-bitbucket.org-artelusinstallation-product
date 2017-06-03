@@ -5,6 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Artelus.Views"
              xmlns:converters="clr-namespace:Helpers.Converter;assembly=Helpers"
+             xmlns:mui="http://firstfloorsoftware.com/ModernUI"
+             mui:ModernFrame.KeepAlive="false"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.Resources>
@@ -144,7 +146,7 @@
                         <TextBlock Text="Allergy to Drugs:" FontWeight="Bold" Margin="0,0,15,0" />
                         <TextBlock Grid.Column="1" FontSize="14" FontWeight="SemiBold" Text="{Binding PatientEntity.AllergyDrugs}" />
                     </Grid>
-                    
+
                     <Separator Height=".7"/>
                     <Grid Margin="0 0 0 10">
                         <Grid.ColumnDefinitions>

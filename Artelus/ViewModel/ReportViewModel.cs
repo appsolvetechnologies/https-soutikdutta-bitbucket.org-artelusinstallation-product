@@ -254,7 +254,8 @@ namespace Artelus.ViewModel
             SaveExitCommand = new DelegateCommand(OnSaveExitCommand);
             SendMailCommand = new DelegateCommand(OnSendMailCommand);
             ViewPDFCommand = new DelegateCommand(OnViewPDFCommand);
-            CreateReport();
+            if (PatientReport != null)
+                CreateReport(PatientReport);
         }
 
         private void OnShowImageCommand(object args)
@@ -278,14 +279,14 @@ namespace Artelus.ViewModel
             var closeResult = window.ShowDialog();
         }
 
-        void CreateReport()
+        void CreateReport(PatientReport report)
         {
             BackgroundWorker bw = new BackgroundWorker();
             bw.DoWork += (sender, e) =>
             {
                 string path = Path.Combine(Program.BaseDir(), "Uploads");
                 string text = Common.Helper.ReadAllTextReportFile();
-                string dir = Path.Combine(Program.BaseDir(), "Uploads", PatientEntity.UniqueID.ToString(), PatientReport.UniqueID.ToString());
+                string dir = Path.Combine(Program.BaseDir(), "Uploads", PatientEntity.UniqueID.ToString(), report.UniqueID.ToString());
                 string filePDF = Path.Combine(dir, "report.pdf");
                 string fileHTML = Path.Combine(dir, "report.html");
 
@@ -298,8 +299,8 @@ namespace Artelus.ViewModel
                 string anteriorHTML = "<tr>";
                 string prediction = string.Empty;
                 int posteriorCount = 0, anteriorCount = 0;
-                List<ReportData> posteriorDatas = new Patient().GetPosteriorReportData(PatientReport.Id);
-                List<ReportData> anteriorDatas = new Patient().GetAnteriorReportData(PatientReport.Id);
+                List<ReportData> posteriorDatas = new Patient().GetPosteriorReportData(report.Id);
+                List<ReportData> anteriorDatas = new Patient().GetAnteriorReportData(report.Id);
 
                 if (posteriorDatas != null)
                 {
@@ -445,7 +446,7 @@ namespace Artelus.ViewModel
                 using (var client = new SftpClient(ftpHost, ftpUserName, ftpPassword))
                 {
                     client.Connect();
-                    client.ChangeDirectory("/home/ftpuser2/FTPCollection");
+                    client.ChangeDirectory("/home/ftpuser11/ftp/files");
                     string rootDir = client.WorkingDirectory + "/" + PatientEntity.UniqueID.ToString();
 
                     if (!client.Exists(rootDir))

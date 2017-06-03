@@ -72,7 +72,7 @@ namespace Artelus.ViewModel
             object objct = new
             {
                 password = "admin@123!@#",
-                email = "monilal@artelus.com",
+                email = "reports@artelus.com",
                 address=user.Address,
                 location_name = user.Location,
                 location_pincode = user.PinCode,
